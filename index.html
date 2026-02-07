@@ -21,9 +21,7 @@
       --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
     }
     
-    html {
-      font-size: 18px;
-    }
+    html { font-size: 18px; }
     
     body { 
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -34,17 +32,16 @@
     }
     
     .container { 
-      max-width: 520px; 
+      max-width: 540px; 
       margin: 0 auto; 
       padding: 48px 24px; 
-      min-height: 100vh;
     }
     
-    /* Progress bar */
+    /* Progress */
     .progress {
       display: flex;
-      gap: 8px;
-      margin-bottom: 48px;
+      gap: 6px;
+      margin-bottom: 32px;
     }
     
     .progress-step {
@@ -55,9 +52,7 @@
       transition: background 0.3s;
     }
     
-    .progress-step.done {
-      background: var(--primary);
-    }
+    .progress-step.done { background: var(--primary); }
     
     /* Card */
     .card {
@@ -69,7 +64,7 @@
     
     /* Steps */
     .step { display: none; }
-    .step.active { display: block; animation: fadeIn 0.4s ease; }
+    .step.active { display: block; animation: fadeIn 0.3s ease; }
     
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -77,149 +72,108 @@
     }
     
     /* Typography */
-    .step-number {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      background: var(--primary);
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 32px;
-      font-size: 16px;
+    .step-label {
+      font-size: 0.75rem;
       font-weight: 600;
-      margin-bottom: 16px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
     }
     
     h1 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
+      margin-bottom: 8px;
     }
     
     .description {
       color: var(--text-light);
-      font-size: 1rem;
-      margin-bottom: 32px;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
     }
     
     /* Form */
-    .form-group {
-      margin-bottom: 24px;
-    }
+    .form-group { margin-bottom: 20px; }
     
     label {
       display: block;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--text);
     }
     
     input, select {
       width: 100%;
-      padding: 16px;
+      padding: 14px 16px;
       background: var(--bg);
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       font-size: 1rem;
       font-family: inherit;
       color: var(--text);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
     }
     
     input:focus, select:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
     
-    input::placeholder {
-      color: #999;
-    }
+    input::placeholder { color: #999; }
     
     select {
       cursor: pointer;
       appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23666'%3E%3Cpath d='M5 8l5 5 5-5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 16px center;
+      background-position: right 14px center;
     }
     
     .help-text {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-light);
-      margin-top: 8px;
+      margin-top: 6px;
     }
     
     .help-text a {
       color: var(--primary);
       text-decoration: none;
-      font-weight: 500;
     }
     
-    .help-text a:hover {
-      text-decoration: underline;
-    }
-    
-    /* Channel selection */
-    .options {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
+    /* Options (radio-style) */
+    .options { display: grid; gap: 10px; margin-bottom: 24px; }
     
     .option {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 20px;
+      gap: 14px;
+      padding: 16px;
       background: var(--bg);
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s;
     }
     
-    .option:hover {
-      border-color: #ccc;
-    }
+    .option:hover { border-color: #ccc; }
+    .option.selected { border-color: var(--primary); background: rgba(37,99,235,0.04); }
     
-    .option.selected {
-      border-color: var(--primary);
-      background: rgba(37, 99, 235, 0.04);
-    }
-    
-    .option-icon {
-      font-size: 2rem;
-      width: 48px;
-      text-align: center;
-    }
-    
-    .option-content {
-      flex: 1;
-    }
-    
-    .option-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-    
-    .option-desc {
-      font-size: 0.85rem;
-      color: var(--text-light);
-    }
+    .option-icon { font-size: 1.5rem; width: 36px; text-align: center; }
+    .option-content { flex: 1; }
+    .option-title { font-size: 0.95rem; font-weight: 600; }
+    .option-desc { font-size: 0.8rem; color: var(--text-light); }
     
     .option-check {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border: 2px solid var(--border);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 12px;
+      color: white;
       transition: all 0.2s;
     }
     
@@ -228,19 +182,76 @@
       border-color: var(--primary);
     }
     
-    .option.selected .option-check::after {
-      content: '✓';
-      color: white;
-      font-size: 14px;
+    .option.selected .option-check::after { content: '✓'; }
+    
+    /* Toggle list (for connections/skills) */
+    .toggle-section {
+      margin-bottom: 24px;
     }
     
-    /* Buttons */
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 32px;
+    .toggle-section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
+    
+    .toggle-list {
+      display: grid;
+      gap: 8px;
+    }
+    
+    .toggle-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .toggle-item:hover { border-color: #ccc; }
+    .toggle-item.on { border-color: var(--primary); background: rgba(37,99,235,0.04); }
+    
+    .toggle-item .icon { font-size: 1.25rem; width: 28px; text-align: center; }
+    .toggle-item .info { flex: 1; }
+    .toggle-item .name { font-size: 0.9rem; font-weight: 500; }
+    .toggle-item .desc { font-size: 0.75rem; color: var(--text-light); }
+    
+    .toggle-switch {
+      width: 44px;
+      height: 26px;
+      background: #ddd;
+      border-radius: 13px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .toggle-item.on .toggle-switch { background: var(--primary); }
+    .toggle-item.on .toggle-switch::after { left: 20px; }
+    
+    /* Buttons */
+    .buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
     
     .btn {
       display: flex;
@@ -248,9 +259,9 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      padding: 18px 24px;
-      border-radius: 12px;
-      font-size: 1rem;
+      padding: 16px 24px;
+      border-radius: 10px;
+      font-size: 0.95rem;
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
@@ -259,94 +270,79 @@
       border: none;
     }
     
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
     
     .btn-secondary {
       background: transparent;
       color: var(--text-light);
       border: 2px solid var(--border);
     }
+    .btn-secondary:hover { border-color: #ccc; color: var(--text); }
     
-    .btn-secondary:hover {
-      border-color: #ccc;
-      color: var(--text);
+    .btn-text {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      padding: 8px;
     }
+    .btn-text:hover { color: var(--primary); }
     
     /* Loading */
-    .loading {
-      text-align: center;
-      padding: 48px 0;
-    }
+    .loading { text-align: center; padding: 48px 0; }
     
     .loading-icon {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border: 4px solid var(--border);
       border-top-color: var(--primary);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 24px;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
     }
     
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     
-    .loading-text {
-      font-size: 1.1rem;
-      color: var(--text-light);
-    }
+    .loading-text { font-size: 1rem; color: var(--text-light); }
     
     /* Success */
-    .success {
-      text-align: center;
-      padding: 24px 0;
-    }
+    .success { text-align: center; padding: 16px 0; }
     
     .success-icon {
-      width: 80px;
-      height: 80px;
+      width: 72px;
+      height: 72px;
       background: var(--success);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 40px;
+      margin: 0 auto 20px;
+      font-size: 32px;
       color: white;
     }
     
-    .success h1 {
-      color: var(--success);
-    }
+    .success h1 { color: var(--success); }
     
     .bot-card {
       background: var(--bg);
       border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      margin: 32px 0;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 24px 0;
       text-align: left;
     }
     
     .bot-card-label {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--text-light);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     
     .bot-card-value {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--primary);
     }
@@ -357,32 +353,35 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     
-    .logo svg {
-      width: 36px;
-      height: 36px;
+    .logo svg { width: 32px; height: 32px; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; }
+    
+    /* Scrollable area */
+    .scroll-area {
+      max-height: 320px;
+      overflow-y: auto;
+      margin: 0 -8px;
+      padding: 0 8px;
     }
     
-    .logo-text {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text);
-    }
+    .scroll-area::-webkit-scrollbar { width: 6px; }
+    .scroll-area::-webkit-scrollbar-track { background: transparent; }
+    .scroll-area::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
     
-    /* Responsive */
     @media (max-width: 480px) {
       html { font-size: 16px; }
       .container { padding: 32px 16px; }
-      .card { padding: 24px; }
+      .card { padding: 24px 20px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     
-    <!-- Step 1: Welcome & Name -->
+    <!-- Step 1: Name -->
     <div class="step active" id="step-1">
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -399,22 +398,22 @@
         <div class="progress-step done"></div>
         <div class="progress-step"></div>
         <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
       </div>
       
       <div class="card">
-        <span class="step-number">1</span>
-        <h1>Let's create your AI assistant</h1>
-        <p class="description">First, give your assistant a name. This is how it will introduce itself to you.</p>
+        <div class="step-label">Step 1 of 5</div>
+        <h1>Name your assistant</h1>
+        <p class="description">Give your AI a name. It will use this when introducing itself.</p>
         
         <div class="form-group">
-          <label for="bot-name">What would you like to call it?</label>
-          <input type="text" id="bot-name" placeholder="For example: Friday, Max, or Luna">
+          <label>Assistant name</label>
+          <input type="text" id="bot-name" placeholder="e.g. Friday, Max, Luna">
         </div>
         
         <div class="buttons">
-          <button class="btn btn-primary" onclick="goTo(2)">
-            Continue →
-          </button>
+          <button class="btn btn-primary" onclick="goTo(2)">Continue</button>
         </div>
       </div>
     </div>
@@ -436,23 +435,24 @@
         <div class="progress-step done"></div>
         <div class="progress-step done"></div>
         <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
       </div>
       
       <div class="card">
-        <span class="step-number">2</span>
-        <h1>Where do you want to chat?</h1>
-        <p class="description">Choose the app you already use. Your assistant will message you there.</p>
+        <div class="step-label">Step 2 of 5</div>
+        <h1>Where to chat?</h1>
+        <p class="description">Pick the app you want to use to talk to your assistant.</p>
         
         <div class="options">
           <div class="option selected" onclick="selectChannel(this, 'telegram')">
             <div class="option-icon">✈️</div>
             <div class="option-content">
               <div class="option-title">Telegram</div>
-              <div class="option-desc">Free messaging app</div>
+              <div class="option-desc">Free, works everywhere</div>
             </div>
             <div class="option-check"></div>
           </div>
-          
           <div class="option" onclick="selectChannel(this, 'whatsapp')">
             <div class="option-icon">💬</div>
             <div class="option-content">
@@ -461,29 +461,24 @@
             </div>
             <div class="option-check"></div>
           </div>
-          
           <div class="option" onclick="selectChannel(this, 'imessage')">
             <div class="option-icon">🍎</div>
             <div class="option-content">
               <div class="option-title">iMessage</div>
-              <div class="option-desc">For iPhone users</div>
+              <div class="option-desc">For iPhone & Mac</div>
             </div>
             <div class="option-check"></div>
           </div>
         </div>
         
         <div class="buttons">
-          <button class="btn btn-primary" onclick="goTo(3)">
-            Create my assistant →
-          </button>
-          <button class="btn btn-secondary" onclick="goTo(1)">
-            ← Go back
-          </button>
+          <button class="btn btn-primary" onclick="goTo(3)">Continue</button>
+          <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
         </div>
       </div>
     </div>
     
-    <!-- Step 3: Creating -->
+    <!-- Step 3: Email & Connections -->
     <div class="step" id="step-3">
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -500,6 +495,265 @@
         <div class="progress-step done"></div>
         <div class="progress-step done"></div>
         <div class="progress-step done"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+      </div>
+      
+      <div class="card">
+        <div class="step-label">Step 3 of 5</div>
+        <h1>Connect accounts</h1>
+        <p class="description">Let your assistant access your apps. You can skip this and set it up later.</p>
+        
+        <div class="scroll-area">
+          <div class="toggle-section">
+            <div class="toggle-section-title">Communication</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📧</div>
+                <div class="info">
+                  <div class="name">Email</div>
+                  <div class="desc">Read and send emails</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🐦</div>
+                <div class="info">
+                  <div class="name">X (Twitter)</div>
+                  <div class="desc">Post and read tweets</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="toggle-section">
+            <div class="toggle-section-title">Productivity</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🐙</div>
+                <div class="info">
+                  <div class="name">GitHub</div>
+                  <div class="desc">Manage code repositories</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📝</div>
+                <div class="info">
+                  <div class="name">Notion</div>
+                  <div class="desc">Notes and documents</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📋</div>
+                <div class="info">
+                  <div class="name">Trello</div>
+                  <div class="desc">Boards and tasks</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">✅</div>
+                <div class="info">
+                  <div class="name">Reminders</div>
+                  <div class="desc">Apple Reminders</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="toggle-section">
+            <div class="toggle-section-title">Smart Home</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">💡</div>
+                <div class="info">
+                  <div class="name">Philips Hue</div>
+                  <div class="desc">Control your lights</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🔊</div>
+                <div class="info">
+                  <div class="name">Sonos</div>
+                  <div class="desc">Control speakers</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="goTo(4)">Continue</button>
+          <button class="btn btn-text" onclick="goTo(4)">Skip for now</button>
+          <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 4: Skills -->
+    <div class="step" id="step-4">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <rect fill="#2563eb" x="5" y="3" width="6" height="7"/>
+          <rect fill="#fff" x="6" y="5" width="1" height="1"/>
+          <rect fill="#fff" x="9" y="5" width="1" height="1"/>
+          <rect fill="#1d4ed8" x="5" y="11" width="2" height="2"/>
+          <rect fill="#1d4ed8" x="9" y="11" width="2" height="2"/>
+        </svg>
+        <span class="logo-text">OpenClaw</span>
+      </div>
+      
+      <div class="progress">
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step"></div>
+      </div>
+      
+      <div class="card">
+        <div class="step-label">Step 4 of 5</div>
+        <h1>Add skills</h1>
+        <p class="description">Choose what your assistant can do. Popular ones are already selected.</p>
+        
+        <div class="scroll-area">
+          <div class="toggle-section">
+            <div class="toggle-section-title">Recommended</div>
+            <div class="toggle-list">
+              <div class="toggle-item on" onclick="toggleItem(this)">
+                <div class="icon">🌤️</div>
+                <div class="info">
+                  <div class="name">Weather</div>
+                  <div class="desc">Forecasts and conditions</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item on" onclick="toggleItem(this)">
+                <div class="icon">📰</div>
+                <div class="info">
+                  <div class="name">News & Blogs</div>
+                  <div class="desc">Follow RSS feeds</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item on" onclick="toggleItem(this)">
+                <div class="icon">📍</div>
+                <div class="info">
+                  <div class="name">Places</div>
+                  <div class="desc">Find restaurants, shops nearby</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="toggle-section">
+            <div class="toggle-section-title">Media</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🎵</div>
+                <div class="info">
+                  <div class="name">Spotify</div>
+                  <div class="desc">Play music, search songs</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🖼️</div>
+                <div class="info">
+                  <div class="name">Image Generation</div>
+                  <div class="desc">Create images with AI</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📸</div>
+                <div class="info">
+                  <div class="name">Security Cameras</div>
+                  <div class="desc">View camera snapshots</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="toggle-section">
+            <div class="toggle-section-title">Voice</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🗣️</div>
+                <div class="info">
+                  <div class="name">Text to Speech</div>
+                  <div class="desc">Hear responses as audio</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">🎤</div>
+                <div class="info">
+                  <div class="name">Voice Messages</div>
+                  <div class="desc">Transcribe audio to text</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="toggle-section">
+            <div class="toggle-section-title">Utilities</div>
+            <div class="toggle-list">
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📄</div>
+                <div class="info">
+                  <div class="name">PDF Reader</div>
+                  <div class="desc">Read and summarize PDFs</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+              <div class="toggle-item" onclick="toggleItem(this)">
+                <div class="icon">📊</div>
+                <div class="info">
+                  <div class="name">Summarize</div>
+                  <div class="desc">Summarize long articles</div>
+                </div>
+                <div class="toggle-switch"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="goTo(5)">Create assistant</button>
+          <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Step 5: Creating -->
+    <div class="step" id="step-5">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <rect fill="#2563eb" x="5" y="3" width="6" height="7"/>
+          <rect fill="#fff" x="6" y="5" width="1" height="1"/>
+          <rect fill="#fff" x="9" y="5" width="1" height="1"/>
+          <rect fill="#1d4ed8" x="5" y="11" width="2" height="2"/>
+          <rect fill="#1d4ed8" x="9" y="11" width="2" height="2"/>
+        </svg>
+        <span class="logo-text">OpenClaw</span>
+      </div>
+      
+      <div class="progress">
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
       </div>
       
       <div class="card">
@@ -510,8 +764,8 @@
       </div>
     </div>
     
-    <!-- Step 4: Done -->
-    <div class="step" id="step-4">
+    <!-- Step 6: Done -->
+    <div class="step" id="step-6">
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
           <rect fill="#2563eb" x="5" y="3" width="6" height="7"/>
@@ -526,20 +780,20 @@
       <div class="card">
         <div class="success">
           <div class="success-icon">✓</div>
-          <h1>All done!</h1>
+          <h1>You're all set!</h1>
           <p class="description"><strong id="final-name">Your assistant</strong> is ready to help you.</p>
           
           <div class="bot-card">
-            <div class="bot-card-label">Your assistant</div>
+            <div class="bot-card-label">Your assistant on <span id="channel-label">Telegram</span></div>
             <div class="bot-card-value" id="bot-handle">@FridayBot</div>
           </div>
           
           <div class="buttons">
             <a class="btn btn-primary" id="open-link" href="#" target="_blank">
-              Open <span id="channel-name">Telegram</span> →
+              Start chatting →
             </a>
             <button class="btn btn-secondary" onclick="location.reload()">
-              Create another assistant
+              Create another
             </button>
           </div>
         </div>
@@ -552,9 +806,9 @@
     let currentStep = 1;
     let selectedChannel = 'telegram';
     
-    const channelNames = {
+    const channelLabels = {
       telegram: 'Telegram',
-      whatsapp: 'WhatsApp',
+      whatsapp: 'WhatsApp', 
       imessage: 'iMessage'
     };
     
@@ -563,9 +817,7 @@
       document.getElementById(`step-${step}`).classList.add('active');
       currentStep = step;
       
-      if (step === 3) {
-        createAssistant();
-      }
+      if (step === 5) createAssistant();
     }
     
     function selectChannel(el, channel) {
@@ -574,13 +826,18 @@
       selectedChannel = channel;
     }
     
+    function toggleItem(el) {
+      el.classList.toggle('on');
+    }
+    
     function createAssistant() {
       const loadingText = document.getElementById('loading-text');
       const name = document.getElementById('bot-name').value || 'Your assistant';
       
       const messages = [
-        `Creating ${name}...`,
-        'Setting things up...',
+        'Setting up ' + name + '...',
+        'Configuring connections...',
+        'Installing skills...',
         'Almost ready...'
       ];
       
@@ -593,23 +850,21 @@
           clearInterval(interval);
           finishSetup(name);
         }
-      }, 1000);
+      }, 900);
     }
     
     function finishSetup(name) {
       document.getElementById('final-name').textContent = name;
+      document.getElementById('channel-label').textContent = channelLabels[selectedChannel];
       
       const handle = '@' + name.replace(/\s+/g, '') + 'Bot';
       document.getElementById('bot-handle').textContent = handle;
-      document.getElementById('channel-name').textContent = channelNames[selectedChannel];
       
       if (selectedChannel === 'telegram') {
         document.getElementById('open-link').href = 'https://t.me/' + handle.slice(1);
-      } else if (selectedChannel === 'whatsapp') {
-        document.getElementById('open-link').href = 'https://wa.me/';
       }
       
-      goTo(4);
+      goTo(6);
     }
   </script>
 </body>
