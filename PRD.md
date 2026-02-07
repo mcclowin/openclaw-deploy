@@ -1,168 +1,155 @@
-# OpenClaw Deploy - PRD Scaffold
+# Brain and Bot - Product Requirements Document
+
+## Overview
+
+**Brain and Bot** is a grandpa-friendly web app that lets anyone create their own personal AI assistant in minutes. No coding, no server setup, no technical knowledge required.
 
 ## Vision
-One-click AI assistant deployment for non-technical users (like grandpa).
+
+"Everyone deserves a personal AI assistant. Brain and Bot makes it possible in 60 seconds."
+
+## Problem Statement
+
+Current AI assistant solutions require:
+- Technical knowledge (API keys, hosting, configuration)
+- Expensive subscriptions
+- Complex setup processes
+
+Most people are excluded from the AI assistant revolution because the barrier to entry is too high.
+
+## Solution
+
+A simple 6-step wizard that creates a fully functional AI assistant:
+
+1. **Name & Avatar** - Personalize your bot
+2. **Personality & Mission** - Define how it behaves
+3. **Channel** - Choose where to chat (Telegram, WhatsApp, iMessage)
+4. **Connections** - Link accounts (email, GitHub, Notion, etc.)
+5. **Skills** - Enable capabilities (weather, news, smart home, etc.)
+6. **Done** - Start chatting immediately
+
+## Target Users
+
+### Primary: Non-technical users
+- Age 40+
+- Comfortable with smartphones but not coding
+- Want AI help but intimidated by setup
+- "My grandpa could use this"
+
+### Secondary: Power users who want quick setup
+- Developers who want a personal assistant without the hassle
+- Small business owners
+- Content creators
+
+## Core Features
+
+### Must Have (MVP)
+- [ ] 6-step wizard flow
+- [ ] Name and avatar selection
+- [ ] Personality presets (Friendly, Professional, Witty, Concise)
+- [ ] Mission/purpose text input
+- [ ] Channel selection (Telegram first)
+- [ ] Automatic deployment (user doesn't see hosting)
+- [ ] Success screen with direct link to start chatting
+
+### Should Have (v1.1)
+- [ ] WhatsApp channel support
+- [ ] iMessage channel support
+- [ ] Email connection setup
+- [ ] GitHub connection setup
+- [ ] Skills marketplace preview
+- [ ] Progress saving (resume later)
+
+### Could Have (v1.2)
+- [ ] Custom avatar upload
+- [ ] Voice personality preview
+- [ ] Smart home integrations
+- [ ] Multiple bots per account
+- [ ] Bot sharing/templates
+
+### Won't Have (for now)
+- Self-hosting option (defeats simplicity goal)
+- Advanced configuration
+- White-label/enterprise features
+
+## Technical Architecture
+
+### Frontend
+- Static HTML/CSS/JS (hosted on GitHub Pages for now)
+- No framework needed - keep it simple
+- Mobile-first responsive design
+
+### Backend (to build)
+- API endpoint to receive wizard data
+- Provisions OpenClaw instance
+- Manages Telegram bot creation
+- Returns bot handle to user
+
+### Hosting Infrastructure
+- Fly.io or Railway for OpenClaw instances
+- Automated provisioning via API
+- Cost: ~$5/user/month (absorbed or passed through)
+
+## Design Principles
+
+1. **One thing at a time** - Never overwhelm with options
+2. **Large touch targets** - 48px minimum for buttons
+3. **Clear language** - No jargon, no technical terms
+4. **Visual feedback** - Always show progress and state
+5. **Skippable options** - Advanced features are optional
+6. **Light mode default** - Easier on older eyes
+
+## Success Metrics
+
+- Time to complete wizard: < 3 minutes
+- Completion rate: > 70%
+- Day 1 retention (sent message to bot): > 50%
+- NPS score: > 40
+
+## Competitive Landscape
+
+| Product | Pros | Cons |
+|---------|------|------|
+| ChatGPT | Known brand | No personal assistant, subscription |
+| Replika | Easy setup | Limited capabilities |
+| Custom GPTs | Powerful | Requires ChatGPT Plus, complex |
+| Brain and Bot | Simple, integrated, your own | New, unproven |
+
+## Roadmap
+
+### Phase 1: Frontend Prototype (DONE)
+- [x] Wizard UI
+- [x] Avatar picker
+- [x] Personality selection
+- [x] Channel selection
+- [x] Connections page
+- [x] Skills page
+- [x] Success state
+
+### Phase 2: Backend MVP
+- [ ] API design
+- [ ] Telegram bot provisioning
+- [ ] OpenClaw instance deployment
+- [ ] User authentication (simple)
+
+### Phase 3: Launch
+- [ ] Landing page
+- [ ] Pricing page (if not free)
+- [ ] Documentation
+- [ ] Support channel
+
+## Open Questions
+
+1. **Pricing model**: Free tier? Subscription? One-time?
+2. **User accounts**: Email-based? Social login? None?
+3. **Bot limits**: How many per user?
+4. **Skill costs**: Pass through API costs or bundle?
+
+## Team
+
+- **Product/Design**: Mohammed (Boss)
+- **Development**: McClowin (AI Agent)
 
 ---
 
-## Core Components
-
-### 1. Frontend (Landing + Wizard)
-**Files:** `index.html` (created), or React/Vue app later
-
-**Screens:**
-- Landing page ("Your AI in 1 click")
-- Setup wizard (4 steps)
-- Dashboard (post-deploy management)
-
-### 2. Backend API
-**Stack:** Node.js / Python FastAPI / Go
-
-**Endpoints:**
-```
-POST /api/deploy
-  - name: string
-  - personality: string
-  - channel: telegram|whatsapp|discord
-  - channelToken: string
-  - skills: string[]
-  → Returns: { deployId, dashboardUrl, status }
-
-GET /api/deploy/:id/status
-  → Returns: { status, progress, logs }
-
-GET /api/deploy/:id
-  → Returns: { config, url, stats }
-
-PATCH /api/deploy/:id/config
-  - Update settings post-deploy
-```
-
-### 3. Cloud Orchestration
-**Options (pick one):**
-
-| Provider | Pros | Cons |
-|----------|------|------|
-| **Fly.io** | Simple CLI, free tier, global | Limited regions |
-| **Railway** | Git-based, easy | Smaller community |
-| **DigitalOcean App Platform** | Reliable, $5 droplets | More complex |
-| **Render** | Free tier, easy | Cold starts |
-
-**Deployment flow:**
-```
-1. User submits form
-2. Backend generates openclaw.json config
-3. Spin up container/VM via provider API
-4. Install OpenClaw + configure
-5. Return dashboard URL
-```
-
-### 4. Config Generator
-Generates `openclaw.json` from wizard inputs:
-
-```javascript
-function generateConfig(input) {
-  return {
-    assistant: {
-      name: input.name,
-      avatar: "🤖"
-    },
-    channels: {
-      telegram: input.channel === 'telegram' ? {
-        token: input.channelToken
-      } : undefined
-    },
-    skills: {
-      enabled: input.skills
-    },
-    // Auto-create AgentMail inbox
-    agentmail: {
-      inbox: `${input.name.toLowerCase()}@agentmail.to`
-    }
-  }
-}
-```
-
-### 5. Email Setup (Auto)
-- Use **AgentMail API** to auto-create inbox
-- No user action needed
-- Each bot gets `botname@agentmail.to`
-
----
-
-## MVP Scope (Week 1)
-
-- [x] Clickable HTML prototype
-- [ ] Backend: `/api/deploy` endpoint
-- [ ] Fly.io integration (1 provider)
-- [ ] Telegram only (1 channel)
-- [ ] 3 skills: weather, search, reminders
-- [ ] Basic dashboard (view logs, stop bot)
-
----
-
-## Tech Stack Recommendation
-
-```
-Frontend:  HTML/JS (MVP) → Next.js (v2)
-Backend:   Node.js + Express
-Database:  SQLite (MVP) → Postgres (v2)
-Deploy:    Fly.io API
-Email:     AgentMail API
-Auth:      Magic link (email)
-```
-
----
-
-## File Structure
-
-```
-openclaw-deploy/
-├── index.html          # Wizard prototype ✓
-├── PRD.md              # This file ✓
-├── api/
-│   ├── server.js       # Express backend
-│   ├── deploy.js       # Fly.io orchestration
-│   └── config.js       # Config generator
-├── templates/
-│   └── openclaw.json   # Base config template
-└── dashboard/
-    └── index.html      # Post-deploy management
-```
-
----
-
-## User Flow
-
-```
-[Landing] → [Name Bot] → [Pick Channel] → [Enter Token] 
-    → [Pick Skills] → [Deploy...] → [Success!]
-    → [Dashboard: logs, settings, stop]
-```
-
----
-
-## API Keys Needed
-
-1. **Fly.io** - For deploying instances
-2. **AgentMail** - For auto-creating email inboxes
-3. **Anthropic/OpenAI** - User provides or you subsidize
-
----
-
-## Pricing Model Ideas
-
-| Tier | Price | Includes |
-|------|-------|----------|
-| Free | $0 | 100 msgs/day, 1 bot, basic skills |
-| Pro | $10/mo | Unlimited msgs, 5 bots, all skills |
-| Business | $50/mo | Custom domain, priority support |
-
----
-
-## Next Steps
-
-1. **Try the prototype:** Open `index.html` in browser
-2. **Build backend:** Start with `api/server.js`
-3. **Fly.io account:** Get API token
-4. **AgentMail account:** For auto email creation
+*Last updated: 2026-02-07*
