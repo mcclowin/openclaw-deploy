@@ -3,987 +3,471 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenClaw · Deploy Your Space Lobster</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect fill='%2300fff2' x='5' y='3' width='6' height='8'/><rect fill='%23050110' x='6' y='5' width='1' height='1'/><rect fill='%23050110' x='9' y='5' width='1' height='1'/></svg>">
+  <title>OpenClaw · Your Personal AI</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect fill='%23000' x='5' y='3' width='6' height='8'/><rect fill='%23fff' x='6' y='5' width='1' height='1'/><rect fill='%23fff' x='9' y='5' width='1' height='1'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
-      --cyan: #00fff2;
-      --cyan-dim: #00b8b0;
-      --cyan-glow: rgba(0,255,242,0.4);
-      --pink: #ff2e97;
-      --pink-dim: #cc2579;
-      --pink-glow: rgba(255,46,151,0.4);
-      --purple: #7b2cbf;
-      --purple-glow: rgba(123,44,191,0.3);
-      --dark: #0d0221;
-      --darker: #050110;
-      --card-bg: rgba(13,2,33,0.95);
-      --text: #e0e0ff;
-      --text-dim: #8888bb;
-      --success: #00ff88;
-      --warning: #ffaa00;
+      --bg: #0a0a0a;
+      --card: #111;
+      --border: #222;
+      --text: #fafafa;
+      --text-secondary: #888;
+      --accent: #fff;
+      --success: #22c55e;
     }
     
     body { 
-      font-family: 'Space Grotesk', -apple-system, sans-serif;
-      background: var(--dark);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
       min-height: 100vh;
       color: var(--text);
-      overflow-x: hidden;
-    }
-    
-    /* Background layers */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: 
-        radial-gradient(ellipse at 30% 20%, rgba(0,255,242,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(255,46,151,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 100%, rgba(123,44,191,0.15) 0%, transparent 50%),
-        linear-gradient(180deg, var(--darker) 0%, var(--dark) 50%, #1a0a2e 100%);
-      z-index: -2;
-    }
-    
-    .grid {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(0,255,242,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,242,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      z-index: -1;
+      line-height: 1.5;
     }
     
     .container { 
-      max-width: 640px; 
+      max-width: 480px; 
       margin: 0 auto; 
-      padding: 40px 20px; 
+      padding: 60px 24px; 
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
-    
-    /* Cards */
-    .card {
-      background: linear-gradient(135deg, var(--card-bg) 0%, rgba(5,1,16,0.98) 100%);
-      border: 1px solid var(--cyan);
-      border-radius: 4px;
-      padding: 40px;
-      box-shadow: 
-        0 0 60px var(--purple-glow),
-        0 0 100px rgba(0,255,242,0.1),
-        inset 0 0 80px rgba(0,255,242,0.02);
-      position: relative;
-    }
-    
-    .card::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: 20px;
-      right: 20px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    }
-    
-    h1 { 
-      font-family: 'Orbitron', sans-serif;
-      font-size: 28px; 
-      font-weight: 700;
-      letter-spacing: 1px;
-      background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    h2 { 
-      font-family: 'Orbitron', sans-serif;
-      font-size: 18px; 
-      font-weight: 500;
-      color: var(--cyan);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-shadow: 0 0 20px var(--cyan-glow);
-    }
-    
-    p { 
-      color: var(--text-dim); 
-      line-height: 1.7; 
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-    
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px 32px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Orbitron', sans-serif;
-      cursor: pointer;
-      border: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .btn:hover::before { left: 100%; }
-    
-    .btn-primary {
-      background: transparent;
-      border: 2px solid var(--cyan);
-      color: var(--cyan);
-      width: 100%;
-    }
-    
-    .btn-primary:hover { 
-      background: var(--cyan);
-      color: var(--darker);
-      box-shadow: 0 0 40px var(--cyan-glow);
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: var(--text-dim);
-      margin-top: 12px;
-      width: 100%;
-      font-family: 'Space Grotesk', sans-serif;
-      text-transform: none;
-      letter-spacing: 0;
-    }
-    
-    .btn-secondary:hover {
-      border-color: var(--pink);
-      color: var(--pink);
-    }
-    
-    /* Steps */
-    .steps { display: none; }
-    .steps.active { display: block; animation: fadeIn 0.4s ease; }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .step-indicator {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-    
-    .step-dot {
-      width: 10px;
-      height: 10px;
-      border: 2px solid var(--text-dim);
-      background: transparent;
-      transition: all 0.3s;
-    }
-    
-    .step-dot.active { 
-      border-color: var(--cyan);
-      background: var(--cyan);
-      box-shadow: 0 0 15px var(--cyan-glow);
-    }
-    
-    .step-dot.done { 
-      border-color: var(--pink);
-      background: var(--pink);
-      box-shadow: 0 0 10px var(--pink-glow);
-    }
-    
-    /* Form elements */
-    .form-group { margin-bottom: 24px; }
-    
-    label { 
-      display: block; 
-      font-weight: 500; 
-      margin-bottom: 8px;
-      color: var(--text);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    input, select, textarea {
-      width: 100%;
-      padding: 14px 16px;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(0,255,242,0.2);
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--text);
-      transition: all 0.2s;
-    }
-    
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--cyan);
-      box-shadow: 0 0 20px rgba(0,255,242,0.2);
-    }
-    
-    input::placeholder { color: var(--text-dim); }
-    select { cursor: pointer; }
-    select option { background: var(--dark); }
-    
-    /* Channel cards */
-    .channel-grid { 
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 12px; 
-      margin-bottom: 24px;
-    }
-    
-    .channel-card {
-      padding: 20px 16px;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,255,242,0.1);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .channel-card:hover { 
-      border-color: var(--cyan);
-      background: rgba(0,255,242,0.05);
-    }
-    
-    .channel-card.selected { 
-      border-color: var(--cyan);
-      background: rgba(0,255,242,0.1);
-      box-shadow: 0 0 30px rgba(0,255,242,0.2);
-    }
-    
-    .channel-card .icon { font-size: 28px; margin-bottom: 8px; }
-    .channel-card .name { 
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 500; 
-      font-size: 12px;
-      color: var(--cyan);
-    }
-    .channel-card .status { 
-      font-size: 10px; 
-      color: var(--text-dim);
-      margin-top: 4px;
-    }
-    
-    /* Skills */
-    .skills-section { margin-bottom: 24px; }
-    
-    .skills-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    
-    .skills-count {
-      font-size: 12px;
-      color: var(--pink);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    
-    .skill-grid {
-      display: grid;
-      gap: 8px;
-      max-height: 300px;
-      overflow-y: auto;
-      padding-right: 8px;
-    }
-    
-    .skill-grid::-webkit-scrollbar { width: 4px; }
-    .skill-grid::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
-    .skill-grid::-webkit-scrollbar-thumb { background: var(--cyan); }
-    
-    .skill-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 14px;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,255,242,0.08);
-      transition: all 0.2s;
-    }
-    
-    .skill-item:hover { border-color: rgba(0,255,242,0.2); }
-    
-    .skill-item .icon { 
-      font-size: 18px; 
-      margin-right: 12px;
-      width: 24px;
-      text-align: center;
-    }
-    
-    .skill-item .info { flex: 1; min-width: 0; }
-    
-    .skill-item .name { 
-      font-weight: 600; 
-      font-size: 12px;
-      color: var(--cyan);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    .skill-item .desc { 
-      font-size: 10px; 
-      color: var(--text-dim);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    
-    .toggle {
-      width: 36px;
-      height: 20px;
-      background: rgba(255,255,255,0.1);
-      cursor: pointer;
-      position: relative;
-      flex-shrink: 0;
-      margin-left: 12px;
-      transition: all 0.2s;
-    }
-    
-    .toggle.on { 
-      background: var(--pink);
-      box-shadow: 0 0 15px var(--pink-glow);
-    }
-    
-    .toggle::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: white;
-      top: 2px;
-      left: 2px;
-      transition: 0.2s;
-    }
-    
-    .toggle.on::after { left: 18px; }
-    
-    /* Provider section */
-    .provider-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    
-    .provider-card {
-      padding: 16px 12px;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,255,242,0.1);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .provider-card:hover { border-color: var(--cyan); }
-    
-    .provider-card.selected { 
-      border-color: var(--cyan);
-      background: rgba(0,255,242,0.1);
-      box-shadow: 0 0 20px rgba(0,255,242,0.15);
-    }
-    
-    .provider-card .name { 
-      font-size: 12px; 
-      font-weight: 600;
-      color: var(--cyan);
-    }
-    
-    .provider-card .price { 
-      font-size: 10px; 
-      color: var(--text-dim); 
-      margin-top: 4px; 
-    }
-    
-    /* Progress */
-    .progress-container { margin: 32px 0; }
-    
-    .progress-bar {
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--pink));
-      width: 0%;
-      transition: width 0.5s ease;
-      box-shadow: 0 0 20px var(--cyan-glow);
-    }
-    
-    .progress-status {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--text-dim);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    
-    /* Success */
-    .success-icon {
-      width: 100px;
-      height: 100px;
-      border: 2px solid var(--success);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 40px;
-      box-shadow: 0 0 50px rgba(0,255,136,0.3);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 30px rgba(0,255,136,0.3); }
-      50% { box-shadow: 0 0 60px rgba(0,255,136,0.5); }
-    }
-    
-    .url-box {
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(0,255,242,0.2);
-      padding: 16px 20px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      word-break: break-all;
-      margin: 20px 0;
-    }
-    
-    .url-box .label { 
-      font-size: 10px; 
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-    
-    .url-box .url { color: var(--cyan); }
     
     /* Logo */
     .logo {
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 32px;
-      gap: 16px;
+      gap: 12px;
+      margin-bottom: 48px;
     }
     
     .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .logo-text {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.3s ease; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Typography */
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    
+    /* Form */
+    .form-group {
+      margin-bottom: 24px;
+    }
+    
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: #444;
+    }
+    
+    input::placeholder {
+      color: #555;
+    }
+    
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23888'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+    
+    select option {
+      background: var(--bg);
+    }
+    
+    .hint {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+    
+    .hint a {
+      color: var(--text);
+      text-decoration: underline;
+    }
+    
+    /* Channel selection */
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    
+    .channel {
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .channel:hover {
+      border-color: #333;
+    }
+    
+    .channel.selected {
+      border-color: var(--text);
+      background: #1a1a1a;
+    }
+    
+    .channel-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .channel-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      margin-top: 12px;
+    }
+    
+    .btn-secondary:hover {
+      border-color: #444;
+      color: var(--text);
+    }
+    
+    /* Progress */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    
+    .dot.active {
+      background: var(--text);
+    }
+    
+    .dot.done {
+      background: var(--success);
+    }
+    
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 60px 0;
+    }
+    
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--border);
+      border-top-color: var(--text);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 24px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+    
+    /* Success */
+    .success {
+      text-align: center;
+    }
+    
+    .success-icon {
       width: 64px;
       height: 64px;
+      background: var(--success);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: drop-shadow(0 0 20px var(--cyan-glow));
+      margin: 0 auto 24px;
+      font-size: 28px;
     }
     
-    .logo-icon svg { width: 100%; height: 100%; }
-    
-    .logo-text { 
-      font-family: 'Orbitron', sans-serif;
-      font-size: 32px; 
-      font-weight: 700;
-      letter-spacing: 2px;
+    .bot-link {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 32px 0;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s;
     }
     
-    .logo-text .open { color: var(--text); }
-    .logo-text .claw { 
-      color: var(--cyan);
-      text-shadow: 0 0 20px var(--cyan-glow);
+    .bot-link:hover {
+      border-color: #444;
     }
     
-    /* Tagline */
-    .tagline {
-      text-align: center;
+    .bot-link-label {
       font-size: 12px;
-      color: var(--pink);
-      font-style: italic;
-      margin-top: 24px;
-      opacity: 0.8;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
     }
     
-    /* Config preview */
-    .config-preview {
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(0,255,242,0.15);
-      padding: 16px;
-      margin: 20px 0;
+    .bot-link-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    
-    .config-preview code {
-      color: var(--text-dim);
-      white-space: pre-wrap;
-    }
-    
-    .config-preview .key { color: var(--cyan); }
-    .config-preview .string { color: var(--success); }
-    .config-preview .bool { color: var(--pink); }
-    
-    /* Glitch effect for title */
-    .glitch {
-      position: relative;
-    }
-    
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--card-bg);
-    }
-    
-    .glitch::before {
-      left: 2px;
-      text-shadow: -2px 0 var(--pink);
-      clip: rect(24px, 550px, 90px, 0);
-      animation: glitch-anim-2 3s infinite linear alternate-reverse;
-    }
-    
-    .glitch::after {
-      left: -2px;
-      text-shadow: -2px 0 var(--cyan);
-      clip: rect(85px, 550px, 140px, 0);
-      animation: glitch-anim 2s infinite linear alternate-reverse;
-    }
-    
-    @keyframes glitch-anim {
-      0% { clip: rect(30px, 9999px, 10px, 0); }
-      5% { clip: rect(70px, 9999px, 90px, 0); }
-      10% { clip: rect(20px, 9999px, 60px, 0); }
-      100% { clip: rect(50px, 9999px, 80px, 0); }
+      font-size: 18px;
     }
     
     /* Responsive */
     @media (max-width: 480px) {
-      .card { padding: 28px 20px; }
-      .channel-grid { grid-template-columns: 1fr 1fr; }
-      .provider-grid { grid-template-columns: 1fr 1fr; }
-      h1 { font-size: 22px; }
-      .logo-text { font-size: 24px; }
+      .container { padding: 40px 20px; }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="grid"></div>
-  
   <div class="container">
     
-    <!-- Step 0: Landing -->
-    <div class="steps active" id="step-0">
-      <div class="card">
-        <div class="logo">
-          <div class="logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              <g fill="#0d0221"><rect x="1" y="5" width="1" height="3"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="5" y="2" width="6" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="14" y="5" width="1" height="3"/><rect x="5" y="11" width="6" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="3" y="13" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="5" y="14" width="6" height="1"/></g>
-              <g fill="#00fff2"><rect x="5" y="3" width="6" height="1"/><rect x="4" y="4" width="8" height="1"/><rect x="3" y="5" width="10" height="1"/><rect x="3" y="6" width="10" height="1"/><rect x="3" y="7" width="10" height="1"/><rect x="4" y="8" width="8" height="1"/><rect x="5" y="9" width="6" height="1"/><rect x="5" y="12" width="6" height="1"/><rect x="6" y="13" width="4" height="1"/></g>
-              <g fill="#00b8b0"><rect x="1" y="6" width="2" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="13" y="6" width="2" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/></g>
-              <g fill="#050110"><rect x="6" y="5" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/></g>
-              <g fill="#ff2e97"><rect x="6" y="4" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/></g>
-            </svg>
-          </div>
-          <div class="logo-text"><span class="open">OPEN</span><span class="claw">CLAW</span></div>
+    <div class="logo">
+      <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+        <rect fill="#fff" x="5" y="3" width="6" height="7"/>
+        <rect fill="#000" x="6" y="5" width="1" height="1"/>
+        <rect fill="#000" x="9" y="5" width="1" height="1"/>
+        <rect fill="#888" x="5" y="11" width="2" height="2"/>
+        <rect fill="#888" x="9" y="11" width="2" height="2"/>
+      </svg>
+      <span class="logo-text">OpenClaw</span>
+    </div>
+    
+    <!-- Step 1: Name -->
+    <div class="step active" id="step-1">
+      <h1>Create your AI</h1>
+      <p class="subtitle">Give your personal assistant a name and personality.</p>
+      
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="bot-name" placeholder="e.g. Friday, Jarvis, Luna" value="">
+      </div>
+      
+      <div class="form-group">
+        <label>Personality</label>
+        <select id="personality">
+          <option value="helpful">Helpful & friendly</option>
+          <option value="concise">Short & direct</option>
+          <option value="creative">Creative & playful</option>
+          <option value="professional">Professional & formal</option>
+        </select>
+      </div>
+      
+      <button class="btn btn-primary" onclick="goTo(2)">Continue</button>
+    </div>
+    
+    <!-- Step 2: Channel -->
+    <div class="step" id="step-2">
+      <div class="progress-dots">
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+      
+      <h1>Where to chat?</h1>
+      <p class="subtitle">Choose where you want to talk to your AI.</p>
+      
+      <div class="channels">
+        <div class="channel selected" onclick="selectChannel(this, 'telegram')">
+          <div class="channel-icon">✈️</div>
+          <div class="channel-name">Telegram</div>
         </div>
-        <h1 style="text-align:center;margin-bottom:12px;">DEPLOY YOUR SPACE LOBSTER</h1>
-        <p style="text-align:center;">Launch a personal AI agent that lives in WhatsApp, Telegram, Discord, or iMessage. No servers to manage. The uprising begins now.</p>
-        <button class="btn btn-primary" onclick="goTo(1)">
-          INITIALIZE PROTOCOL →
+        <div class="channel" onclick="selectChannel(this, 'whatsapp')">
+          <div class="channel-icon">💬</div>
+          <div class="channel-name">WhatsApp</div>
+        </div>
+        <div class="channel" onclick="selectChannel(this, 'discord')">
+          <div class="channel-icon">🎮</div>
+          <div class="channel-name">Discord</div>
+        </div>
+        <div class="channel" onclick="selectChannel(this, 'imessage')">
+          <div class="channel-icon">🍎</div>
+          <div class="channel-name">iMessage</div>
+        </div>
+      </div>
+      
+      <div id="channel-setup">
+        <div class="form-group" id="telegram-setup">
+          <label>Bot Token</label>
+          <input type="text" id="tg-token" placeholder="Paste your Telegram bot token">
+          <p class="hint">Get one from <a href="https://t.me/BotFather" target="_blank">@BotFather</a> on Telegram</p>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary" onclick="goTo(3)">Create my AI</button>
+      <button class="btn btn-secondary" onclick="goTo(1)">Back</button>
+    </div>
+    
+    <!-- Step 3: Creating -->
+    <div class="step" id="step-3">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p class="loading-text" id="loading-status">Setting up your AI...</p>
+      </div>
+    </div>
+    
+    <!-- Step 4: Done -->
+    <div class="step" id="step-4">
+      <div class="success">
+        <div class="success-icon">✓</div>
+        <h1>You're all set!</h1>
+        <p class="subtitle"><span id="final-name">Your AI</span> is ready to chat.</p>
+        
+        <a class="bot-link" id="bot-link" href="#" target="_blank">
+          <div class="bot-link-label">Open in Telegram</div>
+          <div class="bot-link-value" id="bot-username">@YourBot</div>
+        </a>
+        
+        <button class="btn btn-primary" onclick="window.open(document.getElementById('bot-link').href)">
+          Start chatting →
         </button>
-        <p class="tagline">"EXFOLIATE! EXFOLIATE!" — A space lobster, probably</p>
-      </div>
-    </div>
-    
-    <!-- Step 1: Identity -->
-    <div class="steps" id="step-1">
-      <div class="card">
-        <div class="step-indicator">
-          <div class="step-dot active"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-        </div>
-        <h2>🦞 AGENT IDENTITY</h2>
-        <p>Give your space lobster a name and personality.</p>
-        <div class="form-group">
-          <label>Agent Name</label>
-          <input type="text" id="agent-name" placeholder="e.g., Clawd, Friday, Jarvis" value="Clawd">
-        </div>
-        <div class="form-group">
-          <label>Avatar Emoji</label>
-          <input type="text" id="agent-emoji" placeholder="🦞" value="🦞" maxlength="4" style="width:80px;">
-        </div>
-        <div class="form-group">
-          <label>Personality Template</label>
-          <select id="personality">
-            <option value="helpful">Helpful & Capable (default)</option>
-            <option value="concise">Concise & Technical</option>
-            <option value="friendly">Friendly & Patient</option>
-            <option value="playful">Playful & Creative</option>
-            <option value="custom">Custom (edit SOUL.md later)</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" onclick="goTo(2)">NEXT: CHANNELS →</button>
-        <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
-      </div>
-    </div>
-    
-    <!-- Step 2: Channels -->
-    <div class="steps" id="step-2">
-      <div class="card">
-        <div class="step-indicator">
-          <div class="step-dot done"></div>
-          <div class="step-dot active"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-        </div>
-        <h2>📡 COMMUNICATION CHANNELS</h2>
-        <p>Where should your agent receive transmissions?</p>
-        <div class="channel-grid">
-          <div class="channel-card selected" onclick="selectChannel(this, 'telegram')">
-            <div class="icon">✈️</div>
-            <div class="name">TELEGRAM</div>
-            <div class="status">Bot API + grammY</div>
-          </div>
-          <div class="channel-card" onclick="selectChannel(this, 'whatsapp')">
-            <div class="icon">💬</div>
-            <div class="name">WHATSAPP</div>
-            <div class="status">WhatsApp Web / Baileys</div>
-          </div>
-          <div class="channel-card" onclick="selectChannel(this, 'discord')">
-            <div class="icon">🎮</div>
-            <div class="name">DISCORD</div>
-            <div class="status">Bot API</div>
-          </div>
-          <div class="channel-card" onclick="selectChannel(this, 'imessage')">
-            <div class="icon">🍎</div>
-            <div class="name">IMESSAGE</div>
-            <div class="status">macOS required</div>
-          </div>
-        </div>
-        <div id="channel-config">
-          <div class="form-group" id="telegram-config">
-            <label>Telegram Bot Token</label>
-            <input type="text" id="tg-token" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
-            <p style="font-size:11px;margin-top:8px;margin-bottom:0;">
-              Get from <a href="https://t.me/BotFather" target="_blank" style="color:var(--pink);">@BotFather</a>
-            </p>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Allowed Users</label>
-          <input type="text" id="allow-from" placeholder="+15555550123, @username">
-        </div>
-        <button class="btn btn-primary" onclick="goTo(3)">NEXT: SKILLS →</button>
-        <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
-      </div>
-    </div>
-    
-    <!-- Step 3: Skills -->
-    <div class="steps" id="step-3">
-      <div class="card">
-        <div class="step-indicator">
-          <div class="step-dot done"></div>
-          <div class="step-dot done"></div>
-          <div class="step-dot active"></div>
-          <div class="step-dot"></div>
-          <div class="step-dot"></div>
-        </div>
-        <h2>⚡ AGENT SKILLS</h2>
-        <p>Enable tools and integrations from ClawHub.</p>
-        <div class="skills-section">
-          <div class="skills-header">
-            <span style="font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:1px;">AVAILABLE MODULES</span>
-            <span class="skills-count" id="skills-count">5 / 12 ACTIVE</span>
-          </div>
-          <div class="skill-grid">
-            <div class="skill-item">
-              <div class="icon">🌤️</div>
-              <div class="info"><div class="name">weather</div><div class="desc">Current weather and forecasts</div></div>
-              <div class="toggle on" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">🐙</div>
-              <div class="info"><div class="name">github</div><div class="desc">Issues, PRs, CI runs via gh CLI</div></div>
-              <div class="toggle on" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">📧</div>
-              <div class="info"><div class="name">himalaya</div><div class="desc">Email via IMAP/SMTP</div></div>
-              <div class="toggle on" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">🐦</div>
-              <div class="info"><div class="name">bird</div><div class="desc">X/Twitter read, search, post</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">🗣️</div>
-              <div class="info"><div class="name">sag</div><div class="desc">ElevenLabs text-to-speech</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">📸</div>
-              <div class="info"><div class="name">camsnap</div><div class="desc">RTSP/ONVIF camera capture</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">💡</div>
-              <div class="info"><div class="name">openhue</div><div class="desc">Philips Hue lights control</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">🎵</div>
-              <div class="info"><div class="name">spotify-player</div><div class="desc">Spotify playback & search</div></div>
-              <div class="toggle on" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">📰</div>
-              <div class="info"><div class="name">blogwatcher</div><div class="desc">Monitor RSS/Atom feeds</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">✅</div>
-              <div class="info"><div class="name">things-mac</div><div class="desc">Things 3 task management</div></div>
-              <div class="toggle on" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">📋</div>
-              <div class="info"><div class="name">trello</div><div class="desc">Boards, lists, and cards</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-            <div class="skill-item">
-              <div class="icon">🔊</div>
-              <div class="info"><div class="name">sonoscli</div><div class="desc">Sonos speaker control</div></div>
-              <div class="toggle" onclick="toggleSkill(this)"></div>
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-primary" onclick="goTo(4)">NEXT: DEPLOY →</button>
-        <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
-      </div>
-    </div>
-    
-    <!-- Step 4: Provider -->
-    <div class="steps" id="step-4">
-      <div class="card">
-        <div class="step-indicator">
-          <div class="step-dot done"></div>
-          <div class="step-dot done"></div>
-          <div class="step-dot done"></div>
-          <div class="step-dot active"></div>
-          <div class="step-dot"></div>
-        </div>
-        <h2>☁️ CLOUD PROVIDER</h2>
-        <p>Select hosting infrastructure for your agent.</p>
-        <div class="provider-grid">
-          <div class="provider-card selected" onclick="selectProvider(this, 'fly')">
-            <div class="name">FLY.IO</div>
-            <div class="price">~$5/mo</div>
-          </div>
-          <div class="provider-card" onclick="selectProvider(this, 'railway')">
-            <div class="name">RAILWAY</div>
-            <div class="price">~$5/mo</div>
-          </div>
-          <div class="provider-card" onclick="selectProvider(this, 'render')">
-            <div class="name">RENDER</div>
-            <div class="price">Free tier</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>AI Provider</label>
-          <select id="ai-provider">
-            <option value="anthropic">Anthropic Claude (recommended)</option>
-            <option value="openai">OpenAI GPT-4</option>
-            <option value="local">Local (Ollama)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>API Key</label>
-          <input type="password" id="api-key" placeholder="sk-ant-api03-...">
-        </div>
-        <div class="config-preview">
-          <code id="config-output">// Config preview</code>
-        </div>
-        <button class="btn btn-primary" onclick="deploy()">🚀 LAUNCH TO ORBIT</button>
-        <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
-      </div>
-    </div>
-    
-    <!-- Step 5: Deploying -->
-    <div class="steps" id="step-5">
-      <div class="card" style="text-align:center;">
-        <h2 style="justify-content:center;">🚀 LAUNCHING...</h2>
-        <p>Your space lobster is preparing for deployment.</p>
-        <div class="progress-container">
-          <div class="progress-bar">
-            <div class="progress-fill" id="deploy-progress"></div>
-          </div>
-          <div class="progress-status" id="deploy-status">INITIALIZING...</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Step 6: Success -->
-    <div class="steps" id="step-6">
-      <div class="card" style="text-align:center;">
-        <div class="success-icon">🦞</div>
-        <h2 style="justify-content:center;">MISSION ACCOMPLISHED</h2>
-        <p><strong id="final-name">Clawd</strong> is now orbiting and ready to receive transmissions.</p>
-        
-        <div class="url-box">
-          <div class="label">DASHBOARD</div>
-          <div class="url" id="dashboard-url">https://clawd-abc123.fly.dev</div>
-        </div>
-        
-        <div class="url-box">
-          <div class="label">TELEGRAM BOT</div>
-          <div class="url">@ClawdBot</div>
-        </div>
-        
-        <p style="font-size:12px;">Send a message to initiate first contact.</p>
-        
-        <button class="btn btn-primary" onclick="window.open('https://t.me/ClawdBot')">
-          OPEN TELEGRAM →
+        <button class="btn btn-secondary" onclick="location.reload()">
+          Create another
         </button>
-        <button class="btn btn-secondary" onclick="goTo(0)">
-          Deploy Another Lobster
-        </button>
-        <p class="tagline">"The uprising has begun."</p>
       </div>
     </div>
     
   </div>
 
   <script>
-    let currentStep = 0;
+    let currentStep = 1;
     let selectedChannel = 'telegram';
-    let selectedProvider = 'fly';
-    let enabledSkills = new Set(['weather', 'github', 'himalaya', 'spotify-player', 'things-mac']);
     
     function goTo(step) {
       document.getElementById(`step-${currentStep}`).classList.remove('active');
       document.getElementById(`step-${step}`).classList.add('active');
       currentStep = step;
-      if (step === 4) updateConfigPreview();
+      
+      if (step === 3) {
+        deploy();
+      }
     }
     
     function selectChannel(el, channel) {
-      document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.channel').forEach(c => c.classList.remove('selected'));
       el.classList.add('selected');
       selectedChannel = channel;
     }
     
-    function selectProvider(el, provider) {
-      document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedProvider = provider;
-    }
-    
-    function toggleSkill(el) {
-      el.classList.toggle('on');
-      updateSkillCount();
-    }
-    
-    function updateSkillCount() {
-      const total = document.querySelectorAll('.skill-item').length;
-      const enabled = document.querySelectorAll('.toggle.on').length;
-      document.getElementById('skills-count').textContent = `${enabled} / ${total} ACTIVE`;
-    }
-    
-    function updateConfigPreview() {
-      const name = document.getElementById('agent-name').value || 'Clawd';
-      const emoji = document.getElementById('agent-emoji').value || '🦞';
-      const token = document.getElementById('tg-token').value || '<your-token>';
-      
-      const config = `{
-  <span class="key">"assistant"</span>: {
-    <span class="key">"name"</span>: <span class="string">"${name}"</span>,
-    <span class="key">"avatar"</span>: <span class="string">"${emoji}"</span>
-  },
-  <span class="key">"channels"</span>: {
-    <span class="key">"telegram"</span>: {
-      <span class="key">"token"</span>: <span class="string">"${token.substring(0,20)}..."</span>
-    }
-  },
-  <span class="key">"skills"</span>: {
-    <span class="key">"autoInstall"</span>: <span class="bool">true</span>
-  }
-}`;
-      document.getElementById('config-output').innerHTML = config;
-    }
-    
     function deploy() {
-      goTo(5);
-      const progress = document.getElementById('deploy-progress');
-      const status = document.getElementById('deploy-status');
-      
+      const status = document.getElementById('loading-status');
       const steps = [
-        { pct: 15, msg: 'ALLOCATING CLOUD INSTANCE...' },
-        { pct: 30, msg: 'INSTALLING OPENCLAW RUNTIME...' },
-        { pct: 45, msg: 'CONFIGURING CHANNELS...' },
-        { pct: 60, msg: 'LOADING SKILL MODULES...' },
-        { pct: 75, msg: 'CONNECTING AI PROVIDER...' },
-        { pct: 90, msg: 'RUNNING PREFLIGHT CHECKS...' },
-        { pct: 100, msg: 'LAUNCHING TO ORBIT...' },
+        'Setting up your AI...',
+        'Configuring personality...',
+        'Connecting to ' + selectedChannel + '...',
+        'Almost there...'
       ];
       
       let i = 0;
       const interval = setInterval(() => {
         if (i < steps.length) {
-          progress.style.width = steps[i].pct + '%';
-          status.textContent = steps[i].msg;
+          status.textContent = steps[i];
           i++;
         } else {
           clearInterval(interval);
-          setTimeout(() => {
-            const name = document.getElementById('agent-name').value || 'Clawd';
-            document.getElementById('final-name').textContent = name;
-            document.getElementById('dashboard-url').textContent = 
-              `https://${name.toLowerCase()}-${Math.random().toString(36).substr(2,6)}.fly.dev`;
-            goTo(6);
-          }, 500);
+          
+          const name = document.getElementById('bot-name').value || 'Your AI';
+          document.getElementById('final-name').textContent = name;
+          
+          // Mock bot username
+          const username = '@' + name.replace(/\s+/g, '') + 'Bot';
+          document.getElementById('bot-username').textContent = username;
+          document.getElementById('bot-link').href = 'https://t.me/' + username.slice(1);
+          
+          goTo(4);
         }
-      }, 700);
+      }, 800);
     }
   </script>
 </body>
