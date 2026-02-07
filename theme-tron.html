@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme: Tron Electric</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --blue: #00d4ff;
+      --blue-dim: #0088cc;
+      --blue-glow: rgba(0,212,255,0.4);
+      --orange: #ff6600;
+      --orange-glow: rgba(255,102,0,0.4);
+      --dark: #000a14;
+      --darker: #000508;
+      --text: #e0f4ff;
+      --text-dim: #5599aa;
+    }
+    
+    body { 
+      font-family: 'Exo 2', sans-serif;
+      background: var(--dark);
+      min-height: 100vh;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, #001828 0%, var(--darker) 100%);
+      z-index: -2;
+    }
+    
+    .hex-grid {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='none' stroke='%23003344' stroke-width='0.5' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      z-index: -1;
+    }
+    
+    .glow-lines {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .glow-lines::before,
+    .glow-lines::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background: linear-gradient(180deg, transparent, var(--blue), transparent);
+      animation: lineMove 4s ease-in-out infinite;
+    }
+    
+    .glow-lines::before { left: 20%; animation-delay: 0s; }
+    .glow-lines::after { right: 25%; animation-delay: 2s; }
+    
+    @keyframes lineMove {
+      0%, 100% { top: -100px; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    
+    .container { text-align: center; padding: 40px; position: relative; z-index: 1; }
+    
+    .card {
+      background: linear-gradient(135deg, rgba(0,20,40,0.9) 0%, rgba(0,5,8,0.95) 100%);
+      border: 1px solid var(--blue);
+      border-radius: 16px;
+      padding: 48px;
+      max-width: 500px;
+      box-shadow: 
+        0 0 40px var(--blue-glow),
+        inset 0 0 80px rgba(0,212,255,0.03);
+      position: relative;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue) 0%, transparent 50%, var(--orange) 100%);
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    .icon {
+      width: 80px;
+      height: 80px;
+      border: 2px solid var(--blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 32px;
+      box-shadow: 0 0 30px var(--blue-glow), inset 0 0 20px var(--blue-glow);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 30px var(--blue-glow), inset 0 0 20px var(--blue-glow); }
+      50% { box-shadow: 0 0 50px var(--blue-glow), inset 0 0 30px var(--blue-glow); }
+    }
+    
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--blue);
+      text-shadow: 0 0 30px var(--blue-glow);
+      letter-spacing: 4px;
+    }
+    
+    p {
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: transparent;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      padding: 16px 48px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Exo 2', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      border-radius: 30px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+      z-index: -1;
+      border-radius: 30px;
+    }
+    
+    .btn:hover {
+      color: var(--dark);
+      box-shadow: 0 0 40px var(--blue-glow);
+    }
+    
+    .btn:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 32px 0 24px;
+    }
+    
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    }
+    
+    .divider-text {
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    
+    .spec {
+      padding: 16px;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      background: rgba(0,212,255,0.02);
+    }
+    
+    .spec-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    
+    .spec-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+    
+    .theme-label {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: var(--blue);
+      text-shadow: 0 0 10px var(--blue);
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="hex-grid"></div>
+  <div class="glow-lines"></div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h1>TRON ELECTRIC</h1>
+      <p>Enter the digital frontier. Clean lines, electric blue, and pure power. The Grid awaits your command.</p>
+      <button class="btn">Enter the Grid</button>
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">System Status</div>
+        <div class="divider-line"></div>
+      </div>
+      <div class="specs">
+        <div class="spec">
+          <div class="spec-value">1.0</div>
+          <div class="spec-label">Version</div>
+        </div>
+        <div class="spec">
+          <div class="spec-value">ON</div>
+          <div class="spec-label">Status</div>
+        </div>
+        <div class="spec">
+          <div class="spec-value">∞</div>
+          <div class="spec-label">Power</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="theme-label">// Tron Electric</div>
+</body>
+</html>
