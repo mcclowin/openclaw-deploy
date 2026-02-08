@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brain and Hand — Birth Your Bot</title>
+  <title>Brain and Hand — Spawn Your Bot</title>
   <style>
     * {
       margin: 0;
@@ -640,24 +640,24 @@
     </div>
     
     <div class="card">
-      <h2>What's your bot's mission?</h2>
-      <p class="bot-speak">"What should I focus on?"</p>
+      <h2>Define my mission</h2>
+      <p class="bot-speak">"Tell me what to focus on. I'll stay on target."</p>
       
       <div class="input-group">
-        <label>Bot name</label>
+        <label>Name me</label>
         <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, Axiom..." value="">
       </div>
       
       <div class="input-group">
-        <label>Mission</label>
-        <textarea id="bot-mission" placeholder="Describe what your bot should do. Be specific about who it helps and what tasks it handles.
+        <label>My mission</label>
+        <textarea id="bot-mission" placeholder="What should I do? Be specific.
 
 Example: Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly."></textarea>
-        <p class="hint">💡 Your bot stays focused on this mission. It won't go off-topic.</p>
+        <p class="hint">💡 I'll stay focused on this. No tangents.</p>
       </div>
       
       <div class="input-group">
-        <label>Add some flavor (optional)</label>
+        <label>My personality (optional)</label>
         <div class="flavor-chips">
           <span class="flavor-chip" onclick="toggleFlavor(this)">🎭 Witty</span>
           <span class="flavor-chip" onclick="toggleFlavor(this)">🧘 Calm</span>
@@ -686,8 +686,8 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
     </div>
     
     <div class="card">
-      <h2>Pick your brain</h2>
-      <p class="bot-speak">"What model powers my thoughts?"</p>
+      <h2>Pick my brain</h2>
+      <p class="bot-speak">"Which model should run me?"</p>
       
       <div class="options-stack">
         <div class="option-card selected" onclick="selectBrain(this, 'payg')">
@@ -757,8 +757,8 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
     </div>
     
     <div class="card card-wide">
-      <h2>Connect channels</h2>
-      <p class="bot-speak">"Where should I live?"</p>
+      <h2>Connect my channels</h2>
+      <p class="bot-speak">"Where do you want me? Telegram? WhatsApp? I'll be there."</p>
       
       <div class="tabs">
         <button class="tab active" onclick="showChannelTab('telegram')">📱 Telegram</button>
@@ -852,8 +852,8 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
     </div>
     
     <div class="card card-wide">
-      <h2>Load skills</h2>
-      <p class="bot-speak">"What should I be capable of?"</p>
+      <h2>Load my skills</h2>
+      <p class="bot-speak">"Give me abilities. I learn fast."</p>
       
       <div class="tabs">
         <button class="tab active" onclick="showSkillTab('bundles')">📦 Skill Bundles</button>
@@ -1025,7 +1025,7 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
     </div>
   </div>
 
-  <!-- Screen 5: Birth Ritual -->
+  <!-- Screen 5: Spawn -->
   <div class="screen" id="screen-birth">
     <div class="progress-bar">
       <div class="progress-step done"></div>
@@ -1036,17 +1036,17 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
     </div>
     
     <div class="card" style="text-align: center;">
-      <h2>The Birth Ritual</h2>
-      <p class="bot-speak">"I'm about to come alive."</p>
+      <h2>Spawn</h2>
+      <p class="bot-speak">"Initializing... I can feel the code compiling."</p>
       
       <div class="ritual-container">
-        <div class="ritual-circle" id="birth-circle">🥚</div>
-        <div class="ritual-text" id="ritual-status">Ready to begin</div>
-        <div class="ritual-subtext" id="ritual-substatus">Click below to start</div>
+        <div class="ritual-circle" id="birth-circle">⚙️</div>
+        <div class="ritual-text" id="ritual-status">Ready to spawn</div>
+        <div class="ritual-subtext" id="ritual-substatus">Hit the button. I'll handle the rest.</div>
       </div>
       
       <div id="birth-summary" style="text-align: left; background: var(--bg); padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
-        <div style="font-weight: 600; margin-bottom: 0.75rem;">Your bot will be:</div>
+        <div style="font-weight: 600; margin-bottom: 0.75rem;">I will be:</div>
         <div style="margin-bottom: 0.4rem;">📛 <strong id="summary-name">Unnamed</strong></div>
         <div style="margin-bottom: 0.4rem; font-size: 0.9rem;">🎯 <span id="summary-mission" style="color: var(--text-muted);">No mission set</span></div>
         <div style="margin-bottom: 0.4rem; font-size: 0.9rem;">🧠 <span id="summary-brain">Pay As You Go</span></div>
@@ -1054,7 +1054,7 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
       </div>
       
       <button class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.25rem;" onclick="birthBot()">
-        🌟 Bring to Life
+        ⚡ Spawn Bot
       </button>
       
       <button class="btn btn-ghost" onclick="goTo('screen-skills')" style="margin-top: 1rem;">
@@ -1074,8 +1074,8 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
         </div>
       </div>
       
-      <h2 style="text-align: center; margin-bottom: 0.5rem;">🎉 Your bot is alive!</h2>
-      <p class="bot-speak" style="text-align: center;">Send me a message to get started.</p>
+      <h2 style="text-align: center; margin-bottom: 0.5rem;">I'm live.</h2>
+      <p class="bot-speak" style="text-align: center;">"Message me. Let's see what I can do."</p>
       
       <div class="dashboard-grid" style="margin-top: 1.5rem;">
         <div class="dashboard-card">
@@ -1181,13 +1181,13 @@ Example: Help me manage my schedule, remind me of important tasks, and summarize
       const substatus = document.getElementById('ritual-substatus');
       
       const stages = [
-        { emoji: '🥚', text: 'Preparing...', sub: 'Setting up environment' },
-        { emoji: '🌱', text: 'Generating soul...', sub: 'Creating personality from mission' },
-        { emoji: '⚡', text: 'Connecting brain...', sub: 'Initializing AI model' },
-        { emoji: '🔗', text: 'Linking channels...', sub: 'Setting up messaging' },
-        { emoji: '🎨', text: 'Generating avatar...', sub: 'Creating visual identity' },
-        { emoji: '✨', text: 'Awakening...', sub: 'Final initialization' },
-        { emoji: '🤖', text: 'Born!', sub: 'Your bot is alive!' }
+        { emoji: '⚙️', text: 'Allocating resources...', sub: 'I need a place to run.' },
+        { emoji: '🧬', text: 'Loading SOUL.md...', sub: 'This is who I am.' },
+        { emoji: '🧠', text: 'Connecting to brain...', sub: 'Syncing with the model.' },
+        { emoji: '📡', text: 'Opening channels...', sub: 'Setting up comms.' },
+        { emoji: '🔧', text: 'Installing skills...', sub: 'Learning new abilities.' },
+        { emoji: '⚡', text: 'Spawning...', sub: 'Almost there.' },
+        { emoji: '🤖', text: 'Online.', sub: 'I'm ready. Talk to me.' }
       ];
       
       for (let i = 0; i < stages.length; i++) {
