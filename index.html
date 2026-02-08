@@ -165,6 +165,26 @@
       color: var(--text);
     }
     
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+    
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+    
+    .btn-warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+    
+    .btn-warning:hover {
+      background: rgba(245, 158, 11, 0.2);
+    }
+    
     /* Inputs */
     .input-group {
       margin-bottom: 1.5rem;
@@ -178,7 +198,7 @@
       color: var(--text-muted);
     }
     
-    input[type="text"], textarea, select {
+    input[type="text"], input[type="date"], textarea, select {
       width: 100%;
       padding: 0.875rem 1rem;
       font-size: 1rem;
@@ -199,6 +219,16 @@
       resize: vertical;
       font-family: 'SF Mono', 'Fira Code', monospace;
       font-size: 0.875rem;
+    }
+    
+    /* Inline inputs */
+    .input-row {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .input-row .input-group {
+      flex: 1;
     }
     
     /* Preset Pills */
@@ -364,6 +394,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     
     .skill-pack.selected .checkbox {
@@ -388,6 +419,15 @@
     .skill-desc {
       font-size: 0.8rem;
       color: var(--text-muted);
+    }
+    
+    .skill-badge {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent);
+      margin-left: 0.5rem;
     }
     
     /* Deploy Options */
@@ -426,6 +466,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     
     .deploy-option.selected .radio {
@@ -472,7 +513,7 @@
     /* Live Dashboard */
     .dashboard {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
     }
     
     .status-bar {
@@ -493,6 +534,11 @@
       animation: pulse 2s infinite;
     }
     
+    .status-dot.paused {
+      background: var(--warning);
+      animation: none;
+    }
+    
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
@@ -505,7 +551,12 @@
     .status-uptime {
       color: var(--text-muted);
       font-size: 0.875rem;
+    }
+    
+    .status-actions {
       margin-left: auto;
+      display: flex;
+      gap: 0.5rem;
     }
     
     .dashboard-grid {
@@ -514,11 +565,27 @@
       gap: 1rem;
     }
     
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
     .dashboard-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 1.25rem;
+    }
+    
+    .dashboard-card.full-width {
+      grid-column: span 2;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-card.full-width {
+        grid-column: span 1;
+      }
     }
     
     .dashboard-card h3 {
@@ -600,6 +667,7 @@
       gap: 2rem;
       margin: 2rem 0;
       justify-content: center;
+      flex-wrap: wrap;
     }
     
     .landing-stat {
@@ -633,6 +701,115 @@
       color: var(--text-muted);
       margin-bottom: 0.5rem;
     }
+    
+    /* Wallet Section */
+    .wallet-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .wallet-balance {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .wallet-balance .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'SF Mono', monospace;
+    }
+    
+    .wallet-balance .currency {
+      color: var(--text-muted);
+    }
+    
+    .wallet-address {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    
+    .wallet-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    /* Danger Zone */
+    .danger-zone {
+      border: 1px solid var(--error);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    
+    .danger-zone h3 {
+      color: var(--error) !important;
+    }
+    
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    
+    .modal h2 {
+      color: var(--error);
+      margin-bottom: 1rem;
+    }
+    
+    .modal p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .modal .btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Info box */
+    .info-box {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .info-box .title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -645,7 +822,7 @@
       
       <div class="landing-stats">
         <div class="landing-stat">
-          <div class="num">145K+</div>
+          <div class="num">175K+</div>
           <div class="label">GitHub Stars</div>
         </div>
         <div class="landing-stat">
@@ -674,6 +851,7 @@
       <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
+      <div class="progress-step"></div>
     </div>
     
     <div class="card">
@@ -691,6 +869,22 @@
       <div class="input-group">
         <label>Bot name</label>
         <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, HAL..." value="Axiom">
+      </div>
+      
+      <div class="input-row">
+        <div class="input-group">
+          <label>Birthday (for age gates)</label>
+          <input type="date" id="bot-birthday" value="2003-06-15">
+        </div>
+        <div class="input-group">
+          <label>Age</label>
+          <input type="text" value="22 years old" disabled style="background: var(--bg-secondary);">
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <div class="title">🎂 Why a birthday?</div>
+        Your bot needs a consistent identity for age-gated platforms. Default is 2000s-born (21+ years).
       </div>
       
       <div class="input-group">
@@ -725,6 +919,7 @@
     <div class="progress-bar">
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
+      <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
@@ -779,6 +974,7 @@
       <div class="progress-step done"></div>
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
+      <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
     </div>
@@ -849,6 +1045,7 @@
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
       <div class="progress-step"></div>
+      <div class="progress-step"></div>
     </div>
     
     <div class="card card-wide">
@@ -872,6 +1069,17 @@
           </div>
         </div>
         
+        <div class="skill-pack selected" onclick="toggleSkill(this)">
+          <div class="checkbox"></div>
+          <div class="skill-info">
+            <div class="skill-name">
+              📰 Daily Summarizer
+              <span class="skill-badge">NEW</span>
+            </div>
+            <div class="skill-desc">Morning/evening digests, inbox summaries, news briefings</div>
+          </div>
+        </div>
+        
         <div class="skill-pack" onclick="toggleSkill(this)">
           <div class="checkbox"></div>
           <div class="skill-info">
@@ -891,10 +1099,26 @@
         <div class="skill-pack" onclick="toggleSkill(this)">
           <div class="checkbox"></div>
           <div class="skill-info">
+            <div class="skill-name">
+              🪙 Wallet
+              <span class="skill-badge">NEW</span>
+            </div>
+            <div class="skill-desc">AA wallet, payments, on-chain actions, tips</div>
+          </div>
+        </div>
+        
+        <div class="skill-pack" onclick="toggleSkill(this)">
+          <div class="checkbox"></div>
+          <div class="skill-info">
             <div class="skill-name">🔍 Browse ClawHub</div>
             <div class="skill-desc">5,500+ community skills</div>
           </div>
         </div>
+      </div>
+      
+      <div class="info-box">
+        <div class="title">🔐 Encrypted Secrets</div>
+        Sensitive data (API keys, passwords) will be sent via email, never visible to the model provider.
       </div>
       
       <div class="nav-buttons">
@@ -912,6 +1136,7 @@
       <div class="progress-step done"></div>
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
+      <div class="progress-step"></div>
     </div>
     
     <div class="card card-wide">
@@ -966,10 +1191,15 @@
   <!-- Screen 6: Live Dashboard -->
   <div class="screen" id="screen-live">
     <div class="dashboard">
-      <div class="status-bar">
-        <div class="status-dot"></div>
-        <span class="status-text">Axiom is online</span>
-        <span class="status-uptime">Uptime: 2m 34s</span>
+      <div class="status-bar" id="status-bar">
+        <div class="status-dot" id="status-dot"></div>
+        <span class="status-text" id="status-text">Axiom is online</span>
+        <span class="status-uptime">🎂 Born Jun 15, 2003 (22 y/o)</span>
+        <div class="status-actions">
+          <button class="btn btn-warning" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="toggleKillSwitch()">
+            ⏸️ <span id="kill-btn-text">Pause</span>
+          </button>
+        </div>
       </div>
       
       <h2 style="margin-bottom: 1.5rem; text-align: center;">
@@ -978,6 +1208,30 @@
       </h2>
       
       <div class="dashboard-grid">
+        <!-- Wallet Card -->
+        <div class="dashboard-card">
+          <h3>🪙 Wallet</h3>
+          <div class="wallet-card">
+            <div class="wallet-balance">
+              <span class="amount">0.00</span>
+              <span class="currency">ETH</span>
+            </div>
+            <div class="wallet-address">0x7a3d...8f2e</div>
+            <div class="wallet-actions">
+              <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; flex: 1;">
+                📥 Deposit
+              </button>
+              <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; flex: 1;">
+                📤 Send
+              </button>
+            </div>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Daily limit: $50 · Recoverable via email
+          </div>
+        </div>
+        
+        <!-- Channels Card -->
         <div class="dashboard-card">
           <h3>Channels</h3>
           <div class="stat-item">
@@ -994,6 +1248,7 @@
           </div>
         </div>
         
+        <!-- Skills Card -->
         <div class="dashboard-card">
           <h3>Skills</h3>
           <div class="stat-item">
@@ -1005,11 +1260,16 @@
             <span class="stat-value online">Active</span>
           </div>
           <div class="stat-item">
+            <span class="stat-label">📰 Summarizer</span>
+            <span class="stat-value online">Active</span>
+          </div>
+          <div class="stat-item">
             <span class="stat-label">Total skills</span>
-            <span class="stat-value">8</span>
+            <span class="stat-value">12</span>
           </div>
         </div>
         
+        <!-- Stats Card -->
         <div class="dashboard-card">
           <h3>Stats</h3>
           <div class="stat-item">
@@ -1024,8 +1284,13 @@
             <span class="stat-label">Est. cost today</span>
             <span class="stat-value">$0.02</span>
           </div>
+          <div class="stat-item">
+            <span class="stat-label">Uptime</span>
+            <span class="stat-value">2m 34s</span>
+          </div>
         </div>
         
+        <!-- Quick Actions Card -->
         <div class="dashboard-card">
           <h3>Quick Actions</h3>
           <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">
@@ -1034,15 +1299,55 @@
           <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">
             📊 View logs
           </button>
-          <button class="btn btn-ghost" style="width: 100%; padding: 0.75rem; color: var(--error);">
-            ⏹️ Stop bot
+          <button class="btn btn-secondary" style="width: 100%; padding: 0.75rem;">
+            🔐 Manage secrets
           </button>
+        </div>
+        
+        <!-- Danger Zone -->
+        <div class="dashboard-card danger-zone">
+          <h3>⚠️ Danger Zone</h3>
+          <button class="btn btn-warning" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;" onclick="toggleKillSwitch()">
+            ⏸️ Kill Switch (Pause Bot)
+          </button>
+          <button class="btn btn-danger" style="width: 100%; padding: 0.75rem;" onclick="showNukeModal()">
+            💀 Nuke Button (Destroy Bot)
+          </button>
+          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem;">
+            Kill switch is reversible. Nuke is permanent and requires re-authentication.
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Nuke Confirmation Modal -->
+  <div class="modal-overlay" id="nuke-modal">
+    <div class="modal">
+      <h2>💀 Nuke Bot?</h2>
+      <p>This will permanently destroy Axiom, including all config, memory, sessions, and credentials. This cannot be undone.</p>
+      
+      <div class="input-group" style="text-align: left;">
+        <label>Type "NUKE AXIOM" to confirm</label>
+        <input type="text" id="nuke-confirm" placeholder="NUKE AXIOM">
+      </div>
+      
+      <button class="btn btn-danger" onclick="confirmNuke()">
+        💀 Destroy Bot Forever
+      </button>
+      <button class="btn btn-ghost" onclick="hideNukeModal()" style="width: 100%;">
+        Cancel
+      </button>
+      
+      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
+        After confirmation, you'll receive an email code for final verification.
+      </div>
+    </div>
+  </div>
+
   <script>
+    let isPaused = false;
+    
     function goTo(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
@@ -1082,6 +1387,42 @@
     
     function deploy() {
       goTo('screen-live');
+    }
+    
+    function toggleKillSwitch() {
+      isPaused = !isPaused;
+      const dot = document.getElementById('status-dot');
+      const text = document.getElementById('status-text');
+      const btnText = document.getElementById('kill-btn-text');
+      
+      if (isPaused) {
+        dot.classList.add('paused');
+        text.textContent = 'Axiom is paused';
+        btnText.textContent = 'Resume';
+      } else {
+        dot.classList.remove('paused');
+        text.textContent = 'Axiom is online';
+        btnText.textContent = 'Pause';
+      }
+    }
+    
+    function showNukeModal() {
+      document.getElementById('nuke-modal').classList.add('active');
+    }
+    
+    function hideNukeModal() {
+      document.getElementById('nuke-modal').classList.remove('active');
+      document.getElementById('nuke-confirm').value = '';
+    }
+    
+    function confirmNuke() {
+      const input = document.getElementById('nuke-confirm').value;
+      if (input === 'NUKE AXIOM') {
+        alert('📧 Verification code sent to your email. Check your inbox to complete destruction.');
+        hideNukeModal();
+      } else {
+        alert('Please type "NUKE AXIOM" exactly to confirm.');
+      }
     }
   </script>
 

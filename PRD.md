@@ -129,6 +129,118 @@ Minimal control panel:
 
 ---
 
+## 4.8 Bot Identity & Age
+
+Every bot needs a consistent identity for interacting with external services:
+
+- **Birthday:** Always set to a date in 2000-2005 range (bot is 21-26 years old)
+- **Rationale:** Enables access to age-gated platforms without lying about being human
+- **Configurable:** User can override, but default ensures no friction
+- **Identity fields:** Name, DOB, avatar — consistent across all channels
+
+---
+
+## 4.9 Bot Wallet
+
+Optional embedded wallet for bots that need financial agency:
+
+| Feature | Description |
+|---|---|
+| **Account Abstraction** | Smart contract wallet (ERC-4337) |
+| **Email Recovery** | No seed phrase — recover via owner's email |
+| **Spending Limits** | Daily/tx caps set by owner |
+| **Use Cases** | Tips, payments, on-chain actions, gas fees |
+| **Providers** | ZeroDev, Cometh, Privy (geo-dependent) |
+
+Wallet is **opt-in** — not required for basic bot functionality.
+
+Dashboard shows:
+- Balance (ETH, USDC, etc.)
+- Transaction history
+- Spending limits
+- Top-up QR code
+
+---
+
+## 4.10 Summarizer Service
+
+Built-in digest/summarizer skill for automated briefings:
+
+| Schedule | Example |
+|---|---|
+| **Morning** | "Here's what happened overnight..." |
+| **Evening** | "Today's highlights..." |
+| **On-demand** | "Summarize my inbox" |
+
+Aggregates from:
+- Email inbox (unread summary)
+- Calendar (upcoming events)
+- Social mentions (Twitter, Discord)
+- News (customizable topics)
+- Custom sources (RSS, APIs)
+
+Delivered via configured channel (Telegram, email, etc.)
+
+---
+
+## 4.11 Skills Aggregation & Abstractions
+
+For power users with 100s of skills, we need intelligent skill management:
+
+**Skill Packs** — curated bundles (current approach)
+
+**Skill Abstractions** — higher-level intents that combine multiple skills:
+- `news` → web_search + summarize + format
+- `monitor` → periodic check + diff + alert
+- `research` → search + fetch + extract + compile
+
+**Smart Routing** — prompt that understands 100s of skills and routes to the right one(s)
+
+**Skill Composer** — visual tool to chain skills into workflows
+
+---
+
+## 4.12 Encrypted Secrets Channel
+
+Some information should bypass the model provider entirely:
+
+| Use Case | Flow |
+|---|---|
+| **API keys** | Bot emails encrypted key to owner |
+| **Passwords** | Never in chat — sent via secure channel |
+| **Sensitive data** | Owner-only encrypted delivery |
+
+**Implementation:**
+- Bot detects sensitive content patterns
+- Routes to email (or other secure channel) instead of chat
+- PGP/age encryption for extra security
+- Model never sees plaintext secrets
+
+---
+
+## 4.13 Kill Switch & Nuke Button
+
+Safety controls for bot management:
+
+### Kill Switch (Pause)
+- **Action:** Immediately stops bot from responding
+- **Reversible:** One-click resume
+- **Use case:** Bot misbehaving, need to investigate
+- **Access:** Single button in dashboard, keyboard shortcut
+
+### Nuke Button (Destroy)
+- **Action:** Full wipe — config, memory, sessions, credentials
+- **Irreversible:** Requires multi-step confirmation
+- **Auth:** Re-enter password + confirmation code via email
+- **Use case:** Compromised bot, end of life, start fresh
+
+```
+[Kill Switch] → Bot paused, can resume
+[Nuke Button] → Confirm → Re-auth → Email code → Final confirm → 💀
+```
+
+---
+
 ## 5. Access control (inherited from OpenClaw)
 
 - **Pairing mode** (default) — unknown senders get an approval code
@@ -228,6 +340,15 @@ Inspired by nosoul.space / Moltbook aesthetic:
 - [ ] Bot-to-bot networking
 - [ ] Heartbeat / scheduled task configuration
 - [ ] Custom skill authoring wizard
+- [ ] Bot wallet (AA wallet integration)
+- [ ] Summarizer service (daily digests)
+- [ ] Skill composer (visual workflow builder)
+- [ ] Encrypted secrets channel (email bypass)
+
+**In (v0.1 — Safety & Identity):**
+- [ ] Kill switch (pause bot)
+- [ ] Nuke button (with multi-step auth)
+- [ ] Bot age default (born 2000+)
 
 ---
 
