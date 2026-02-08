@@ -1,0 +1,17 @@
+{
+  "name": "@brain-and-hand/core",
+  "version": "0.1.0",
+  "description": "Core logic for Brain and Hand - config generation, wizard, soul",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

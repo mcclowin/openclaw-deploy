@@ -1,0 +1,24 @@
+{
+  "name": "brain-and-hand",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Your personal AI bot - on your phone, your server, your device",
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:core": "pnpm --filter @brain-and-hand/core build",
+    "build:mobile": "pnpm --filter @brain-and-hand/mobile build",
+    "dev:mobile": "pnpm --filter @brain-and-hand/mobile start",
+    "android": "pnpm --filter @brain-and-hand/mobile android",
+    "ios": "pnpm --filter @brain-and-hand/mobile ios"
+  },
+  "keywords": [
+    "ai",
+    "bot",
+    "assistant",
+    "openclaw",
+    "mobile",
+    "self-hosted"
+  ],
+  "author": "Brain and Hand",
+  "license": "MIT"
+}

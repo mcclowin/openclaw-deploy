@@ -36,8 +36,9 @@ Brain and Hand makes the leap from "I want a personal bot" to "my bot is live" e
 1. **Bot-first** — The bot is the product, not a feature. Inspired by nosoul.space's "Prove You're Not Human" inversion.
 2. **Radical simplicity** — Every screen does one thing. If it needs explanation, redesign it.
 3. **Self-sovereign** — Your bot runs on your infra. Data never touches our servers.
-4. **Opinionated defaults, full escape hatches** — Works out of the box. Power users can crack it open.
-5. **The bot has a soul** — SOUL.md personality is a first-class config, not an afterthought.
+4. **Privacy-first** — No telemetry, no analytics, no data collection. Your conversations, memories, and API keys never leave your device. We can't see your data because we never have it.
+5. **Opinionated defaults, full escape hatches** — Works out of the box. Power users can crack it open.
+6. **The bot has a soul** — SOUL.md personality is a first-class config, not an afterthought.
 
 ---
 
@@ -170,6 +171,7 @@ Simple toggle cards for common skills:
 - 📝 Notes — take and search notes
 - ⏰ Reminders — set and manage
 - 🌐 Web Search — search the internet
+- ✅ Fact Checker — verify claims, check sources, detect misinformation
 
 #### Browse ClawHub
 Scrollable skill browser with search, pulls from ClawHub API.
@@ -302,6 +304,9 @@ Comprehensive financial tooling for bots that need economic agency:
 - Daily spending limits
 
 Finances is **opt-in** — not required for basic bot functionality.
+
+"we auto create an evm wallet on base. with x402 plumbing. (try to find us an x402 command line wallet)" 
+
 
 ---
 
@@ -545,7 +550,252 @@ Design: Dashed border, placeholder text, expands on focus. Blends into the page.
 
 ---
 
-## 11. Open questions
+## 11. Hardware Extensions
+
+### Hand1: The $100 Privacy Device
+
+A dedicated hardware device for running your bot — no phone, no cloud, no compromise.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Hand1                                │
+│              "Your bot's permanent home"                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │  ARM SBC (Raspberry Pi / Rock / Orange Pi class)    │  │
+│   │  - 4GB RAM, 32GB eMMC                               │  │
+│   │  - WiFi + Ethernet                                  │  │
+│   │  - USB-C power                                      │  │
+│   │  - Small form factor (credit card size)             │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                             │
+│   Pre-flashed from decentralized storage:                  │
+│   - IPFS / Arweave / Radicle                               │
+│   - Verify image hash before flashing                      │
+│   - No central server involved                             │
+│                                                             │
+│   What's included:                                         │
+│   - Minimal Linux (Alpine / DietPi)                        │
+│   - OpenClaw pre-installed                                 │
+│   - Brain and Hand setup wizard                            │
+│   - Auto-updates from decentralized sources                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Why dedicated hardware?**
+
+| Benefit | Description |
+|---------|-------------|
+| **Always on** | No phone battery concerns, no laptop sleep |
+| **Privacy** | Air-gapped from your personal devices |
+| **Dedicated** | Bot has its own compute, doesn't compete with your apps |
+| **Portable** | Take it anywhere, plug into any network |
+| **Survivable** | Phone breaks? Bot keeps running at home |
+
+**The Principled Approach:**
+
+1. **Decentralized distribution** — OS image hosted on IPFS/Arweave, not our servers
+2. **Reproducible builds** — Anyone can verify the image matches source code
+3. **No phone-home** — Device never contacts us; all updates via decentralized storage
+4. **Open hardware** — Compatible with commodity ARM boards, no vendor lock-in
+5. **Self-sovereign** — You own the hardware, you control the software
+
+**Setup Flow:**
+
+```
+1. Order Hand1 (~$100) or flash your own SBC
+2. Power on → connects to WiFi (captive portal or WPS)
+3. Open brainandhand.local in browser
+4. Run setup wizard (same as mobile/web)
+5. Bot is live, running 24/7
+```
+
+**Target Hardware:**
+
+| Board | Price | Notes |
+|-------|-------|-------|
+| Raspberry Pi Zero 2 W | $15 | Minimal, WiFi only |
+| Raspberry Pi 4 (2GB) | $45 | Solid baseline |
+| Orange Pi Zero 3 | $25 | Good value |
+| Rock 5A | $80 | Power user |
+| **Hand1 (custom)** | $100 | Optimized, pre-flashed, branded |
+
+**Future: Hand1 Pro**
+- Built-in 4G/LTE modem
+- Battery backup (UPS)
+- Hardware security module (HSM) for key storage
+- PoE (Power over Ethernet)
+
+---
+
+## 12. Security & Trust
+
+Brain and Hand handles sensitive data: API keys, bot tokens, conversation history. Users need to trust the app. Here's how we earn that trust.
+
+### 12.1 Android Sandbox Isolation
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Your Phone                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────┐    ┌─────────────────────────────────┐│
+│  │  Brain & Hand   │    │  Other Apps (ISOLATED)          ││
+│  │                 │ ✗  │                                 ││
+│  │  Your API keys  │──/──│  Banking, Photos, Messages     ││
+│  │  Your data      │    │                                 ││
+│  │  Your bot       │    │  We CAN'T access these.        ││
+│  └─────────────────┘    └─────────────────────────────────┘│
+│                                                             │
+│  Android enforces app isolation at the OS level.           │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Brain and Hand runs in Android's sandbox. It cannot access other apps' data, photos, messages, or files — only what's inside its own app directory.
+
+### 12.2 What Users Are Trusting
+
+| They Trust | With | Risk Level |
+|------------|------|------------|
+| **Our code** | Running on their phone | Medium |
+| **Our APK** | Being the same as source | Medium |
+| **API keys** | Not being exfiltrated | High value |
+| **Bot tokens** | Not being stolen | High value |
+| **Skills** | Not being malicious | Variable |
+
+**We mitigate these risks with transparency and verification.**
+
+### 12.3 Build Your Own (Phone Only!)
+
+Users can build the app themselves using only their phone and GitHub:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│          Build From Source — No Computer Required           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. Go to github.com/mcclowin/brain-and-hand               │
+│                         │                                   │
+│                         ▼                                   │
+│  2. Tap "Fork" button (creates YOUR copy)                  │
+│                         │                                   │
+│                         ▼                                   │
+│  3. GitHub Actions builds YOUR fork automatically          │
+│                         │                                   │
+│                         ▼                                   │
+│  4. Actions tab → Download APK artifact                    │
+│                         │                                   │
+│                         ▼                                   │
+│  5. Install YOUR APK on YOUR phone                         │
+│                                                             │
+│  ✓ You see the exact source code                           │
+│  ✓ GitHub (not us) builds it                               │
+│  ✓ We never touched your APK                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 12.4 Trust Verification Options
+
+| Method | You Trust | Effort |
+|--------|-----------|--------|
+| **Our APK** | Us + GitHub | None |
+| **Fork & build** | GitHub only | 5 min |
+| **F-Droid** | F-Droid | None |
+| **Local build** | Your computer only | 30 min |
+| **Hash verify** | Math | 2 min |
+
+### 12.5 Reproducible Builds
+
+Anyone can verify our releases match the source:
+
+```bash
+# Clone the exact release
+git clone --branch v1.0.0 https://github.com/mcclowin/brain-and-hand
+cd brain-and-hand
+
+# Build it yourself
+./scripts/build-android.sh
+
+# Compare hashes
+sha256sum build/app-release.apk    # Your build
+sha256sum downloaded-release.apk    # Our release
+
+# If identical → Our release is legit
+```
+
+We publish SHA256 hashes with every release for verification.
+
+### 12.6 Zero Telemetry Policy
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  Network Transparency                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Brain and Hand NEVER contacts our servers.                │
+│                                                             │
+│  Network connections (all user-initiated):                 │
+│  ├── api.anthropic.com     → AI responses                 │
+│  ├── api.openai.com        → AI responses                 │
+│  ├── api.telegram.org      → Bot messages                 │
+│  └── (your configured services only)                       │
+│                                                             │
+│  We cannot:                                                │
+│  ✗ See your conversations                                  │
+│  ✗ Access your API keys                                    │
+│  ✗ Track your usage                                        │
+│  ✗ Send crash reports                                      │
+│  ✗ Phone home for any reason                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 12.7 API Key Security
+
+- Keys encrypted at rest using Android Keystore (hardware-backed on supported devices)
+- Keys only decrypted in memory when making API calls
+- Keys never logged, never transmitted except to the AI provider
+- Export function excludes keys by default (opt-in to include)
+
+### 12.8 Skill Sandboxing
+
+Third-party skills from ClawHub run in restricted context:
+
+| Permission | Default | Can Request |
+|------------|---------|-------------|
+| Filesystem | App directory only | No |
+| Network | Blocked | Whitelist specific domains |
+| System commands | Blocked | No |
+| Other apps | Blocked | No |
+| User data | With permission | Yes (shown to user) |
+
+Skills must declare permissions. Users see what a skill wants before installing.
+
+### 12.9 The Honest Statement
+
+```
+"Brain and Hand is open source and privacy-first.
+
+Your data stays on your device. We have no servers, 
+no analytics, no way to see what you're doing.
+
+But you're still trusting our code. If that bothers you:
+→ Fork the repo and build it yourself (takes 5 min)
+→ Install from F-Droid (they build from source)
+→ Audit the code (it's all public)
+→ Use the Hand1 device (physical isolation)
+
+We think this is the most trustworthy way to run 
+a personal AI. But don't trust us — verify."
+```
+
+---
+
+## 13. Open Questions
 
 - [ ] Do we host a web version or is this CLI/local-only?
 - [ ] Should we run a managed OpenClaw backend for non-technical users (SaaS tier)?
@@ -557,7 +807,7 @@ Design: Dashed border, placeholder text, expands on focus. Blends into the page.
 
 ---
 
-## 12. Research List (Future Features)
+## 14. Research List (Future Features)
 
 Features removed from current UI but planned for future:
 
@@ -571,7 +821,7 @@ Features removed from current UI but planned for future:
 
 ---
 
-## 12. References
+## 15. References
 
 - [OpenClaw](https://openclaw.ai) — The underlying bot runtime (145K+ GitHub stars)
 - [OpenClaw Docs](https://docs.openclaw.ai) — Skills, channels, deployment
