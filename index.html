@@ -858,17 +858,19 @@
       <h2>Name your bot</h2>
       <p class="bot-speak">"Who am I going to be?"</p>
       
-      <div class="avatar-section">
-        <div class="avatar-preview" id="avatar-preview">🤖</div>
-        <div class="avatar-actions">
-          <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Upload avatar</button>
-          <button class="btn btn-ghost" style="font-size: 0.75rem;">Generate random</button>
-        </div>
+      <div class="input-group">
+        <label>Bot name</label>
+        <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, HAL..." value="Axiom" oninput="updateVoicePreview()">
       </div>
       
       <div class="input-group">
-        <label>Bot name</label>
-        <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, HAL..." value="Axiom">
+        <label>Gender presentation (for voice & avatar)</label>
+        <div class="presets">
+          <span class="preset" onclick="selectGender(this, 'male')">♂️ Male</span>
+          <span class="preset" onclick="selectGender(this, 'female')">♀️ Female</span>
+          <span class="preset active" onclick="selectGender(this, 'neutral')">⚧️ Neutral</span>
+          <span class="preset" onclick="selectGender(this, 'any')">🎲 Surprise me</span>
+        </div>
       </div>
       
       <div class="input-row">
@@ -974,19 +976,39 @@
         </select>
       </div>
       
-      <div class="input-group">
-        <label>Voice</label>
-        <div class="presets">
-          <span class="preset" onclick="selectVoice(this)">🎭 Rachel (warm)</span>
-          <span class="preset active" onclick="selectVoice(this)">🎯 Adam (clear)</span>
-          <span class="preset" onclick="selectVoice(this)">🌊 Bella (soft)</span>
-          <span class="preset" onclick="selectVoice(this)">⚡ Antoni (energetic)</span>
+      <div class="info-box" style="background: var(--bg); border-color: var(--border);">
+        <div class="title">🎙️ Auto-Generated Voice</div>
+        <div style="font-family: 'SF Mono', monospace; margin: 0.75rem 0; padding: 0.75rem; background: var(--bg-secondary); border-radius: 6px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="color: var(--text-muted);">Voice ID:</span>
+            <span id="voice-id">AXM-7F2-NEU</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="color: var(--text-muted);">Pitch:</span>
+            <span id="voice-pitch">+12%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span style="color: var(--text-muted);">Warmth:</span>
+            <span id="voice-warmth">67/100</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Speed:</span>
+            <span id="voice-speed">1.05x</span>
+          </div>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">
+          Generated from name + gender + personality. 1B+ unique combinations.
         </div>
       </div>
       
-      <button class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem;" onclick="playVoiceSample()">
-        🔊 Play sample
-      </button>
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+        <button class="btn btn-secondary" style="flex: 1; padding: 0.75rem;" onclick="playVoiceSample()">
+          🔊 Play sample
+        </button>
+        <button class="btn btn-ghost" style="padding: 0.75rem;" onclick="regenerateVoice()">
+          🔄 Regenerate
+        </button>
+      </div>
       
       <div class="nav-buttons">
         <button class="btn btn-secondary" onclick="goTo('screen-soul')">Back</button>
@@ -1224,12 +1246,80 @@
       
       <div class="nav-buttons">
         <button class="btn btn-secondary" onclick="goTo('screen-skills')">Back</button>
-        <button class="btn btn-primary" onclick="deploy()">🚀 Deploy</button>
+        <button class="btn btn-primary" onclick="goTo('screen-avatar')">🚀 Deploy</button>
       </div>
     </div>
   </div>
 
-  <!-- Screen 6: Live Dashboard -->
+  <!-- Screen 6: Avatar Generation -->
+  <div class="screen" id="screen-avatar">
+    <div class="progress-bar">
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step done"></div>
+      <div class="progress-step active"></div>
+    </div>
+    
+    <div class="card">
+      <h2>Generate avatar</h2>
+      <p class="bot-speak">"Time to give me a face!"</p>
+      
+      <div class="info-box">
+        <div class="title">🎨 Personalized Generation</div>
+        Your avatar is generated using everything we know about your bot:
+        <ul style="margin-top: 0.5rem; margin-left: 1.25rem; color: var(--text-muted); font-size: 0.85rem;">
+          <li>Name: <strong style="color: var(--text);">Axiom</strong></li>
+          <li>Personality: <strong style="color: var(--text);">Sharp assistant</strong></li>
+          <li>Gender: <strong style="color: var(--text);">Neutral</strong></li>
+          <li>Skills: <strong style="color: var(--text);">Productivity, Summarizer, Dev Tools</strong></li>
+          <li>Vibe: <strong style="color: var(--text);">Technical + Professional</strong></li>
+        </ul>
+      </div>
+      
+      <div style="text-align: center; margin: 1.5rem 0;">
+        <div id="avatar-preview-final" style="width: 150px; height: 150px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--accent), #ec4899); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; animation: pulse 2s infinite;">
+          🤖
+        </div>
+        <div id="avatar-status" style="font-size: 0.875rem; color: var(--text-muted);">
+          Click generate to create your unique avatar
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>Style hint (optional)</label>
+        <input type="text" id="avatar-hint" placeholder="e.g., cyberpunk, minimal, friendly robot, abstract...">
+      </div>
+      
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+        <button class="btn btn-primary" style="flex: 2;" onclick="generateAvatar()">
+          ✨ Generate Avatar
+        </button>
+        <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('avatar-upload').click()">
+          📤 Upload
+        </button>
+        <input type="file" id="avatar-upload" style="display: none;" accept="image/*">
+      </div>
+      
+      <div class="input-group">
+        <label>Generated prompt</label>
+        <textarea id="avatar-prompt" style="min-height: 80px; font-size: 0.8rem;" readonly>Avatar for AI assistant "Axiom". Sharp, efficient personality. Neutral gender presentation. Technical/productivity focus. Modern, clean, professional aesthetic. Geometric or abstract style preferred.</textarea>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="goTo('screen-deploy')">Back</button>
+        <button class="btn btn-primary" onclick="deploy()">
+          🚀 Launch Bot
+        </button>
+        <button class="btn btn-ghost" onclick="deploy()">
+          Skip for now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 7: Live Dashboard -->
   <div class="screen" id="screen-live">
     <div class="dashboard">
       <div class="status-bar" id="status-bar">
@@ -1493,14 +1583,94 @@
       }
     }
     
-    function selectVoice(el) {
+    let selectedGender = 'neutral';
+    
+    function selectGender(el, gender) {
       el.parentElement.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
       el.classList.add('active');
+      selectedGender = gender;
+      updateVoicePreview();
+    }
+    
+    function updateVoicePreview() {
+      const name = document.getElementById('bot-name').value || 'Bot';
+      const hash = hashCode(name + selectedGender);
+      
+      // Generate deterministic voice params from hash
+      const pitch = ((hash % 40) - 20);
+      const warmth = 40 + (Math.abs(hash >> 8) % 60);
+      const speed = 0.9 + ((Math.abs(hash >> 16) % 30) / 100);
+      
+      const genderCode = {male: 'M', female: 'F', neutral: 'N', any: 'X'}[selectedGender];
+      const voiceId = name.substring(0, 3).toUpperCase() + '-' + 
+                      Math.abs(hash % 1000).toString(16).toUpperCase().padStart(3, '0') + '-' + 
+                      genderCode;
+      
+      document.getElementById('voice-id').textContent = voiceId;
+      document.getElementById('voice-pitch').textContent = (pitch >= 0 ? '+' : '') + pitch + '%';
+      document.getElementById('voice-warmth').textContent = warmth + '/100';
+      document.getElementById('voice-speed').textContent = speed.toFixed(2) + 'x';
+    }
+    
+    function hashCode(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return Math.abs(hash);
+    }
+    
+    function regenerateVoice() {
+      const name = document.getElementById('bot-name').value || 'Bot';
+      const newName = name + '_' + Date.now();
+      document.getElementById('bot-name').value = name; // keep original
+      // Use timestamp to get different hash
+      const hash = hashCode(newName + selectedGender);
+      
+      const pitch = ((hash % 40) - 20);
+      const warmth = 40 + (Math.abs(hash >> 8) % 60);
+      const speed = 0.9 + ((Math.abs(hash >> 16) % 30) / 100);
+      
+      const genderCode = {male: 'M', female: 'F', neutral: 'N', any: 'X'}[selectedGender];
+      const voiceId = name.substring(0, 3).toUpperCase() + '-' + 
+                      Math.abs(hash % 1000).toString(16).toUpperCase().padStart(3, '0') + '-' + 
+                      genderCode + 'v2';
+      
+      document.getElementById('voice-id').textContent = voiceId;
+      document.getElementById('voice-pitch').textContent = (pitch >= 0 ? '+' : '') + pitch + '%';
+      document.getElementById('voice-warmth').textContent = warmth + '/100';
+      document.getElementById('voice-speed').textContent = speed.toFixed(2) + 'x';
     }
     
     function playVoiceSample() {
       alert('🔊 "Hey! I\'m Axiom, your personal AI assistant. How can I help you today?"');
     }
+    
+    function generateAvatar() {
+      const preview = document.getElementById('avatar-preview-final');
+      const status = document.getElementById('avatar-status');
+      
+      // Show loading
+      preview.innerHTML = '<div style="font-size: 1.5rem;">⏳</div>';
+      preview.style.animation = 'none';
+      status.textContent = 'Generating your unique avatar...';
+      
+      // Simulate generation
+      setTimeout(() => {
+        const avatars = ['🤖', '🧠', '⚡', '🎯', '💠', '🔮', '🌟', '🔷'];
+        const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
+        
+        preview.innerHTML = randomAvatar;
+        preview.style.background = 'linear-gradient(135deg, #8b5cf6, #3b82f6)';
+        preview.style.animation = 'pulse 2s infinite';
+        status.innerHTML = '✅ Avatar generated! <a href="#" style="color: var(--accent);">Download PNG</a>';
+      }, 2000);
+    }
+    
+    // Initialize voice preview
+    document.addEventListener('DOMContentLoaded', updateVoicePreview);
   </script>
 
 </body>

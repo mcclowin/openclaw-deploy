@@ -57,7 +57,8 @@ BotsAndBrain makes the leap from "I want a personal bot" to "my bot is live" eff
 - SOUL.md editor — personality prompt
 - Presets: `chill philosopher` / `sharp assistant` / `chaos agent` / `custom`
 - Live preview: show sample bot response for each personality
-- Avatar upload or generate
+- Gender preference (optional) — for voice and avatar generation
+- **No avatar yet** — generated at final step with full context
 
 ### 4.3 Pick Model
 - Select LLM provider + model
@@ -99,6 +100,33 @@ Voice is surprisingly natural for:
 - Accessibility (vision impaired users)
 - The "AI from the movies" vibe
 
+### Procedural Voice Generation
+
+Every bot deserves a unique voice. We generate voice parameters deterministically from inputs:
+
+**Inputs:**
+- Bot name (hashed for seed)
+- Gender preference (male/female/neutral/any)
+- Personality type (sharp/chill/chaos/custom)
+- Optional: age range, accent preference
+
+**Output parameters (combined = 1B+ unique voices):**
+- Pitch (100 levels)
+- Speed (50 levels)
+- Warmth (50 levels)
+- Clarity (50 levels)
+- Breathiness (20 levels)
+- Accent blend (100+ accents)
+
+**Formula:** `voice_seed = hash(name + gender + personality)` → deterministic but unique
+
+**Provider support:**
+- ElevenLabs Voice Design API
+- OpenAI voice mixing (when available)
+- Fallback: curated voice + pitch shift
+
+User can always override with manual selection or custom voice clone.
+
 Each wizard:
 - Step-by-step with screenshots
 - Test connection button ("Send me a test message")
@@ -136,6 +164,39 @@ Deployment target selection:
 - One-click deploy for cloud targets
 - Docker compose generated for local
 - Post-deploy health check: "Your bot is alive. Say hi."
+
+### 4.6.5 Avatar Generation (Final Step)
+
+Avatar is generated **after all config is complete** — we have maximum context.
+
+**Inputs for prompt generation:**
+- Bot name
+- Personality (SOUL.md summary)
+- Gender preference
+- Skills enabled (dev tools? social? finance?)
+- Channels (professional Slack bot vs casual Telegram friend?)
+- Voice characteristics
+- User's optional style hints
+
+**Prompt assembly:**
+```
+Generate an avatar for an AI assistant named [name].
+Personality: [soul summary]
+Gender presentation: [preference]
+Vibe: [derived from skills - technical/friendly/creative/professional]
+Style: [user hint or "modern, clean, memorable"]
+```
+
+**Generation options:**
+- AI-generated (DALL-E, Midjourney API, Stable Diffusion)
+- Procedural (geometric patterns from name hash)
+- Upload custom
+- Skip (use default robot emoji)
+
+**Why last?**
+- More data = better avatar
+- User has invested time, sees the payoff
+- Can regenerate anytime from dashboard
 
 ### 4.7 Live — Dashboard
 
