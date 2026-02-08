@@ -12,17 +12,17 @@
     }
     
     :root {
-      --bg: #fafafa;
-      --bg-secondary: #f0f0f0;
-      --bg-card: #ffffff;
-      --text: #1a1a1a;
-      --text-muted: #666666;
-      --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.2);
+      --bg: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text: #e4e4e7;
+      --text-muted: #71717a;
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.3);
       --success: #22c55e;
       --warning: #f59e0b;
       --error: #ef4444;
-      --border: #e5e5e5;
+      --border: #27272a;
     }
     
     body {
@@ -30,8 +30,7 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.7;
-      font-size: 18px;
+      line-height: 1.6;
     }
     
     /* Screen Management */
@@ -39,7 +38,7 @@
       display: none;
       min-height: 100vh;
       padding: 2rem;
-      animation: fadeIn 0.4s ease;
+      animation: fadeIn 0.3s ease;
     }
     
     .screen.active {
@@ -50,31 +49,40 @@
     }
     
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
     /* Typography */
     h1 {
-      font-size: 2.5rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 3rem;
       font-weight: 700;
       margin-bottom: 1rem;
       letter-spacing: -0.02em;
     }
     
     h2 {
+      font-family: 'SF Mono', 'Fira Code', monospace;
       font-size: 1.75rem;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
     
-    .subtitle {
-      font-size: 1.1rem;
+    .tagline {
+      font-size: 1.25rem;
       color: var(--text-muted);
       margin-bottom: 2rem;
     }
     
-    /* Progress Indicator */
+    .bot-speak {
+      font-style: italic;
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    /* Progress Bar */
     .progress-bar {
       display: flex;
       gap: 0.5rem;
@@ -82,10 +90,10 @@
     }
     
     .progress-step {
-      width: 50px;
-      height: 6px;
+      width: 40px;
+      height: 4px;
       background: var(--border);
-      border-radius: 3px;
+      border-radius: 2px;
       transition: background 0.3s;
     }
     
@@ -100,16 +108,15 @@
     /* Cards */
     .card {
       background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
       width: 100%;
-      max-width: 550px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      max-width: 500px;
     }
     
     .card-wide {
-      max-width: 700px;
+      max-width: 750px;
     }
     
     /* Buttons */
@@ -117,12 +124,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      padding: 1.25rem 2.5rem;
-      font-size: 1.1rem;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
       font-weight: 600;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -130,29 +137,28 @@
     .btn-primary {
       background: var(--accent);
       color: white;
-      box-shadow: 0 4px 15px var(--accent-glow);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 25px var(--accent-glow);
+      box-shadow: 0 0 30px var(--accent-glow);
     }
     
     .btn-secondary {
       background: var(--bg-secondary);
       color: var(--text);
-      border: 2px solid var(--border);
+      border: 1px solid var(--border);
     }
     
     .btn-secondary:hover {
-      background: var(--bg);
-      border-color: var(--text-muted);
+      background: var(--bg-card);
     }
     
     .btn-ghost {
       background: transparent;
       color: var(--text-muted);
-      padding: 0.75rem 1.5rem;
+      padding: 0.5rem 1rem;
     }
     
     .btn-ghost:hover {
@@ -161,30 +167,30 @@
     
     /* Inputs */
     .input-group {
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
     }
     
     .input-group label {
       display: block;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 0.875rem;
+      font-weight: 500;
       margin-bottom: 0.5rem;
-      color: var(--text);
+      color: var(--text-muted);
     }
     
     .input-group .hint {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       margin-top: 0.5rem;
     }
     
     input[type="text"], textarea, select {
       width: 100%;
-      padding: 1rem 1.25rem;
+      padding: 0.875rem 1rem;
       font-size: 1rem;
       background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       color: var(--text);
       transition: border-color 0.2s;
     }
@@ -195,27 +201,50 @@
     }
     
     textarea {
-      min-height: 150px;
+      min-height: 120px;
       resize: vertical;
-      line-height: 1.6;
+      font-family: inherit;
+    }
+    
+    /* Flavor chips */
+    .flavor-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .flavor-chip {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .flavor-chip:hover, .flavor-chip.active {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.1);
     }
     
     /* Option Cards */
     .options-stack {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
     }
     
     .option-card {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
-      padding: 1.5rem;
+      gap: 1rem;
+      padding: 1.25rem;
       background: var(--bg);
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -226,12 +255,12 @@
     
     .option-card.selected {
       border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.05);
+      background: rgba(139, 92, 246, 0.1);
     }
     
     .option-card .icon {
-      font-size: 2rem;
-      width: 50px;
+      font-size: 1.75rem;
+      width: 40px;
       text-align: center;
     }
     
@@ -241,38 +270,31 @@
     
     .option-card .name {
       font-weight: 600;
-      font-size: 1.1rem;
       margin-bottom: 0.25rem;
     }
     
     .option-card .desc {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
     }
     
     .option-card .badge {
-      font-size: 0.8rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      background: var(--bg-secondary);
-      color: var(--text-muted);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: var(--border);
     }
     
     .option-card .badge.new {
-      background: rgba(99, 102, 241, 0.15);
+      background: rgba(139, 92, 246, 0.2);
       color: var(--accent);
-    }
-    
-    .option-card .badge.connected {
-      background: rgba(34, 197, 94, 0.15);
-      color: var(--success);
     }
     
     /* Navigation */
     .nav-buttons {
       display: flex;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
     }
     
     .nav-buttons .btn {
@@ -281,17 +303,17 @@
     
     /* Info Box */
     .info-box {
-      background: rgba(99, 102, 241, 0.08);
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      border-radius: 10px;
-      padding: 1.25rem;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem;
       margin-bottom: 1.5rem;
-      font-size: 0.95rem;
+      font-size: 0.875rem;
     }
     
     .info-box.warning {
       background: rgba(245, 158, 11, 0.1);
-      border-color: rgba(245, 158, 11, 0.3);
+      border-color: var(--warning);
     }
     
     .info-box .title {
@@ -299,204 +321,100 @@
       margin-bottom: 0.5rem;
     }
     
-    /* Flavor chips */
-    .flavor-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-    }
-    
-    .flavor-chip {
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .flavor-chip:hover, .flavor-chip.active {
-      border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.1);
-    }
-    
-    /* QR Section */
-    .qr-container {
-      text-align: center;
-      padding: 2rem;
-      background: var(--bg);
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      margin: 1.5rem 0;
-    }
-    
-    .qr-placeholder {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 1rem;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-    }
-    
-    .qr-instructions {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    
-    .qr-instructions ol {
-      text-align: left;
-      max-width: 300px;
-      margin: 1rem auto 0;
-      padding-left: 1.5rem;
-    }
-    
-    .qr-instructions li {
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Landing */
-    .landing-hero {
-      text-align: center;
-      max-width: 600px;
-    }
-    
-    .landing-hero h1 {
-      font-size: 3.5rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    
-    /* Ritual/Ceremony Styles */
-    .ritual-container {
-      text-align: center;
-      padding: 2rem 0;
-    }
-    
-    .ritual-circle {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 2rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), #ec4899);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      animation: breathe 3s ease-in-out infinite;
-      box-shadow: 0 0 60px var(--accent-glow);
-    }
-    
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.05); opacity: 1; }
-    }
-    
-    .ritual-text {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    
-    .ritual-subtext {
-      color: var(--text-muted);
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-    
-    /* Skills Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    @media (max-width: 600px) {
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .skill-card {
-      padding: 1.25rem;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .skill-card:hover {
-      border-color: var(--text-muted);
-    }
-    
-    .skill-card.selected {
-      border-color: var(--accent);
-      background: rgba(99, 102, 241, 0.05);
-    }
-    
-    .skill-card .name {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-    
-    .skill-card .desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    
     /* Tabs */
     .tabs {
       display: flex;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 0.5rem;
+      flex-wrap: wrap;
     }
     
     .tab {
-      padding: 0.75rem 1.25rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      background: transparent;
-      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
       color: var(--text-muted);
       cursor: pointer;
-      border-radius: 8px 8px 0 0;
       transition: all 0.2s;
     }
     
     .tab:hover {
       color: var(--text);
+      border-color: var(--text-muted);
     }
     
     .tab.active {
-      color: var(--accent);
-      background: rgba(99, 102, 241, 0.1);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    
+    /* Skill Bundles Grid */
+    .skill-bundles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (max-width: 700px) {
+      .skill-bundles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .skill-bundle {
+      padding: 1rem;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .skill-bundle:hover {
+      border-color: var(--text-muted);
+    }
+    
+    .skill-bundle.selected {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.1);
+    }
+    
+    .skill-bundle .icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .skill-bundle .name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .skill-bundle .count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
     
     /* Skill Browser */
     .skill-browser {
-      max-height: 300px;
+      max-height: 250px;
       overflow-y: auto;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 0.5rem;
     }
     
     .skill-browser-item {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      border-radius: 8px;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.2s;
     }
@@ -511,16 +429,107 @@
     
     .skill-browser-item .name {
       font-weight: 600;
+      font-size: 0.9rem;
     }
     
     .skill-browser-item .author {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
     
     .skill-browser-item .stats {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
+    }
+    
+    /* QR Section */
+    .qr-container {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    
+    .qr-placeholder {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+    
+    .qr-instructions {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    
+    .qr-instructions ol {
+      text-align: left;
+      max-width: 280px;
+      margin: 0.75rem auto 0;
+      padding-left: 1.25rem;
+    }
+    
+    .qr-instructions li {
+      margin-bottom: 0.4rem;
+    }
+    
+    /* Landing */
+    .landing-hero {
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .landing-hero h1 {
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--accent), #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    
+    /* Ritual */
+    .ritual-container {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    
+    .ritual-circle {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      animation: breathe 3s ease-in-out infinite;
+      box-shadow: 0 0 60px var(--accent-glow);
+    }
+    
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    
+    .ritual-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ritual-subtext {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
     }
     
     /* Dashboard */
@@ -533,16 +542,15 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1.25rem;
+      padding: 1rem;
       background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       margin-bottom: 1.5rem;
     }
     
     .status-dot {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       background: var(--success);
       border-radius: 50%;
       animation: pulse 2s infinite;
@@ -555,7 +563,6 @@
     
     .status-text {
       font-weight: 600;
-      font-size: 1.1rem;
     }
     
     .status-actions {
@@ -576,13 +583,13 @@
     
     .dashboard-card {
       background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
     }
     
     .dashboard-card h3 {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
       text-transform: uppercase;
@@ -593,7 +600,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 0;
+      padding: 0.5rem 0;
       border-bottom: 1px solid var(--border);
     }
     
@@ -611,12 +618,14 @@
   <!-- Screen 0: Landing -->
   <div class="screen active" id="screen-landing">
     <div class="landing-hero">
-      <h1>🤖 Brain and Hand</h1>
-      <p class="subtitle">Create your personal AI assistant.<br>No code. No jargon. Just tell it what to do.</p>
+      <h1>Brain and Hand</h1>
+      <p class="tagline">Unleash your personal AI bot. No code. No config. Just vibes.</p>
       
       <button class="btn btn-primary" onclick="goTo('screen-mission')">
-        Create My Bot →
+        🤖 Create your bot
       </button>
+      
+      <p class="bot-speak">"I'm ready when you are."</p>
     </div>
   </div>
 
@@ -631,18 +640,20 @@
     </div>
     
     <div class="card">
-      <h2>What should your bot do?</h2>
-      <p class="subtitle">Describe your bot's mission. Be specific about who it helps and what it does.</p>
+      <h2>What's your bot's mission?</h2>
+      <p class="bot-speak">"What should I focus on?"</p>
       
       <div class="input-group">
-        <label>Bot Name</label>
-        <input type="text" id="bot-name" placeholder="Give your bot a name..." value="">
+        <label>Bot name</label>
+        <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, Axiom..." value="">
       </div>
       
       <div class="input-group">
         <label>Mission</label>
-        <textarea id="bot-mission" placeholder="Example: Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly.">Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly.</textarea>
-        <p class="hint">💡 Your bot will focus on this mission. It won't go off-topic or do things unrelated to this purpose.</p>
+        <textarea id="bot-mission" placeholder="Describe what your bot should do. Be specific about who it helps and what tasks it handles.
+
+Example: Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly."></textarea>
+        <p class="hint">💡 Your bot stays focused on this mission. It won't go off-topic.</p>
       </div>
       
       <div class="input-group">
@@ -659,7 +670,7 @@
       
       <div class="nav-buttons">
         <button class="btn btn-secondary" onclick="goTo('screen-landing')">Back</button>
-        <button class="btn btn-primary" onclick="generatePersonality(); goTo('screen-brain')">Next →</button>
+        <button class="btn btn-primary" onclick="goTo('screen-brain')">Next →</button>
       </div>
     </div>
   </div>
@@ -675,15 +686,15 @@
     </div>
     
     <div class="card">
-      <h2>Choose how to power your bot</h2>
-      <p class="subtitle">Your bot needs a brain. Pick how you want to pay for it.</p>
+      <h2>Pick your brain</h2>
+      <p class="bot-speak">"What model powers my thoughts?"</p>
       
       <div class="options-stack">
         <div class="option-card selected" onclick="selectBrain(this, 'payg')">
           <div class="icon">💳</div>
           <div class="info">
             <div class="name">Pay As You Go</div>
-            <div class="desc">No setup. Pay per message with your card. Starts at ~$0.01 per message.</div>
+            <div class="desc">No setup. Pay per message. Starts ~$0.01/msg.</div>
           </div>
           <span class="badge new">Easy</span>
         </div>
@@ -692,7 +703,7 @@
           <div class="icon">🔑</div>
           <div class="info">
             <div class="name">Bring Your Own Key</div>
-            <div class="desc">Use your own API key from OpenAI, Anthropic, or others.</div>
+            <div class="desc">Use your API key from OpenAI, Anthropic, etc.</div>
           </div>
         </div>
         
@@ -700,7 +711,7 @@
           <div class="icon">💻</div>
           <div class="info">
             <div class="name">Run Locally (Free)</div>
-            <div class="desc">Use Ollama or other local models. Requires setup.</div>
+            <div class="desc">Use Ollama or other local models.</div>
           </div>
         </div>
       </div>
@@ -717,14 +728,14 @@
         <div class="input-group">
           <label>API Key</label>
           <input type="text" placeholder="sk-..." id="api-key">
-          <p class="hint">🔒 Your key is encrypted and never shared with anyone.</p>
+          <p class="hint">🔒 Encrypted and never shared.</p>
         </div>
       </div>
       
       <div id="brain-config-local" style="display: none;">
         <div class="info-box">
-          <div class="title">📦 Local Setup Required</div>
-          Install Ollama on your computer, then run: <code>ollama pull llama3</code>
+          <div class="title">📦 Local Setup</div>
+          Install Ollama, then run: <code>ollama pull llama3</code>
         </div>
       </div>
       
@@ -746,8 +757,8 @@
     </div>
     
     <div class="card card-wide">
-      <h2>Where should your bot live?</h2>
-      <p class="subtitle">Connect the apps you use. You can add more later.</p>
+      <h2>Connect channels</h2>
+      <p class="bot-speak">"Where should I live?"</p>
       
       <div class="tabs">
         <button class="tab active" onclick="showChannelTab('telegram')">📱 Telegram</button>
@@ -757,19 +768,14 @@
       
       <!-- Telegram Tab -->
       <div id="channel-telegram" class="channel-content">
-        <div class="info-box">
-          <div class="title">📱 Telegram Setup (Easy)</div>
-          Telegram is the simplest option. Create a bot in seconds.
-        </div>
-        
         <div class="qr-container">
           <div class="qr-placeholder">🤖</div>
           <div class="qr-instructions">
             <strong>Quick Setup:</strong>
             <ol>
-              <li>Open Telegram and message <strong>@BotFather</strong></li>
-              <li>Send <code>/newbot</code> and follow the prompts</li>
-              <li>Copy your bot token and paste below</li>
+              <li>Open Telegram → message <strong>@BotFather</strong></li>
+              <li>Send <code>/newbot</code> and follow prompts</li>
+              <li>Copy your bot token below</li>
             </ol>
           </div>
         </div>
@@ -779,25 +785,18 @@
           <input type="text" placeholder="123456789:ABCdefGHI..." id="telegram-token">
         </div>
         
-        <button class="btn btn-secondary" style="width: 100%;">
-          ✓ Connect Telegram
-        </button>
+        <button class="btn btn-secondary" style="width: 100%;">✓ Connect Telegram</button>
       </div>
       
       <!-- WhatsApp Tab -->
       <div id="channel-whatsapp" class="channel-content" style="display: none;">
-        <div class="info-box">
-          <div class="title">💬 WhatsApp Setup</div>
-          Connect your WhatsApp by scanning a QR code. Works like WhatsApp Web.
-        </div>
-        
         <div class="qr-container">
           <div class="qr-placeholder">📱</div>
           <div class="qr-instructions">
             <strong>To connect:</strong>
             <ol>
               <li>Open WhatsApp on your phone</li>
-              <li>Go to Settings → Linked Devices</li>
+              <li>Settings → Linked Devices</li>
               <li>Tap "Link a Device"</li>
               <li>Scan the QR code above</li>
             </ol>
@@ -805,31 +804,24 @@
         </div>
         
         <div class="info-box warning">
-          <div class="title">💡 Tip: Use a separate number</div>
-          For best results, use a spare phone number for your bot. This keeps your personal WhatsApp separate.
+          <div class="title">💡 Tip</div>
+          For best results, use a separate phone number for your bot.
         </div>
         
-        <button class="btn btn-secondary" style="width: 100%;">
-          Generate QR Code
-        </button>
+        <button class="btn btn-secondary" style="width: 100%;">Generate QR Code</button>
       </div>
       
       <!-- Discord Tab -->
       <div id="channel-discord" class="channel-content" style="display: none;">
-        <div class="info-box">
-          <div class="title">🎮 Discord Setup</div>
-          Add your bot to a Discord server.
-        </div>
-        
         <div class="qr-container">
           <div class="qr-placeholder">🎮</div>
           <div class="qr-instructions">
             <strong>To connect:</strong>
             <ol>
               <li>Go to Discord Developer Portal</li>
-              <li>Create an Application → Bot</li>
+              <li>Create Application → Bot</li>
               <li>Copy your Bot Token</li>
-              <li>Invite the bot to your server</li>
+              <li>Invite bot to your server</li>
             </ol>
           </div>
         </div>
@@ -839,9 +831,7 @@
           <input type="text" placeholder="Discord bot token..." id="discord-token">
         </div>
         
-        <button class="btn btn-secondary" style="width: 100%;">
-          ✓ Connect Discord
-        </button>
+        <button class="btn btn-secondary" style="width: 100%;">✓ Connect Discord</button>
       </div>
       
       <div class="nav-buttons">
@@ -862,41 +852,92 @@
     </div>
     
     <div class="card card-wide">
-      <h2>Add superpowers</h2>
-      <p class="subtitle">Skills teach your bot new abilities.</p>
+      <h2>Load skills</h2>
+      <p class="bot-speak">"What should I be capable of?"</p>
       
       <div class="tabs">
-        <button class="tab active" onclick="showSkillTab('popular')">⭐ Popular</button>
+        <button class="tab active" onclick="showSkillTab('bundles')">📦 Skill Bundles</button>
         <button class="tab" onclick="showSkillTab('browse')">🔍 Browse ClawHub</button>
         <button class="tab" onclick="showSkillTab('create')">✏️ Create Custom</button>
       </div>
       
-      <!-- Popular Skills -->
-      <div id="skills-popular" class="skills-content">
-        <div class="skills-grid">
-          <div class="skill-card selected" onclick="toggleSkillCard(this)">
-            <div class="name">📅 Calendar</div>
-            <div class="desc">Check schedule, create events</div>
+      <!-- Skill Bundles -->
+      <div id="skills-bundles" class="skills-content">
+        <div class="skill-bundles">
+          <div class="skill-bundle selected" onclick="toggleBundle(this)">
+            <div class="icon">📋</div>
+            <div class="name">Productivity</div>
+            <div class="count">12 skills</div>
           </div>
-          <div class="skill-card selected" onclick="toggleSkillCard(this)">
-            <div class="name">📧 Email</div>
-            <div class="desc">Read, summarize, draft emails</div>
+          <div class="skill-bundle selected" onclick="toggleBundle(this)">
+            <div class="icon">📰</div>
+            <div class="name">News & Digest</div>
+            <div class="count">8 skills</div>
           </div>
-          <div class="skill-card" onclick="toggleSkillCard(this)">
-            <div class="name">🌤️ Weather</div>
-            <div class="desc">Get forecasts and alerts</div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">💻</div>
+            <div class="name">Coding</div>
+            <div class="count">15 skills</div>
           </div>
-          <div class="skill-card" onclick="toggleSkillCard(this)">
-            <div class="name">📝 Notes</div>
-            <div class="desc">Take and search notes</div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🏥</div>
+            <div class="name">Medical</div>
+            <div class="count">6 skills</div>
           </div>
-          <div class="skill-card" onclick="toggleSkillCard(this)">
-            <div class="name">⏰ Reminders</div>
-            <div class="desc">Set and manage reminders</div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">💰</div>
+            <div class="name">Finance</div>
+            <div class="count">10 skills</div>
           </div>
-          <div class="skill-card" onclick="toggleSkillCard(this)">
-            <div class="name">🌐 Web Search</div>
-            <div class="desc">Search the internet</div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🏠</div>
+            <div class="name">Smart Home</div>
+            <div class="count">9 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">📱</div>
+            <div class="name">Social</div>
+            <div class="count">7 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🎨</div>
+            <div class="name">Creative</div>
+            <div class="count">11 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🔬</div>
+            <div class="name">Research</div>
+            <div class="count">8 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">⚖️</div>
+            <div class="name">Legal</div>
+            <div class="count">5 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">✈️</div>
+            <div class="name">Travel</div>
+            <div class="count">7 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">💪</div>
+            <div class="name">Fitness</div>
+            <div class="count">6 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🎓</div>
+            <div class="name">Education</div>
+            <div class="count">9 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🎮</div>
+            <div class="name">Gaming</div>
+            <div class="count">5 skills</div>
+          </div>
+          <div class="skill-bundle" onclick="toggleBundle(this)">
+            <div class="icon">🛒</div>
+            <div class="name">Shopping</div>
+            <div class="count">6 skills</div>
           </div>
         </div>
       </div>
@@ -909,52 +950,41 @@
         
         <div class="info-box warning">
           <div class="title">⚠️ Do Your Own Research</div>
-          Skills are community-created. We try to vet them, but always review what a skill does before installing. Check the code, read reviews, and use your judgment.
+          Skills are community-created. We try to vet them, but review what a skill does before installing.
         </div>
-        
-        <!-- 
-          ClawHub Integration Note:
-          This reads from clawhub.ai API. The skill browser fetches:
-          GET https://clawhub.ai/api/skills/search?q={query}&limit=20
-          
-          Each skill has: slug, name, description, author, downloads, stars
-          
-          To install: uses clawhub CLI under the hood
-          clawhub install <slug>
-        -->
         
         <div class="skill-browser">
           <div class="skill-browser-item" onclick="installSkill('home-assistant')">
-            <span style="font-size: 1.5rem;">🏠</span>
+            <span style="font-size: 1.25rem;">🏠</span>
             <div class="info">
               <div class="name">Home Assistant</div>
               <div class="author">by @smarthome</div>
             </div>
-            <div class="stats">⭐ 4.8 · 12k installs</div>
+            <div class="stats">⭐ 4.8 · 12k</div>
           </div>
-          <div class="skill-browser-item" onclick="installSkill('spotify-control')">
-            <span style="font-size: 1.5rem;">🎵</span>
+          <div class="skill-browser-item" onclick="installSkill('spotify')">
+            <span style="font-size: 1.25rem;">🎵</span>
             <div class="info">
               <div class="name">Spotify Control</div>
               <div class="author">by @musicbot</div>
             </div>
-            <div class="stats">⭐ 4.6 · 8k installs</div>
+            <div class="stats">⭐ 4.6 · 8k</div>
           </div>
-          <div class="skill-browser-item" onclick="installSkill('crypto-prices')">
-            <span style="font-size: 1.5rem;">📈</span>
+          <div class="skill-browser-item" onclick="installSkill('crypto')">
+            <span style="font-size: 1.25rem;">📈</span>
             <div class="info">
               <div class="name">Crypto Prices</div>
               <div class="author">by @defidev</div>
             </div>
-            <div class="stats">⭐ 4.2 · 5k installs</div>
+            <div class="stats">⭐ 4.2 · 5k</div>
           </div>
-          <div class="skill-browser-item" onclick="installSkill('fitness-tracker')">
-            <span style="font-size: 1.5rem;">💪</span>
+          <div class="skill-browser-item" onclick="installSkill('fitness')">
+            <span style="font-size: 1.25rem;">💪</span>
             <div class="info">
               <div class="name">Fitness Tracker</div>
               <div class="author">by @healthnut</div>
             </div>
-            <div class="stats">⭐ 4.5 · 3k installs</div>
+            <div class="stats">⭐ 4.5 · 3k</div>
           </div>
         </div>
         
@@ -963,7 +993,7 @@
         </button>
       </div>
       
-      <!-- Create Custom Skill -->
+      <!-- Create Custom -->
       <div id="skills-create" class="skills-content" style="display: none;">
         <div class="info-box">
           <div class="title">✏️ Create a Custom Skill</div>
@@ -978,18 +1008,14 @@
         <div class="input-group">
           <label>API Endpoint</label>
           <input type="text" placeholder="https://api.example.com/v1" id="custom-skill-api">
-          <p class="hint">The base URL of the API you want to connect</p>
         </div>
         
         <div class="input-group">
           <label>What should this skill do?</label>
           <textarea id="custom-skill-prompt" placeholder="Describe what this API does and how your bot should use it..."></textarea>
-          <p class="hint">We'll generate the skill configuration from your description</p>
         </div>
         
-        <button class="btn btn-primary" style="width: 100%;">
-          ✨ Generate Skill
-        </button>
+        <button class="btn btn-primary" style="width: 100%;">✨ Generate Skill</button>
       </div>
       
       <div class="nav-buttons">
@@ -1011,30 +1037,28 @@
     
     <div class="card" style="text-align: center;">
       <h2>The Birth Ritual</h2>
-      <p class="subtitle">You're about to bring a new AI into existence.</p>
+      <p class="bot-speak">"I'm about to come alive."</p>
       
       <div class="ritual-container">
-        <div class="ritual-circle" id="birth-circle">
-          🥚
-        </div>
+        <div class="ritual-circle" id="birth-circle">🥚</div>
         <div class="ritual-text" id="ritual-status">Ready to begin</div>
-        <div class="ritual-subtext" id="ritual-substatus">Click below to start the ritual</div>
+        <div class="ritual-subtext" id="ritual-substatus">Click below to start</div>
       </div>
       
-      <div id="birth-summary" style="text-align: left; background: var(--bg); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
-        <div style="font-weight: 600; margin-bottom: 1rem;">Your bot will be:</div>
-        <div style="margin-bottom: 0.5rem;">📛 <strong id="summary-name">Unnamed</strong></div>
-        <div style="margin-bottom: 0.5rem;">🎯 <span id="summary-mission" style="color: var(--text-muted);">No mission set</span></div>
-        <div style="margin-bottom: 0.5rem;">🧠 <span id="summary-brain">Pay As You Go</span></div>
-        <div>📱 <span id="summary-channels">No channels connected</span></div>
+      <div id="birth-summary" style="text-align: left; background: var(--bg); padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <div style="font-weight: 600; margin-bottom: 0.75rem;">Your bot will be:</div>
+        <div style="margin-bottom: 0.4rem;">📛 <strong id="summary-name">Unnamed</strong></div>
+        <div style="margin-bottom: 0.4rem; font-size: 0.9rem;">🎯 <span id="summary-mission" style="color: var(--text-muted);">No mission set</span></div>
+        <div style="margin-bottom: 0.4rem; font-size: 0.9rem;">🧠 <span id="summary-brain">Pay As You Go</span></div>
+        <div style="font-size: 0.9rem;">📦 <span id="summary-skills">2 bundles selected</span></div>
       </div>
       
-      <button class="btn btn-primary" style="width: 100%; font-size: 1.25rem; padding: 1.5rem;" onclick="birthBot()">
+      <button class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1.25rem;" onclick="birthBot()">
         🌟 Bring to Life
       </button>
       
       <button class="btn btn-ghost" onclick="goTo('screen-skills')" style="margin-top: 1rem;">
-        ← Go back and make changes
+        ← Go back
       </button>
     </div>
   </div>
@@ -1046,25 +1070,19 @@
         <div class="status-dot"></div>
         <span class="status-text" id="live-bot-name">Your bot is online</span>
         <div class="status-actions">
-          <button class="btn btn-secondary" style="padding: 0.75rem 1.25rem; font-size: 0.9rem;">
-            ⏸️ Pause
-          </button>
+          <button class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">⏸️ Pause</button>
         </div>
       </div>
       
-      <h2 style="text-align: center; margin-bottom: 0.5rem;">
-        🎉 Your bot is alive!
-      </h2>
-      <p class="subtitle" style="text-align: center;">
-        Send it a message to get started.
-      </p>
+      <h2 style="text-align: center; margin-bottom: 0.5rem;">🎉 Your bot is alive!</h2>
+      <p class="bot-speak" style="text-align: center;">Send me a message to get started.</p>
       
-      <div class="dashboard-grid">
+      <div class="dashboard-grid" style="margin-top: 1.5rem;">
         <div class="dashboard-card">
           <h3>📡 Channels</h3>
           <div class="stat-item">
             <span>📱 Telegram</span>
-            <span class="stat-value online">● Connected</span>
+            <span class="stat-value online">● Online</span>
           </div>
           <div class="stat-item">
             <span>💬 WhatsApp</span>
@@ -1085,114 +1103,78 @@
         </div>
         
         <div class="dashboard-card">
-          <h3>🧰 Skills</h3>
+          <h3>📦 Skills</h3>
           <div class="stat-item">
-            <span>📅 Calendar</span>
+            <span>📋 Productivity</span>
             <span class="stat-value online">Active</span>
           </div>
           <div class="stat-item">
-            <span>📧 Email</span>
+            <span>📰 News & Digest</span>
             <span class="stat-value online">Active</span>
           </div>
         </div>
         
         <div class="dashboard-card">
-          <h3>⚡ Quick Actions</h3>
-          <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">
-            ⚙️ Settings
-          </button>
-          <button class="btn btn-secondary" style="width: 100%; padding: 0.75rem;">
-            📄 View Logs
-          </button>
+          <h3>⚡ Actions</h3>
+          <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">⚙️ Settings</button>
+          <button class="btn btn-secondary" style="width: 100%; padding: 0.75rem;">📄 View Logs</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Navigation
     function goTo(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
-      
-      // Update summary when going to birth screen
-      if (screenId === 'screen-birth') {
-        updateBirthSummary();
-      }
+      if (screenId === 'screen-birth') updateBirthSummary();
     }
     
-    // Flavor chips
     function toggleFlavor(chip) {
       chip.classList.toggle('active');
     }
     
-    // Brain selection
+    function toggleBundle(bundle) {
+      bundle.classList.toggle('selected');
+    }
+    
     let selectedBrain = 'payg';
     function selectBrain(card, type) {
       document.querySelectorAll('#screen-brain .option-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       selectedBrain = type;
-      
-      // Show/hide config sections
       document.getElementById('brain-config-byok').style.display = type === 'byok' ? 'block' : 'none';
       document.getElementById('brain-config-local').style.display = type === 'local' ? 'block' : 'none';
     }
     
-    // Channel tabs
     function showChannelTab(channel) {
       document.querySelectorAll('#screen-channels .tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.channel-content').forEach(c => c.style.display = 'none');
-      
       event.target.classList.add('active');
       document.getElementById('channel-' + channel).style.display = 'block';
     }
     
-    // Skill tabs
     function showSkillTab(tab) {
       document.querySelectorAll('#screen-skills .tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.skills-content').forEach(c => c.style.display = 'none');
-      
       event.target.classList.add('active');
       document.getElementById('skills-' + tab).style.display = 'block';
     }
     
-    // Toggle skill card
-    function toggleSkillCard(card) {
-      card.classList.toggle('selected');
-    }
-    
-    // Generate personality from mission
-    function generatePersonality() {
-      const name = document.getElementById('bot-name').value || 'Assistant';
-      const mission = document.getElementById('bot-mission').value;
-      const flavors = Array.from(document.querySelectorAll('.flavor-chip.active')).map(c => c.textContent.trim());
-      
-      // This would call an API to generate SOUL.md
-      // For now, we just store the values
-      window.botConfig = {
-        name: name,
-        mission: mission,
-        flavors: flavors
-      };
-    }
-    
-    // Update birth summary
     function updateBirthSummary() {
-      const config = window.botConfig || {};
-      document.getElementById('summary-name').textContent = config.name || 'Unnamed';
-      document.getElementById('summary-mission').textContent = config.mission ? 
-        (config.mission.substring(0, 100) + (config.mission.length > 100 ? '...' : '')) : 
-        'No mission set';
+      const name = document.getElementById('bot-name').value || 'Unnamed';
+      const mission = document.getElementById('bot-mission').value;
+      document.getElementById('summary-name').textContent = name;
+      document.getElementById('summary-mission').textContent = mission ? 
+        (mission.substring(0, 80) + (mission.length > 80 ? '...' : '')) : 'No mission set';
       
-      const brainLabels = {
-        'payg': 'Pay As You Go',
-        'byok': 'Your API Key',
-        'local': 'Local (Ollama)'
-      };
-      document.getElementById('summary-brain').textContent = brainLabels[selectedBrain] || 'Unknown';
+      const brainLabels = { 'payg': 'Pay As You Go', 'byok': 'Your API Key', 'local': 'Local (Ollama)' };
+      document.getElementById('summary-brain').textContent = brainLabels[selectedBrain];
+      
+      const selectedBundles = document.querySelectorAll('.skill-bundle.selected').length;
+      document.getElementById('summary-skills').textContent = selectedBundles + ' bundles selected';
     }
     
-    // Birth animation
     async function birthBot() {
       const circle = document.getElementById('birth-circle');
       const status = document.getElementById('ritual-status');
@@ -1212,27 +1194,20 @@
         circle.textContent = stages[i].emoji;
         status.textContent = stages[i].text;
         substatus.textContent = stages[i].sub;
-        
-        if (i < stages.length - 1) {
-          await new Promise(r => setTimeout(r, 1500));
-        }
+        if (i < stages.length - 1) await new Promise(r => setTimeout(r, 1200));
       }
       
-      // Celebrate then go to dashboard
       circle.style.animation = 'none';
       circle.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+      await new Promise(r => setTimeout(r, 1500));
       
-      await new Promise(r => setTimeout(r, 2000));
-      
-      document.getElementById('live-bot-name').textContent = 
-        (window.botConfig?.name || 'Your bot') + ' is online';
+      const name = document.getElementById('bot-name').value || 'Your bot';
+      document.getElementById('live-bot-name').textContent = name + ' is online';
       goTo('screen-live');
     }
     
-    // Install skill from ClawHub
     function installSkill(slug) {
-      // This would call: clawhub install <slug>
-      alert('Installing skill: ' + slug + '\n\nIn production, this runs:\nclawhub install ' + slug);
+      alert('Installing: ' + slug + '\n\nRuns: clawhub install ' + slug);
     }
   </script>
 </body>
