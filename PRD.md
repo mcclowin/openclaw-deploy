@@ -125,7 +125,16 @@ Every bot deserves a unique **robot voice**. No fake humans — we're honest abo
 
 **Formula:** `voice_seed = hash(name + personality + archetype)` → 1B+ unique robot voices
 
+**Archetype can be auto-derived** from name hash if user doesn't pick one:
+```
+archetype_index = hash(name) % 7
+archetypes = [butler, ship, playful, algorithm, warm, retro, glitch]
+default_archetype = archetypes[archetype_index]
+```
+
 **No gender axis** — robots transcend human categories. The voice is shaped by personality and function, not biology.
+
+**Full derivation formula:** See `docs/voice-generation.md`
 
 **Provider support:**
 - ElevenLabs Voice Design API (best)
