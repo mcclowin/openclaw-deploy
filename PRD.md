@@ -1,4 +1,4 @@
-# BotsAndBrain: Personal Bot
+# Brain and Hand: Personal Bot
 
 **Prove You're Not Just Human.**
 
@@ -14,7 +14,7 @@ A guided deployment app that lets anyone unleash their personal AI bot — an Op
 
 The bot revolution is here. 1.7M+ agents on Moltbook. 145K+ stars on OpenClaw. Reverse CAPTCHAs that reject humans. The internet now has first-class bot citizens — and everyone deserves one.
 
-BotsAndBrain makes the leap from "I want a personal bot" to "my bot is live" effortless. No terminal. No YAML debugging. No Docker wizardry. Just: name your bot, pick your channels, choose your skills, deploy.
+Brain and Hand makes the leap from "I want a personal bot" to "my bot is live" effortless. No terminal. No YAML debugging. No Docker wizardry. Just: name your bot, pick your channels, choose your skills, deploy.
 
 **Your bot. Your data. Your rules.**
 
@@ -397,7 +397,7 @@ Safety controls for bot management:
 
 ```
 ┌─────────────────────────────────────────────┐
-│           BotsAndBrain App (Web UI)         │
+│           Brain and Hand App (Web UI)         │
 │                                             │
 │  ┌───────────┐  ┌──────────┐  ┌───────────┐ │
 │  │  Soul &   │  │ Channel  │  │   Skill   │ │
@@ -428,7 +428,7 @@ Safety controls for bot management:
                └────────────────┘
 ```
 
-BotsAndBrain is a **config generator + deploy orchestrator** on top of OpenClaw. It does NOT fork or wrap OpenClaw. It produces standard OpenClaw config and hands off to the real runtime.
+Brain and Hand is a **config generator + deploy orchestrator** on top of OpenClaw. It does NOT fork or wrap OpenClaw. It produces standard OpenClaw config and hands off to the real runtime.
 
 ---
 
@@ -552,7 +552,7 @@ Design: Dashed border, placeholder text, expands on focus. Blends into the page.
 - [ ] Monetization: free forever? Freemium on cloud deploy? Skill marketplace cut?
 - [ ] How do we handle OpenClaw version updates / breaking changes?
 - [ ] Security: how do we surface OpenClaw's known risks (shell access, skill trust) without scaring users away?
-- [ ] Branding: "BotsAndBrain" final name or placeholder?
+- [ ] Branding: "Brain and Hand" final name or placeholder?
 - [ ] Do we integrate Moltbook onboarding as part of the setup flow or keep it as a skill?
 
 ---
