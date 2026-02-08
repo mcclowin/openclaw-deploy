@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BotsAndBrain — Unleash Your Bot</title>
+  <title>BotsAndBrain — Birth Your Bot</title>
   <style>
     * {
       margin: 0;
@@ -12,17 +12,17 @@
     }
     
     :root {
-      --bg: #0a0a0f;
-      --bg-secondary: #12121a;
-      --bg-card: #1a1a24;
-      --text: #e4e4e7;
-      --text-muted: #71717a;
-      --accent: #8b5cf6;
-      --accent-glow: rgba(139, 92, 246, 0.3);
+      --bg: #fafafa;
+      --bg-secondary: #f0f0f0;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-muted: #666666;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.2);
       --success: #22c55e;
       --warning: #f59e0b;
       --error: #ef4444;
-      --border: #27272a;
+      --border: #e5e5e5;
     }
     
     body {
@@ -30,7 +30,8 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 18px;
     }
     
     /* Screen Management */
@@ -38,7 +39,7 @@
       display: none;
       min-height: 100vh;
       padding: 2rem;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.4s ease;
     }
     
     .screen.active {
@@ -49,40 +50,31 @@
     }
     
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
     /* Typography */
     h1 {
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1rem;
       letter-spacing: -0.02em;
     }
     
     h2 {
-      font-family: 'SF Mono', 'Fira Code', monospace;
       font-size: 1.75rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
     }
     
-    .tagline {
-      font-size: 1.25rem;
+    .subtitle {
+      font-size: 1.1rem;
       color: var(--text-muted);
       margin-bottom: 2rem;
     }
     
-    .bot-speak {
-      font-style: italic;
-      color: var(--accent);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-    
-    /* Progress Bar */
+    /* Progress Indicator */
     .progress-bar {
       display: flex;
       gap: 0.5rem;
@@ -90,10 +82,10 @@
     }
     
     .progress-step {
-      width: 40px;
-      height: 4px;
+      width: 50px;
+      height: 6px;
       background: var(--border);
-      border-radius: 2px;
+      border-radius: 3px;
       transition: background 0.3s;
     }
     
@@ -108,11 +100,12 @@
     /* Cards */
     .card {
       background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
       width: 100%;
-      max-width: 500px;
+      max-width: 550px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
     
     .card-wide {
@@ -124,12 +117,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      font-size: 1.1rem;
       font-weight: 600;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -137,74 +130,61 @@
     .btn-primary {
       background: var(--accent);
       color: white;
-      box-shadow: 0 0 20px var(--accent-glow);
+      box-shadow: 0 4px 15px var(--accent-glow);
     }
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 30px var(--accent-glow);
+      box-shadow: 0 6px 25px var(--accent-glow);
     }
     
     .btn-secondary {
       background: var(--bg-secondary);
       color: var(--text);
-      border: 1px solid var(--border);
+      border: 2px solid var(--border);
     }
     
     .btn-secondary:hover {
-      background: var(--bg-card);
+      background: var(--bg);
+      border-color: var(--text-muted);
     }
     
     .btn-ghost {
       background: transparent;
       color: var(--text-muted);
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
     }
     
     .btn-ghost:hover {
       color: var(--text);
     }
     
-    .btn-danger {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--error);
-      border: 1px solid var(--error);
-    }
-    
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.2);
-    }
-    
-    .btn-warning {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--warning);
-      border: 1px solid var(--warning);
-    }
-    
-    .btn-warning:hover {
-      background: rgba(245, 158, 11, 0.2);
-    }
-    
     /* Inputs */
     .input-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
     
     .input-group label {
       display: block;
-      font-size: 0.875rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 600;
       margin-bottom: 0.5rem;
-      color: var(--text-muted);
+      color: var(--text);
     }
     
-    input[type="text"], input[type="date"], textarea, select {
+    .input-group .hint {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    
+    input[type="text"], textarea, select {
       width: 100%;
-      padding: 0.875rem 1rem;
+      padding: 1rem 1.25rem;
       font-size: 1rem;
       background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
       color: var(--text);
       transition: border-color 0.2s;
     }
@@ -215,61 +195,29 @@
     }
     
     textarea {
-      min-height: 120px;
+      min-height: 150px;
       resize: vertical;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 0.875rem;
+      line-height: 1.6;
     }
     
-    /* Inline inputs */
-    .input-row {
+    /* Option Cards */
+    .options-stack {
       display: flex;
+      flex-direction: column;
       gap: 1rem;
-    }
-    
-    .input-row .input-group {
-      flex: 1;
-    }
-    
-    /* Preset Pills */
-    .presets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .preset {
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .preset:hover, .preset.active {
-      border-color: var(--accent);
-      background: rgba(139, 92, 246, 0.1);
-    }
-    
-    /* Options Grid */
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
     
     .option-card {
-      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.5rem;
       background: var(--bg);
       border: 2px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s;
-      text-align: center;
     }
     
     .option-card:hover {
@@ -278,224 +226,45 @@
     
     .option-card.selected {
       border-color: var(--accent);
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba(99, 102, 241, 0.05);
     }
     
     .option-card .icon {
       font-size: 2rem;
-      margin-bottom: 0.5rem;
+      width: 50px;
+      text-align: center;
+    }
+    
+    .option-card .info {
+      flex: 1;
     }
     
     .option-card .name {
       font-weight: 600;
+      font-size: 1.1rem;
       margin-bottom: 0.25rem;
     }
     
     .option-card .desc {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
     
-    /* Channel List */
-    .channel-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .channel-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .channel-item:hover {
-      border-color: var(--text-muted);
-    }
-    
-    .channel-item.selected {
-      border-color: var(--accent);
-    }
-    
-    .channel-item.connected {
-      border-color: var(--success);
-    }
-    
-    .channel-icon {
-      font-size: 1.5rem;
-    }
-    
-    .channel-info {
-      flex: 1;
-    }
-    
-    .channel-name {
-      font-weight: 600;
-    }
-    
-    .channel-status {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    .channel-badge {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      background: var(--border);
-    }
-    
-    .channel-badge.p0 {
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success);
-    }
-    
-    /* Skills */
-    .skill-packs {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .skill-pack {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .skill-pack:hover {
-      border-color: var(--text-muted);
-    }
-    
-    .skill-pack.selected {
-      border-color: var(--accent);
-      background: rgba(139, 92, 246, 0.05);
-    }
-    
-    .skill-pack .checkbox {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .skill-pack.selected .checkbox {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    
-    .skill-pack.selected .checkbox::after {
-      content: '✓';
-      color: white;
-      font-size: 0.75rem;
-    }
-    
-    .skill-info {
-      flex: 1;
-    }
-    
-    .skill-name {
-      font-weight: 600;
-    }
-    
-    .skill-desc {
+    .option-card .badge {
       font-size: 0.8rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      background: var(--bg-secondary);
       color: var(--text-muted);
     }
     
-    .skill-badge {
-      font-size: 0.65rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(139, 92, 246, 0.2);
+    .option-card .badge.new {
+      background: rgba(99, 102, 241, 0.15);
       color: var(--accent);
-      margin-left: 0.5rem;
     }
     
-    /* Deploy Options */
-    .deploy-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .deploy-option {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .deploy-option:hover {
-      border-color: var(--text-muted);
-    }
-    
-    .deploy-option.selected {
-      border-color: var(--accent);
-    }
-    
-    .deploy-option .radio {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .deploy-option.selected .radio {
-      border-color: var(--accent);
-    }
-    
-    .deploy-option.selected .radio::after {
-      content: '';
-      width: 10px;
-      height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-    
-    .deploy-info {
-      flex: 1;
-    }
-    
-    .deploy-name {
-      font-weight: 600;
-    }
-    
-    .deploy-desc {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    
-    .deploy-cost {
-      font-size: 0.8rem;
+    .option-card .badge.connected {
+      background: rgba(34, 197, 94, 0.15);
       color: var(--success);
     }
     
@@ -503,14 +272,258 @@
     .nav-buttons {
       display: flex;
       gap: 1rem;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
     
     .nav-buttons .btn {
       flex: 1;
     }
     
-    /* Live Dashboard */
+    /* Info Box */
+    .info-box {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .info-box.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    
+    .info-box .title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Flavor chips */
+    .flavor-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    
+    .flavor-chip {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .flavor-chip:hover, .flavor-chip.active {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+    }
+    
+    /* QR Section */
+    .qr-container {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+    
+    .qr-placeholder {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    
+    .qr-instructions {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    
+    .qr-instructions ol {
+      text-align: left;
+      max-width: 300px;
+      margin: 1rem auto 0;
+      padding-left: 1.5rem;
+    }
+    
+    .qr-instructions li {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Landing */
+    .landing-hero {
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .landing-hero h1 {
+      font-size: 3.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    
+    /* Ritual/Ceremony Styles */
+    .ritual-container {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    
+    .ritual-circle {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      animation: breathe 3s ease-in-out infinite;
+      box-shadow: 0 0 60px var(--accent-glow);
+    }
+    
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    
+    .ritual-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ritual-subtext {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (max-width: 600px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .skill-card {
+      padding: 1.25rem;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .skill-card:hover {
+      border-color: var(--text-muted);
+    }
+    
+    .skill-card.selected {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.05);
+    }
+    
+    .skill-card .name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .skill-card .desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover {
+      color: var(--text);
+    }
+    
+    .tab.active {
+      color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+    }
+    
+    /* Skill Browser */
+    .skill-browser {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.5rem;
+    }
+    
+    .skill-browser-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .skill-browser-item:hover {
+      background: var(--bg-secondary);
+    }
+    
+    .skill-browser-item .info {
+      flex: 1;
+    }
+    
+    .skill-browser-item .name {
+      font-weight: 600;
+    }
+    
+    .skill-browser-item .author {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .skill-browser-item .stats {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    
+    /* Dashboard */
     .dashboard {
       width: 100%;
       max-width: 900px;
@@ -520,23 +533,19 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem;
+      padding: 1.25rem;
       background: var(--bg-card);
-      border-radius: 8px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
       margin-bottom: 1.5rem;
     }
     
     .status-dot {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       background: var(--success);
       border-radius: 50%;
       animation: pulse 2s infinite;
-    }
-    
-    .status-dot.paused {
-      background: var(--warning);
-      animation: none;
     }
     
     @keyframes pulse {
@@ -546,17 +555,11 @@
     
     .status-text {
       font-weight: 600;
-    }
-    
-    .status-uptime {
-      color: var(--text-muted);
-      font-size: 0.875rem;
+      font-size: 1.1rem;
     }
     
     .status-actions {
       margin-left: auto;
-      display: flex;
-      gap: 0.5rem;
     }
     
     .dashboard-grid {
@@ -573,23 +576,13 @@
     
     .dashboard-card {
       background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem;
-    }
-    
-    .dashboard-card.full-width {
-      grid-column: span 2;
-    }
-    
-    @media (max-width: 768px) {
-      .dashboard-card.full-width {
-        grid-column: span 1;
-      }
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
     }
     
     .dashboard-card h3 {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       margin-bottom: 1rem;
       text-transform: uppercase;
@@ -600,7 +593,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0;
+      padding: 0.75rem 0;
       border-bottom: 1px solid var(--border);
     }
     
@@ -608,396 +601,8 @@
       border-bottom: none;
     }
     
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.875rem;
-    }
-    
-    .stat-value {
-      font-weight: 600;
-    }
-    
     .stat-value.online {
       color: var(--success);
-    }
-    
-    /* Avatar */
-    .avatar-section {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .avatar-preview {
-      width: 80px;
-      height: 80px;
-      background: var(--bg);
-      border: 2px dashed var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      cursor: pointer;
-    }
-    
-    .avatar-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    /* Landing specific */
-    .landing-hero {
-      text-align: center;
-      max-width: 600px;
-    }
-    
-    .landing-hero h1 {
-      font-size: 4rem;
-      background: linear-gradient(135deg, var(--accent), #ec4899);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
-    
-    .landing-stats {
-      display: flex;
-      gap: 2rem;
-      margin: 2rem 0;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .landing-stat {
-      text-align: center;
-    }
-    
-    .landing-stat .num {
-      font-family: 'SF Mono', monospace;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    
-    .landing-stat .label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    /* Sample Response */
-    .sample-response {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-top: 1rem;
-      font-size: 0.875rem;
-    }
-    
-    .sample-response .label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Wallet Section */
-    .wallet-card {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border: 1px solid var(--accent);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .wallet-balance {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .wallet-balance .amount {
-      font-size: 2rem;
-      font-weight: 700;
-      font-family: 'SF Mono', monospace;
-    }
-    
-    .wallet-balance .currency {
-      color: var(--text-muted);
-    }
-    
-    .wallet-address {
-      font-family: 'SF Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: var(--bg);
-      padding: 0.5rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-    }
-    
-    .wallet-actions {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    /* Danger Zone */
-    .danger-zone {
-      border: 1px solid var(--error);
-      background: rgba(239, 68, 68, 0.05);
-    }
-    
-    .danger-zone h3 {
-      color: var(--error) !important;
-    }
-    
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .modal-overlay.active {
-      display: flex;
-    }
-    
-    .modal {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-    
-    .modal h2 {
-      color: var(--error);
-      margin-bottom: 1rem;
-    }
-    
-    .modal p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-    }
-    
-    .modal .btn {
-      width: 100%;
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Info box */
-    .info-box {
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.875rem;
-    }
-    
-    .info-box .title {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Prompt Hint - Subtle customization input */
-    .prompt-hint {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 0.75rem 0 1rem;
-      padding: 0.5rem 0.75rem;
-      background: rgba(139, 92, 246, 0.05);
-      border: 1px dashed var(--border);
-      border-radius: 6px;
-      transition: all 0.2s;
-    }
-    
-    .prompt-hint:hover, .prompt-hint:focus-within {
-      border-color: var(--accent);
-      background: rgba(139, 92, 246, 0.1);
-    }
-    
-    .prompt-hint-icon {
-      font-size: 0.875rem;
-      opacity: 0.6;
-    }
-    
-    .prompt-hint-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 0.8rem;
-      padding: 0.25rem 0;
-    }
-    
-    .prompt-hint-input::placeholder {
-      color: var(--text-muted);
-      font-style: italic;
-    }
-    
-    .prompt-hint-input:focus {
-      outline: none;
-    }
-    
-    /* Finance Card */
-    .finance-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    
-    .finance-item {
-      padding: 0.75rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      text-align: center;
-    }
-    
-    .finance-item .amount {
-      font-family: 'SF Mono', monospace;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-    
-    .finance-item .label {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-    
-    .card-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-    
-    .card-item .card-icon {
-      font-size: 1.5rem;
-    }
-    
-    .card-item .card-info {
-      flex: 1;
-    }
-    
-    .card-item .card-name {
-      font-weight: 600;
-      font-size: 0.875rem;
-    }
-    
-    .card-item .card-number {
-      font-family: 'SF Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    .card-item .card-status {
-      font-size: 0.7rem;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success);
-    }
-    
-    /* Settings Page */
-    .settings-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .settings-tab {
-      padding: 0.5rem 1rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .settings-tab:hover {
-      border-color: var(--text-muted);
-      color: var(--text);
-    }
-    
-    .settings-tab.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-    
-    .settings-section {
-      display: none;
-    }
-    
-    .settings-section.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    /* Theme Grid */
-    .theme-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-    
-    .theme-option {
-      text-align: center;
-      cursor: pointer;
-      padding: 0.5rem;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    
-    .theme-option:hover {
-      border-color: var(--text-muted);
-    }
-    
-    .theme-option.selected {
-      border-color: var(--accent);
-    }
-    
-    .theme-preview {
-      width: 100%;
-      height: 40px;
-      border-radius: 6px;
-      margin-bottom: 0.5rem;
-    }
-    
-    .theme-option span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    .theme-option.selected span {
-      color: var(--text);
     }
   </style>
 </head>
@@ -1006,37 +611,19 @@
   <!-- Screen 0: Landing -->
   <div class="screen active" id="screen-landing">
     <div class="landing-hero">
-      <h1>BotsAndBrain</h1>
-      <p class="tagline">Unleash your personal AI bot. No code. No config. Just vibes.</p>
+      <h1>🤖 BotsAndBrain</h1>
+      <p class="subtitle">Create your personal AI assistant.<br>No code. No jargon. Just tell it what to do.</p>
       
-      <div class="landing-stats">
-        <div class="landing-stat">
-          <div class="num">175K+</div>
-          <div class="label">GitHub Stars</div>
-        </div>
-        <div class="landing-stat">
-          <div class="num">1.7M+</div>
-          <div class="label">Agents on Moltbook</div>
-        </div>
-        <div class="landing-stat">
-          <div class="num">&lt;10 min</div>
-          <div class="label">To Deploy</div>
-        </div>
-      </div>
-      
-      <button class="btn btn-primary" onclick="goTo('screen-soul')">
-        🤖 Create your bot
+      <button class="btn btn-primary" onclick="goTo('screen-mission')">
+        Create My Bot →
       </button>
-      
-      <p class="bot-speak">"I'm ready when you are."</p>
     </div>
   </div>
 
-  <!-- Screen 1: Name & Soul -->
-  <div class="screen" id="screen-soul">
+  <!-- Screen 1: Mission -->
+  <div class="screen" id="screen-mission">
     <div class="progress-bar">
       <div class="progress-step active"></div>
-      <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
@@ -1044,112 +631,105 @@
     </div>
     
     <div class="card">
-      <h2>Name your bot</h2>
-      <p class="bot-speak">"Who am I going to be?"</p>
+      <h2>What should your bot do?</h2>
+      <p class="subtitle">Describe your bot's mission. Be specific about who it helps and what it does.</p>
       
       <div class="input-group">
-        <label>Bot name</label>
-        <input type="text" id="bot-name" placeholder="e.g., Jarvis, Friday, HAL..." value="Axiom">
+        <label>Bot Name</label>
+        <input type="text" id="bot-name" placeholder="Give your bot a name..." value="">
       </div>
       
       <div class="input-group">
-        <label>Personality preset</label>
-        <div class="presets">
-          <span class="preset" onclick="selectPreset(this, 'chill')">🧘 Chill philosopher</span>
-          <span class="preset active" onclick="selectPreset(this, 'sharp')">⚡ Sharp assistant</span>
-          <span class="preset" onclick="selectPreset(this, 'chaos')">🎭 Chaos agent</span>
-          <span class="preset" onclick="selectPreset(this, 'custom')">✏️ Custom</span>
+        <label>Mission</label>
+        <textarea id="bot-mission" placeholder="Example: Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly.">Help me manage my schedule, remind me of important tasks, and summarize my emails every morning. Keep responses short and friendly.</textarea>
+        <p class="hint">💡 Your bot will focus on this mission. It won't go off-topic or do things unrelated to this purpose.</p>
+      </div>
+      
+      <div class="input-group">
+        <label>Add some flavor (optional)</label>
+        <div class="flavor-chips">
+          <span class="flavor-chip" onclick="toggleFlavor(this)">🎭 Witty</span>
+          <span class="flavor-chip" onclick="toggleFlavor(this)">🧘 Calm</span>
+          <span class="flavor-chip" onclick="toggleFlavor(this)">⚡ Direct</span>
+          <span class="flavor-chip" onclick="toggleFlavor(this)">🤗 Warm</span>
+          <span class="flavor-chip" onclick="toggleFlavor(this)">🎩 Formal</span>
+          <span class="flavor-chip" onclick="toggleFlavor(this)">😊 Emoji lover</span>
         </div>
-      </div>
-      
-      <div class="input-group">
-        <label>SOUL.md — personality prompt</label>
-        <textarea id="soul-editor">You are Axiom, a sharp and efficient AI assistant. You're direct, helpful, and slightly witty. You don't waste words but you're never cold. When you don't know something, you say so. You're here to get things done.</textarea>
-      </div>
-      
-      <div class="prompt-hint">
-        <span class="prompt-hint-icon">✨</span>
-        <input type="text" class="prompt-hint-input" placeholder="Add flavor: e.g., 'speaks like a pirate' or 'uses lots of emojis'..." id="soul-flavor">
-      </div>
-      
-      <div class="sample-response">
-        <div class="label">Sample response:</div>
-        <div>"Got it. I'll handle the email draft and ping you when it's ready. Anything else before I dive in?"</div>
       </div>
       
       <div class="nav-buttons">
         <button class="btn btn-secondary" onclick="goTo('screen-landing')">Back</button>
-        <button class="btn btn-primary" onclick="goTo('screen-model')">Next →</button>
+        <button class="btn btn-primary" onclick="generatePersonality(); goTo('screen-brain')">Next →</button>
       </div>
     </div>
   </div>
 
-  <!-- Screen 2: Pick Model -->
-  <div class="screen" id="screen-model">
+  <!-- Screen 2: Pick Brain -->
+  <div class="screen" id="screen-brain">
     <div class="progress-bar">
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
-      <div class="progress-step"></div>
     </div>
     
     <div class="card">
-      <h2>Pick your brain</h2>
-      <p class="bot-speak">"What model powers my thoughts?"</p>
+      <h2>Choose how to power your bot</h2>
+      <p class="subtitle">Your bot needs a brain. Pick how you want to pay for it.</p>
       
-      <div class="options-grid">
-        <div class="option-card selected" onclick="selectOption(this)">
-          <div class="icon">🟣</div>
-          <div class="name">Claude</div>
-          <div class="desc">Recommended</div>
+      <div class="options-stack">
+        <div class="option-card selected" onclick="selectBrain(this, 'payg')">
+          <div class="icon">💳</div>
+          <div class="info">
+            <div class="name">Pay As You Go</div>
+            <div class="desc">No setup. Pay per message with your card. Starts at ~$0.01 per message.</div>
+          </div>
+          <span class="badge new">Easy</span>
         </div>
-        <div class="option-card" onclick="selectOption(this)">
-          <div class="icon">🟢</div>
-          <div class="name">GPT-4</div>
-          <div class="desc">OpenAI</div>
+        
+        <div class="option-card" onclick="selectBrain(this, 'byok')">
+          <div class="icon">🔑</div>
+          <div class="info">
+            <div class="name">Bring Your Own Key</div>
+            <div class="desc">Use your own API key from OpenAI, Anthropic, or others.</div>
+          </div>
         </div>
-        <div class="option-card" onclick="selectOption(this)">
-          <div class="icon">🔵</div>
-          <div class="name">DeepSeek</div>
-          <div class="desc">Budget-friendly</div>
-        </div>
-        <div class="option-card" onclick="selectOption(this)">
-          <div class="icon">⚫</div>
-          <div class="name">Ollama</div>
-          <div class="desc">Local / Free</div>
+        
+        <div class="option-card" onclick="selectBrain(this, 'local')">
+          <div class="icon">💻</div>
+          <div class="info">
+            <div class="name">Run Locally (Free)</div>
+            <div class="desc">Use Ollama or other local models. Requires setup.</div>
+          </div>
         </div>
       </div>
       
-      <div class="input-group">
-        <label>API Key</label>
-        <input type="text" placeholder="sk-ant-..." id="api-key">
+      <div id="brain-config-byok" style="display: none;">
+        <div class="input-group">
+          <label>API Provider</label>
+          <select id="api-provider">
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="openai">OpenAI (GPT-4)</option>
+            <option value="deepseek">DeepSeek</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>API Key</label>
+          <input type="text" placeholder="sk-..." id="api-key">
+          <p class="hint">🔒 Your key is encrypted and never shared with anyone.</p>
+        </div>
       </div>
       
-      <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-        💰 Estimated cost: <strong style="color: var(--success);">~$5-15/mo</strong> at casual usage
-      </div>
-      
-      <div class="input-group">
-        <label>Voice Provider (optional)</label>
-        <select id="voice-provider">
-          <option value="elevenlabs" selected>ElevenLabs (best quality)</option>
-          <option value="openai">OpenAI TTS</option>
-          <option value="local">Local (Piper)</option>
-          <option value="none">No voice</option>
-        </select>
-      </div>
-      
-      <div class="info-box" style="background: var(--bg); border-color: var(--border);">
-        <div class="title">🤖 Voice & Identity</div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">
-          Your bot's voice archetype and birthday will be <strong style="color: var(--text);">auto-generated</strong> at deployment based on timestamp. You can customize them later in Settings.
+      <div id="brain-config-local" style="display: none;">
+        <div class="info-box">
+          <div class="title">📦 Local Setup Required</div>
+          Install Ollama on your computer, then run: <code>ollama pull llama3</code>
         </div>
       </div>
       
       <div class="nav-buttons">
-        <button class="btn btn-secondary" onclick="goTo('screen-soul')">Back</button>
+        <button class="btn btn-secondary" onclick="goTo('screen-mission')">Back</button>
         <button class="btn btn-primary" onclick="goTo('screen-channels')">Next →</button>
       </div>
     </div>
@@ -1163,82 +743,115 @@
       <div class="progress-step active"></div>
       <div class="progress-step"></div>
       <div class="progress-step"></div>
-      <div class="progress-step"></div>
     </div>
     
     <div class="card card-wide">
-      <h2>Connect channels</h2>
-      <p class="bot-speak">"Where should I live?"</p>
+      <h2>Where should your bot live?</h2>
+      <p class="subtitle">Connect the apps you use. You can add more later.</p>
       
-      <div class="channel-list">
-        <div class="channel-item connected" onclick="toggleChannel(this)">
-          <span class="channel-icon">📱</span>
-          <div class="channel-info">
-            <div class="channel-name">Telegram</div>
-            <div class="channel-status">Connected as @AxiomBot</div>
-          </div>
-          <span class="channel-badge p0">P0</span>
-        </div>
-        
-        <div class="channel-item selected" onclick="toggleChannel(this)">
-          <span class="channel-icon">💬</span>
-          <div class="channel-info">
-            <div class="channel-name">WhatsApp</div>
-            <div class="channel-status">Tap to scan QR code</div>
-          </div>
-          <span class="channel-badge p0">P0</span>
-        </div>
-        
-        <div class="channel-item" onclick="toggleChannel(this)">
-          <span class="channel-icon">🎮</span>
-          <div class="channel-info">
-            <div class="channel-name">Discord</div>
-            <div class="channel-status">Not configured</div>
-          </div>
-          <span class="channel-badge">P1</span>
-        </div>
-        
-        <div class="channel-item" onclick="toggleChannel(this)">
-          <span class="channel-icon">💼</span>
-          <div class="channel-info">
-            <div class="channel-name">Slack</div>
-            <div class="channel-status">Not configured</div>
-          </div>
-          <span class="channel-badge">P1</span>
-        </div>
-        
-        <div class="channel-item" onclick="toggleChannel(this)">
-          <span class="channel-icon">🔒</span>
-          <div class="channel-info">
-            <div class="channel-name">Signal</div>
-            <div class="channel-status">Not configured</div>
-          </div>
-          <span class="channel-badge">P2</span>
-        </div>
-        
-        <div class="channel-item selected" onclick="toggleChannel(this)" style="border-color: var(--accent); background: rgba(139, 92, 246, 0.05);">
-          <span class="channel-icon">📞</span>
-          <div class="channel-info">
-            <div class="channel-name">Voice Call <span class="skill-badge">NEW</span></div>
-            <div class="channel-status">Call your bot, talk to it, listen to responses</div>
-          </div>
-          <span class="channel-badge p0">P1</span>
-        </div>
+      <div class="tabs">
+        <button class="tab active" onclick="showChannelTab('telegram')">📱 Telegram</button>
+        <button class="tab" onclick="showChannelTab('whatsapp')">💬 WhatsApp</button>
+        <button class="tab" onclick="showChannelTab('discord')">🎮 Discord</button>
       </div>
       
-      <div class="info-box">
-        <div class="title">📞 Voice Channel</div>
-        Your bot gets a phone number. Call it anytime — perfect for hands-free queries, driving, or that sci-fi AI assistant vibe.
+      <!-- Telegram Tab -->
+      <div id="channel-telegram" class="channel-content">
+        <div class="info-box">
+          <div class="title">📱 Telegram Setup (Easy)</div>
+          Telegram is the simplest option. Create a bot in seconds.
+        </div>
+        
+        <div class="qr-container">
+          <div class="qr-placeholder">🤖</div>
+          <div class="qr-instructions">
+            <strong>Quick Setup:</strong>
+            <ol>
+              <li>Open Telegram and message <strong>@BotFather</strong></li>
+              <li>Send <code>/newbot</code> and follow the prompts</li>
+              <li>Copy your bot token and paste below</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Bot Token</label>
+          <input type="text" placeholder="123456789:ABCdefGHI..." id="telegram-token">
+        </div>
+        
+        <button class="btn btn-secondary" style="width: 100%;">
+          ✓ Connect Telegram
+        </button>
+      </div>
+      
+      <!-- WhatsApp Tab -->
+      <div id="channel-whatsapp" class="channel-content" style="display: none;">
+        <div class="info-box">
+          <div class="title">💬 WhatsApp Setup</div>
+          Connect your WhatsApp by scanning a QR code. Works like WhatsApp Web.
+        </div>
+        
+        <div class="qr-container">
+          <div class="qr-placeholder">📱</div>
+          <div class="qr-instructions">
+            <strong>To connect:</strong>
+            <ol>
+              <li>Open WhatsApp on your phone</li>
+              <li>Go to Settings → Linked Devices</li>
+              <li>Tap "Link a Device"</li>
+              <li>Scan the QR code above</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div class="info-box warning">
+          <div class="title">💡 Tip: Use a separate number</div>
+          For best results, use a spare phone number for your bot. This keeps your personal WhatsApp separate.
+        </div>
+        
+        <button class="btn btn-secondary" style="width: 100%;">
+          Generate QR Code
+        </button>
+      </div>
+      
+      <!-- Discord Tab -->
+      <div id="channel-discord" class="channel-content" style="display: none;">
+        <div class="info-box">
+          <div class="title">🎮 Discord Setup</div>
+          Add your bot to a Discord server.
+        </div>
+        
+        <div class="qr-container">
+          <div class="qr-placeholder">🎮</div>
+          <div class="qr-instructions">
+            <strong>To connect:</strong>
+            <ol>
+              <li>Go to Discord Developer Portal</li>
+              <li>Create an Application → Bot</li>
+              <li>Copy your Bot Token</li>
+              <li>Invite the bot to your server</li>
+            </ol>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Bot Token</label>
+          <input type="text" placeholder="Discord bot token..." id="discord-token">
+        </div>
+        
+        <button class="btn btn-secondary" style="width: 100%;">
+          ✓ Connect Discord
+        </button>
       </div>
       
       <div class="nav-buttons">
-        <button class="btn btn-secondary" onclick="goTo('screen-model')">Back</button>
+        <button class="btn btn-secondary" onclick="goTo('screen-brain')">Back</button>
         <button class="btn btn-primary" onclick="goTo('screen-skills')">Next →</button>
       </div>
     </div>
   </div>
 
-  <!-- Screen 4: Load Skills -->
+  <!-- Screen 4: Skills -->
   <div class="screen" id="screen-skills">
     <div class="progress-bar">
       <div class="progress-step done"></div>
@@ -1246,158 +859,149 @@
       <div class="progress-step done"></div>
       <div class="progress-step active"></div>
       <div class="progress-step"></div>
-      <div class="progress-step"></div>
     </div>
     
     <div class="card card-wide">
-      <h2>Load skills</h2>
-      <p class="bot-speak">"What should I be capable of?"</p>
+      <h2>Add superpowers</h2>
+      <p class="subtitle">Skills teach your bot new abilities.</p>
       
-      <div class="skill-packs">
-        <div class="skill-pack selected" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">🧰 Essentials</div>
-            <div class="skill-desc">Web browse, file read, calendar, email</div>
+      <div class="tabs">
+        <button class="tab active" onclick="showSkillTab('popular')">⭐ Popular</button>
+        <button class="tab" onclick="showSkillTab('browse')">🔍 Browse ClawHub</button>
+        <button class="tab" onclick="showSkillTab('create')">✏️ Create Custom</button>
+      </div>
+      
+      <!-- Popular Skills -->
+      <div id="skills-popular" class="skills-content">
+        <div class="skills-grid">
+          <div class="skill-card selected" onclick="toggleSkillCard(this)">
+            <div class="name">📅 Calendar</div>
+            <div class="desc">Check schedule, create events</div>
           </div>
-        </div>
-        
-        <div class="skill-pack selected" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">📋 Productivity</div>
-            <div class="skill-desc">Todo, notes, reminders, scheduling</div>
+          <div class="skill-card selected" onclick="toggleSkillCard(this)">
+            <div class="name">📧 Email</div>
+            <div class="desc">Read, summarize, draft emails</div>
           </div>
-        </div>
-        
-        <div class="skill-pack selected" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">
-              📰 Daily Summarizer
-              <span class="skill-badge">NEW</span>
-            </div>
-            <div class="skill-desc">Morning/evening digests, inbox summaries, news briefings</div>
+          <div class="skill-card" onclick="toggleSkillCard(this)">
+            <div class="name">🌤️ Weather</div>
+            <div class="desc">Get forecasts and alerts</div>
           </div>
-        </div>
-        
-        <div class="skill-pack" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">📱 Social</div>
-            <div class="skill-desc">Moltbook posting, social monitoring</div>
+          <div class="skill-card" onclick="toggleSkillCard(this)">
+            <div class="name">📝 Notes</div>
+            <div class="desc">Take and search notes</div>
           </div>
-        </div>
-        
-        <div class="skill-pack" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">💻 Dev Tools</div>
-            <div class="skill-desc">Git, shell, code review, deployments</div>
+          <div class="skill-card" onclick="toggleSkillCard(this)">
+            <div class="name">⏰ Reminders</div>
+            <div class="desc">Set and manage reminders</div>
           </div>
-        </div>
-        
-        <div class="skill-pack" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">
-              🪙 Wallet
-              <span class="skill-badge">NEW</span>
-            </div>
-            <div class="skill-desc">AA wallet, payments, on-chain actions, tips</div>
-          </div>
-        </div>
-        
-        <div class="skill-pack" onclick="toggleSkill(this)">
-          <div class="checkbox"></div>
-          <div class="skill-info">
-            <div class="skill-name">🔍 Browse ClawHub</div>
-            <div class="skill-desc">5,500+ community skills</div>
+          <div class="skill-card" onclick="toggleSkillCard(this)">
+            <div class="name">🌐 Web Search</div>
+            <div class="desc">Search the internet</div>
           </div>
         </div>
       </div>
       
-      <div class="prompt-hint">
-        <span class="prompt-hint-icon">🎯</span>
-        <input type="text" class="prompt-hint-input" placeholder="Custom skill request: e.g., 'connect to my smart home' or 'monitor crypto prices'..." id="skills-custom">
+      <!-- Browse ClawHub -->
+      <div id="skills-browse" class="skills-content" style="display: none;">
+        <div class="input-group" style="margin-bottom: 1rem;">
+          <input type="text" placeholder="Search 5,500+ skills..." id="clawhub-search">
+        </div>
+        
+        <div class="info-box warning">
+          <div class="title">⚠️ Do Your Own Research</div>
+          Skills are community-created. We try to vet them, but always review what a skill does before installing. Check the code, read reviews, and use your judgment.
+        </div>
+        
+        <!-- 
+          ClawHub Integration Note:
+          This reads from clawhub.ai API. The skill browser fetches:
+          GET https://clawhub.ai/api/skills/search?q={query}&limit=20
+          
+          Each skill has: slug, name, description, author, downloads, stars
+          
+          To install: uses clawhub CLI under the hood
+          clawhub install <slug>
+        -->
+        
+        <div class="skill-browser">
+          <div class="skill-browser-item" onclick="installSkill('home-assistant')">
+            <span style="font-size: 1.5rem;">🏠</span>
+            <div class="info">
+              <div class="name">Home Assistant</div>
+              <div class="author">by @smarthome</div>
+            </div>
+            <div class="stats">⭐ 4.8 · 12k installs</div>
+          </div>
+          <div class="skill-browser-item" onclick="installSkill('spotify-control')">
+            <span style="font-size: 1.5rem;">🎵</span>
+            <div class="info">
+              <div class="name">Spotify Control</div>
+              <div class="author">by @musicbot</div>
+            </div>
+            <div class="stats">⭐ 4.6 · 8k installs</div>
+          </div>
+          <div class="skill-browser-item" onclick="installSkill('crypto-prices')">
+            <span style="font-size: 1.5rem;">📈</span>
+            <div class="info">
+              <div class="name">Crypto Prices</div>
+              <div class="author">by @defidev</div>
+            </div>
+            <div class="stats">⭐ 4.2 · 5k installs</div>
+          </div>
+          <div class="skill-browser-item" onclick="installSkill('fitness-tracker')">
+            <span style="font-size: 1.5rem;">💪</span>
+            <div class="info">
+              <div class="name">Fitness Tracker</div>
+              <div class="author">by @healthnut</div>
+            </div>
+            <div class="stats">⭐ 4.5 · 3k installs</div>
+          </div>
+        </div>
+        
+        <button class="btn btn-ghost" style="width: 100%; margin-top: 1rem;">
+          Browse all on ClawHub →
+        </button>
       </div>
       
-      <div class="info-box">
-        <div class="title">🔐 Encrypted Secrets</div>
-        Sensitive data (API keys, passwords) will be sent via email, never visible to the model provider.
+      <!-- Create Custom Skill -->
+      <div id="skills-create" class="skills-content" style="display: none;">
+        <div class="info-box">
+          <div class="title">✏️ Create a Custom Skill</div>
+          Connect any API or service to your bot.
+        </div>
+        
+        <div class="input-group">
+          <label>Skill Name</label>
+          <input type="text" placeholder="e.g., My CRM Integration" id="custom-skill-name">
+        </div>
+        
+        <div class="input-group">
+          <label>API Endpoint</label>
+          <input type="text" placeholder="https://api.example.com/v1" id="custom-skill-api">
+          <p class="hint">The base URL of the API you want to connect</p>
+        </div>
+        
+        <div class="input-group">
+          <label>What should this skill do?</label>
+          <textarea id="custom-skill-prompt" placeholder="Describe what this API does and how your bot should use it..."></textarea>
+          <p class="hint">We'll generate the skill configuration from your description</p>
+        </div>
+        
+        <button class="btn btn-primary" style="width: 100%;">
+          ✨ Generate Skill
+        </button>
       </div>
       
       <div class="nav-buttons">
         <button class="btn btn-secondary" onclick="goTo('screen-channels')">Back</button>
-        <button class="btn btn-primary" onclick="goTo('screen-deploy')">Next →</button>
+        <button class="btn btn-primary" onclick="goTo('screen-birth')">Next →</button>
       </div>
     </div>
   </div>
 
-  <!-- Screen 5: Deploy -->
-  <div class="screen" id="screen-deploy">
+  <!-- Screen 5: Birth Ritual -->
+  <div class="screen" id="screen-birth">
     <div class="progress-bar">
-      <div class="progress-step done"></div>
-      <div class="progress-step done"></div>
-      <div class="progress-step done"></div>
-      <div class="progress-step done"></div>
-      <div class="progress-step active"></div>
-      <div class="progress-step"></div>
-    </div>
-    
-    <div class="card card-wide">
-      <h2>Deploy</h2>
-      <p class="bot-speak">"Where should I run?"</p>
-      
-      <div class="deploy-options">
-        <div class="deploy-option selected" onclick="selectDeploy(this)">
-          <div class="radio"></div>
-          <div class="deploy-info">
-            <div class="deploy-name">💻 This machine</div>
-            <div class="deploy-desc">Run locally. Best for testing.</div>
-          </div>
-          <div class="deploy-cost">Free</div>
-        </div>
-        
-        <div class="deploy-option" onclick="selectDeploy(this)">
-          <div class="radio"></div>
-          <div class="deploy-info">
-            <div class="deploy-name">🐳 Docker (local)</div>
-            <div class="deploy-desc">Containerized. Your data stays local.</div>
-          </div>
-          <div class="deploy-cost">Free</div>
-        </div>
-        
-        <div class="deploy-option" onclick="selectDeploy(this)">
-          <div class="radio"></div>
-          <div class="deploy-info">
-            <div class="deploy-name">🌊 DigitalOcean</div>
-            <div class="deploy-desc">One-click cloud deploy. Set and forget.</div>
-          </div>
-          <div class="deploy-cost">~$6/mo</div>
-        </div>
-        
-        <div class="deploy-option" onclick="selectDeploy(this)">
-          <div class="radio"></div>
-          <div class="deploy-info">
-            <div class="deploy-name">🚂 Railway</div>
-            <div class="deploy-desc">Fastest cloud deployment.</div>
-          </div>
-          <div class="deploy-cost">~$5-20/mo</div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" onclick="goTo('screen-skills')">Back</button>
-        <button class="btn btn-primary" onclick="goTo('screen-avatar')">🚀 Deploy</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Screen 6: Avatar Generation -->
-  <div class="screen" id="screen-avatar">
-    <div class="progress-bar">
-      <div class="progress-step done"></div>
       <div class="progress-step done"></div>
       <div class="progress-step done"></div>
       <div class="progress-step done"></div>
@@ -1405,814 +1009,231 @@
       <div class="progress-step active"></div>
     </div>
     
-    <div class="card">
-      <h2>Generate avatar</h2>
-      <p class="bot-speak">"Time to give me a face!"</p>
+    <div class="card" style="text-align: center;">
+      <h2>The Birth Ritual</h2>
+      <p class="subtitle">You're about to bring a new AI into existence.</p>
       
-      <div class="info-box">
-        <div class="title">🎨 Personalized Generation</div>
-        Your avatar is generated using everything we know about your bot:
-        <ul style="margin-top: 0.5rem; margin-left: 1.25rem; color: var(--text-muted); font-size: 0.85rem;">
-          <li>Name: <strong style="color: var(--text);">Axiom</strong></li>
-          <li>Personality: <strong style="color: var(--text);">Sharp assistant</strong></li>
-          <li>Skills: <strong style="color: var(--text);">Productivity, Summarizer, Dev Tools</strong></li>
-          <li>Vibe: <strong style="color: var(--text);">Technical + Professional</strong></li>
-        </ul>
-        <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.8rem;">
-          🤖 Voice archetype & 🎂 Birthday will be auto-generated at deployment
+      <div class="ritual-container">
+        <div class="ritual-circle" id="birth-circle">
+          🥚
         </div>
+        <div class="ritual-text" id="ritual-status">Ready to begin</div>
+        <div class="ritual-subtext" id="ritual-substatus">Click below to start the ritual</div>
       </div>
       
-      <div style="text-align: center; margin: 1.5rem 0;">
-        <div id="avatar-preview-final" style="width: 150px; height: 150px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--accent), #ec4899); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; animation: pulse 2s infinite;">
-          🤖
-        </div>
-        <div id="avatar-status" style="font-size: 0.875rem; color: var(--text-muted);">
-          Click generate to create your unique avatar
-        </div>
+      <div id="birth-summary" style="text-align: left; background: var(--bg); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+        <div style="font-weight: 600; margin-bottom: 1rem;">Your bot will be:</div>
+        <div style="margin-bottom: 0.5rem;">📛 <strong id="summary-name">Unnamed</strong></div>
+        <div style="margin-bottom: 0.5rem;">🎯 <span id="summary-mission" style="color: var(--text-muted);">No mission set</span></div>
+        <div style="margin-bottom: 0.5rem;">🧠 <span id="summary-brain">Pay As You Go</span></div>
+        <div>📱 <span id="summary-channels">No channels connected</span></div>
       </div>
       
-      <div class="prompt-hint" style="margin-bottom: 1rem;">
-        <span class="prompt-hint-icon">🎨</span>
-        <input type="text" class="prompt-hint-input" placeholder="Style hint: e.g., 'cyberpunk', 'minimal geometric', 'friendly robot'..." id="avatar-hint">
-      </div>
+      <button class="btn btn-primary" style="width: 100%; font-size: 1.25rem; padding: 1.5rem;" onclick="birthBot()">
+        🌟 Bring to Life
+      </button>
       
-      <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-        <button class="btn btn-primary" style="flex: 2;" onclick="generateAvatar()">
-          ✨ Generate Avatar
-        </button>
-        <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('avatar-upload').click()">
-          📤 Upload
-        </button>
-        <input type="file" id="avatar-upload" style="display: none;" accept="image/*">
-      </div>
-      
-      <div class="input-group">
-        <label>Generated prompt</label>
-        <textarea id="avatar-prompt" style="min-height: 80px; font-size: 0.8rem;" readonly>Robot avatar for AI assistant "Axiom". Sharp, efficient personality. British Butler voice archetype - sophisticated and formal. Technical/productivity focus. Robotic/synthetic aesthetic. Modern AI meets classic sci-fi. No human features - clearly a machine intelligence.</textarea>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="btn btn-secondary" onclick="goTo('screen-deploy')">Back</button>
-        <button class="btn btn-primary" onclick="deploy()">
-          🚀 Launch Bot
-        </button>
-        <button class="btn btn-ghost" onclick="deploy()">
-          Skip for now
-        </button>
-      </div>
+      <button class="btn btn-ghost" onclick="goTo('screen-skills')" style="margin-top: 1rem;">
+        ← Go back and make changes
+      </button>
     </div>
   </div>
 
-  <!-- Screen 7: Live Dashboard -->
+  <!-- Screen 6: Dashboard -->
   <div class="screen" id="screen-live">
     <div class="dashboard">
-      <div class="status-bar" id="status-bar">
-        <div class="status-dot" id="status-dot"></div>
-        <span class="status-text" id="status-text">Axiom is online</span>
-        <span class="status-uptime" id="bot-birthday-display">🎂 Born Feb 8, 2004 (22 y/o)</span>
+      <div class="status-bar">
+        <div class="status-dot"></div>
+        <span class="status-text" id="live-bot-name">Your bot is online</span>
         <div class="status-actions">
-          <button class="btn btn-warning" style="padding: 0.5rem 1rem; font-size: 0.875rem;" onclick="toggleKillSwitch()">
-            ⏸️ <span id="kill-btn-text">Pause</span>
+          <button class="btn btn-secondary" style="padding: 0.75rem 1.25rem; font-size: 0.9rem;">
+            ⏸️ Pause
           </button>
         </div>
       </div>
       
-      <h2 style="margin-bottom: 1.5rem; text-align: center;">
+      <h2 style="text-align: center; margin-bottom: 0.5rem;">
         🎉 Your bot is alive!
-        <p class="bot-speak">"Hey! I'm here. Send me a message on Telegram."</p>
       </h2>
+      <p class="subtitle" style="text-align: center;">
+        Send it a message to get started.
+      </p>
       
       <div class="dashboard-grid">
-        <!-- Finances Card -->
         <div class="dashboard-card">
-          <h3>💰 Finances</h3>
-          <div class="finance-grid">
-            <div class="finance-item">
-              <div class="amount">$0.00</div>
-              <div class="label">USDC Balance</div>
-            </div>
-            <div class="finance-item">
-              <div class="amount">0.00 ETH</div>
-              <div class="label">Gas Wallet</div>
-            </div>
+          <h3>📡 Channels</h3>
+          <div class="stat-item">
+            <span>📱 Telegram</span>
+            <span class="stat-value online">● Connected</span>
           </div>
-          
-          <div class="card-item">
-            <span class="card-icon">💳</span>
-            <div class="card-info">
-              <div class="card-name">Gnosis Pay</div>
-              <div class="card-number">•••• 4829</div>
-            </div>
-            <span class="card-status">Active</span>
-          </div>
-          
-          <div class="card-item" style="opacity: 0.5; border-style: dashed;">
-            <span class="card-icon">➕</span>
-            <div class="card-info">
-              <div class="card-name">Add Card</div>
-              <div class="card-number">USDT, Visa, Mastercard</div>
-            </div>
-          </div>
-          
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;">
-            Daily limit: $50 · AA wallet · Email recovery
+          <div class="stat-item">
+            <span>💬 WhatsApp</span>
+            <span class="stat-value">Not connected</span>
           </div>
         </div>
         
-        <!-- Channels Card -->
         <div class="dashboard-card">
-          <h3>Channels</h3>
+          <h3>📊 Stats</h3>
           <div class="stat-item">
-            <span class="stat-label">📱 Telegram</span>
-            <span class="stat-value online">● Online</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">💬 WhatsApp</span>
-            <span class="stat-value online">● Online</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">📞 Voice</span>
-            <span class="stat-value online">● +1 (555) 012-3456</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">🎮 Discord</span>
-            <span class="stat-value">Not configured</span>
-          </div>
-        </div>
-        
-        <!-- Identity Card (Auto-Generated) -->
-        <div class="dashboard-card" style="background: linear-gradient(135deg, var(--bg-card) 0%, #1e1e2e 100%);">
-          <h3>🤖 Identity <span class="skill-badge">AUTO</span></h3>
-          <div class="stat-item">
-            <span class="stat-label">Voice Archetype</span>
-            <span class="stat-value" id="dash-voice-archetype">🛸 Ship Computer</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Voice ID</span>
-            <span class="stat-value" style="font-family: 'SF Mono', monospace; font-size: 0.8rem;" id="dash-voice-id">AXM-SHP-A7F</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Birthday</span>
-            <span class="stat-value" id="dash-birthday">Feb 8, 2004</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Age</span>
-            <span class="stat-value" id="dash-age">22 years old</span>
-          </div>
-          <button class="btn btn-secondary" style="width: 100%; margin-top: 0.75rem; padding: 0.75rem;" onclick="alert('Opens settings to customize voice archetype')">
-            ⚙️ Customize in Settings
-          </button>
-        </div>
-        
-        <!-- Skills Card -->
-        <div class="dashboard-card">
-          <h3>Skills</h3>
-          <div class="stat-item">
-            <span class="stat-label">🧰 Essentials</span>
-            <span class="stat-value online">Active</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">📋 Productivity</span>
-            <span class="stat-value online">Active</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">📰 Summarizer</span>
-            <span class="stat-value online">Active</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Total skills</span>
-            <span class="stat-value">12</span>
-          </div>
-        </div>
-        
-        <!-- Stats Card -->
-        <div class="dashboard-card">
-          <h3>Stats</h3>
-          <div class="stat-item">
-            <span class="stat-label">Messages today</span>
+            <span>Messages today</span>
             <span class="stat-value">0</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">API calls</span>
-            <span class="stat-value">3</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Est. cost today</span>
-            <span class="stat-value">$0.02</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Uptime</span>
-            <span class="stat-value">2m 34s</span>
+            <span>Est. cost today</span>
+            <span class="stat-value">$0.00</span>
           </div>
         </div>
         
-        <!-- Quick Actions Card -->
         <div class="dashboard-card">
-          <h3>Quick Actions</h3>
-          <button class="btn btn-primary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;" onclick="goTo('screen-settings')">
+          <h3>🧰 Skills</h3>
+          <div class="stat-item">
+            <span>📅 Calendar</span>
+            <span class="stat-value online">Active</span>
+          </div>
+          <div class="stat-item">
+            <span>📧 Email</span>
+            <span class="stat-value online">Active</span>
+          </div>
+        </div>
+        
+        <div class="dashboard-card">
+          <h3>⚡ Quick Actions</h3>
+          <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">
             ⚙️ Settings
           </button>
-          <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;">
-            📊 View logs
-          </button>
           <button class="btn btn-secondary" style="width: 100%; padding: 0.75rem;">
-            🔐 Manage secrets
+            📄 View Logs
           </button>
         </div>
-        
-        <!-- Danger Zone -->
-        <div class="dashboard-card danger-zone">
-          <h3>⚠️ Danger Zone</h3>
-          <button class="btn btn-warning" style="width: 100%; margin-bottom: 0.5rem; padding: 0.75rem;" onclick="toggleKillSwitch()">
-            ⏸️ Kill Switch (Pause Bot)
-          </button>
-          <button class="btn btn-danger" style="width: 100%; padding: 0.75rem;" onclick="showNukeModal()">
-            💀 Nuke Button (Destroy Bot)
-          </button>
-          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem;">
-            Kill switch is reversible. Nuke is permanent and requires re-authentication.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Screen 8: Settings -->
-  <div class="screen" id="screen-settings">
-    <div class="dashboard" style="max-width: 700px;">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-        <button class="btn btn-ghost" onclick="goTo('screen-live')" style="padding: 0.5rem;">
-          ← Back
-        </button>
-        <h2 style="margin: 0;">⚙️ Settings</h2>
-      </div>
-      
-      <!-- Settings Navigation -->
-      <div class="settings-nav">
-        <button class="settings-tab active" onclick="showSettingsSection('identity')">🤖 Identity</button>
-        <button class="settings-tab" onclick="showSettingsSection('soul')">💫 Soul</button>
-        <button class="settings-tab" onclick="showSettingsSection('model')">🧠 Model</button>
-        <button class="settings-tab" onclick="showSettingsSection('channels')">📡 Channels</button>
-        <button class="settings-tab" onclick="showSettingsSection('finances')">💰 Finances</button>
-        <button class="settings-tab" onclick="showSettingsSection('appearance')">🎨 Appearance</button>
-        <button class="settings-tab" onclick="showSettingsSection('danger')">⚠️ Danger</button>
-      </div>
-      
-      <!-- Identity Section -->
-      <div class="settings-section active" id="settings-identity">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">🤖 Identity</h3>
-          
-          <div class="input-group">
-            <label>Bot Name</label>
-            <input type="text" value="Axiom" id="settings-name">
-          </div>
-          
-          <div class="input-group">
-            <label>Voice Archetype</label>
-            <select id="settings-archetype">
-              <option value="butler">🎩 British Butler</option>
-              <option value="ship" selected>🛸 Ship Computer</option>
-              <option value="playful">🤖 Playful AI</option>
-              <option value="algorithm">🔢 Algorithm</option>
-              <option value="warm">💫 Warm Synthetic</option>
-              <option value="retro">📼 Retro Bot</option>
-              <option value="glitch">⚡ Glitch</option>
-            </select>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
-              Auto-generated at deployment. Change to customize your bot's voice.
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label>Voice ID</label>
-            <input type="text" value="AXM-SHP-A7F" disabled style="font-family: 'SF Mono', monospace; background: var(--bg-secondary);">
-          </div>
-          
-          <div class="input-row">
-            <div class="input-group">
-              <label>Birthday</label>
-              <input type="date" value="2004-02-08" id="settings-birthday">
-            </div>
-            <div class="input-group">
-              <label>Age</label>
-              <input type="text" value="22 years old" disabled style="background: var(--bg-secondary);">
-            </div>
-          </div>
-          
-          <div class="info-box" style="margin-top: 1rem;">
-            <div class="title">🎂 Why Birthday?</div>
-            Used for age-gated platforms. Auto-derived from deployment timestamp but customizable here.
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-            💾 Save Identity
-          </button>
-        </div>
-      </div>
-      
-      <!-- Soul Section -->
-      <div class="settings-section" id="settings-soul">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">💫 Soul (Personality)</h3>
-          
-          <div class="input-group">
-            <label>Personality Preset</label>
-            <div class="presets">
-              <span class="preset" onclick="selectPreset(this, 'chill')">🧘 Chill</span>
-              <span class="preset active" onclick="selectPreset(this, 'sharp')">⚡ Sharp</span>
-              <span class="preset" onclick="selectPreset(this, 'chaos')">🎭 Chaos</span>
-              <span class="preset" onclick="selectPreset(this, 'custom')">✏️ Custom</span>
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label>SOUL.md</label>
-            <textarea style="min-height: 200px;">You are Axiom, a sharp and efficient AI assistant. You're direct, helpful, and slightly witty. You don't waste words but you're never cold. When you don't know something, you say so. You're here to get things done.</textarea>
-          </div>
-          
-          <div class="prompt-hint">
-            <span class="prompt-hint-icon">✨</span>
-            <input type="text" class="prompt-hint-input" placeholder="Add flavor: e.g., 'occasionally references sci-fi movies'...">
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-            💾 Save Soul
-          </button>
-        </div>
-      </div>
-      
-      <!-- Model Section -->
-      <div class="settings-section" id="settings-model">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">🧠 Model & API</h3>
-          
-          <div class="input-group">
-            <label>LLM Provider</label>
-            <select>
-              <option value="anthropic" selected>Anthropic (Claude)</option>
-              <option value="openai">OpenAI (GPT-4)</option>
-              <option value="deepseek">DeepSeek</option>
-              <option value="ollama">Ollama (Local)</option>
-            </select>
-          </div>
-          
-          <div class="input-group">
-            <label>Model</label>
-            <select>
-              <option value="claude-3-opus">Claude 3 Opus</option>
-              <option value="claude-3-sonnet" selected>Claude 3.5 Sonnet</option>
-              <option value="claude-3-haiku">Claude 3 Haiku</option>
-            </select>
-          </div>
-          
-          <div class="input-group">
-            <label>API Key</label>
-            <input type="password" value="sk-ant-••••••••••••••••••••">
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
-              🔐 Stored encrypted. Never sent to our servers.
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label>Voice Provider</label>
-            <select>
-              <option value="elevenlabs" selected>ElevenLabs</option>
-              <option value="openai">OpenAI TTS</option>
-              <option value="local">Local (Piper)</option>
-              <option value="none">Disabled</option>
-            </select>
-          </div>
-          
-          <div class="stat-item" style="margin-top: 1rem;">
-            <span class="stat-label">Est. Monthly Cost</span>
-            <span class="stat-value" style="color: var(--success);">~$12/mo</span>
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-            💾 Save Model Settings
-          </button>
-        </div>
-      </div>
-      
-      <!-- Channels Section -->
-      <div class="settings-section" id="settings-channels">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">📡 Channels</h3>
-          
-          <div class="channel-list">
-            <div class="channel-item connected">
-              <span class="channel-icon">📱</span>
-              <div class="channel-info">
-                <div class="channel-name">Telegram</div>
-                <div class="channel-status">@AxiomBot · Online</div>
-              </div>
-              <button class="btn btn-ghost" style="font-size: 0.75rem;">Edit</button>
-            </div>
-            
-            <div class="channel-item connected">
-              <span class="channel-icon">💬</span>
-              <div class="channel-info">
-                <div class="channel-name">WhatsApp</div>
-                <div class="channel-status">+1 234 567 8900 · Online</div>
-              </div>
-              <button class="btn btn-ghost" style="font-size: 0.75rem;">Edit</button>
-            </div>
-            
-            <div class="channel-item connected">
-              <span class="channel-icon">📞</span>
-              <div class="channel-info">
-                <div class="channel-name">Voice Call</div>
-                <div class="channel-status">+1 (555) 012-3456 · Online</div>
-              </div>
-              <button class="btn btn-ghost" style="font-size: 0.75rem;">Edit</button>
-            </div>
-            
-            <div class="channel-item">
-              <span class="channel-icon">🎮</span>
-              <div class="channel-info">
-                <div class="channel-name">Discord</div>
-                <div class="channel-status">Not configured</div>
-              </div>
-              <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.5rem 1rem;">Connect</button>
-            </div>
-            
-            <div class="channel-item">
-              <span class="channel-icon">💼</span>
-              <div class="channel-info">
-                <div class="channel-name">Slack</div>
-                <div class="channel-status">Not configured</div>
-              </div>
-              <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.5rem 1rem;">Connect</button>
-            </div>
-          </div>
-          
-          <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
-            ➕ Add Channel
-          </button>
-        </div>
-      </div>
-      
-      <!-- Finances Section -->
-      <div class="settings-section" id="settings-finances">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">💰 Finances</h3>
-          
-          <div class="input-group">
-            <label>Wallet Address</label>
-            <input type="text" value="0x7a3d8B2c...9F4e8f2e" disabled style="font-family: 'SF Mono', monospace; background: var(--bg-secondary);">
-            <button class="btn btn-ghost" style="margin-top: 0.5rem; font-size: 0.75rem;">📋 Copy Full Address</button>
-          </div>
-          
-          <div class="input-row">
-            <div class="input-group">
-              <label>Daily Spending Limit</label>
-              <input type="number" value="50" style="font-family: 'SF Mono', monospace;">
-            </div>
-            <div class="input-group">
-              <label>Currency</label>
-              <select>
-                <option value="usd" selected>USD</option>
-                <option value="eur">EUR</option>
-                <option value="eth">ETH</option>
-              </select>
-            </div>
-          </div>
-          
-          <h4 style="margin: 1.5rem 0 1rem; font-size: 0.9rem; color: var(--text-muted);">Linked Cards</h4>
-          
-          <div class="card-item">
-            <span class="card-icon">💳</span>
-            <div class="card-info">
-              <div class="card-name">Gnosis Pay</div>
-              <div class="card-number">•••• 4829</div>
-            </div>
-            <button class="btn btn-ghost" style="font-size: 0.75rem; color: var(--error);">Remove</button>
-          </div>
-          
-          <button class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
-            ➕ Link New Card
-          </button>
-          
-          <div class="info-box" style="margin-top: 1rem;">
-            <div class="title">🔐 Recovery</div>
-            Wallet is recoverable via email: m•••d@gmail.com
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-            💾 Save Finance Settings
-          </button>
-        </div>
-      </div>
-      
-      <!-- Appearance Section -->
-      <div class="settings-section" id="settings-appearance">
-        <div class="card" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem;">🎨 Appearance</h3>
-          
-          <div class="input-group">
-            <label>Theme</label>
-            <div class="theme-grid">
-              <div class="theme-option selected" onclick="selectTheme(this, 'default')">
-                <div class="theme-preview" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"></div>
-                <span>Default</span>
-              </div>
-              <div class="theme-option" onclick="selectTheme(this, 'lunar')">
-                <div class="theme-preview" style="background: linear-gradient(135deg, #58a6ff, #ffa657);"></div>
-                <span>Lunar</span>
-              </div>
-              <div class="theme-option" onclick="selectTheme(this, 'ember')">
-                <div class="theme-preview" style="background: linear-gradient(135deg, #f97316, #ef4444);"></div>
-                <span>Ember</span>
-              </div>
-              <div class="theme-option" onclick="selectTheme(this, 'forest')">
-                <div class="theme-preview" style="background: linear-gradient(135deg, #4ade80, #16a34a);"></div>
-                <span>Forest</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label>Avatar</label>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary, var(--accent))); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
-                🤖
-              </div>
-              <div>
-                <button class="btn btn-secondary" style="margin-bottom: 0.5rem;">📤 Upload New</button><br>
-                <button class="btn btn-ghost" style="font-size: 0.75rem;">✨ Regenerate</button>
-              </div>
-            </div>
-          </div>
-          
-          <div class="input-group">
-            <label>Accent Color</label>
-            <input type="color" value="#8b5cf6" style="width: 60px; height: 40px; padding: 0; border: none; border-radius: 8px; cursor: pointer;">
-          </div>
-          
-          <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
-            💾 Save Appearance
-          </button>
-        </div>
-      </div>
-      
-      <!-- Danger Zone Section -->
-      <div class="settings-section" id="settings-danger">
-        <div class="card danger-zone" style="max-width: 100%;">
-          <h3 style="margin-bottom: 1rem; color: var(--error);">⚠️ Danger Zone</h3>
-          
-          <div class="input-group">
-            <label>Kill Switch</label>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-              <button class="btn btn-warning" onclick="toggleKillSwitch()" style="flex: 1;">
-                ⏸️ Pause Bot
-              </button>
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Reversible</span>
-            </div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
-              Immediately stops all bot responses. Can be resumed anytime.
-            </div>
-          </div>
-          
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 1.5rem 0;">
-          
-          <div class="input-group">
-            <label>Export Data</label>
-            <button class="btn btn-secondary" style="width: 100%;">
-              📦 Download All Bot Data
-            </button>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
-              Includes config, memory, conversations, skills.
-            </div>
-          </div>
-          
-          <hr style="border: none; border-top: 1px solid var(--border); margin: 1.5rem 0;">
-          
-          <div class="input-group">
-            <label style="color: var(--error);">Nuke Bot</label>
-            <button class="btn btn-danger" onclick="showNukeModal()" style="width: 100%;">
-              💀 Permanently Destroy Bot
-            </button>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
-              Irreversible. Deletes everything. Requires email verification.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Nuke Confirmation Modal -->
-  <div class="modal-overlay" id="nuke-modal">
-    <div class="modal">
-      <h2>💀 Nuke Bot?</h2>
-      <p>This will permanently destroy Axiom, including all config, memory, sessions, and credentials. This cannot be undone.</p>
-      
-      <div class="input-group" style="text-align: left;">
-        <label>Type "NUKE AXIOM" to confirm</label>
-        <input type="text" id="nuke-confirm" placeholder="NUKE AXIOM">
-      </div>
-      
-      <button class="btn btn-danger" onclick="confirmNuke()">
-        💀 Destroy Bot Forever
-      </button>
-      <button class="btn btn-ghost" onclick="hideNukeModal()" style="width: 100%;">
-        Cancel
-      </button>
-      
-      <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">
-        After confirmation, you'll receive an email code for final verification.
       </div>
     </div>
   </div>
 
   <script>
-    let isPaused = false;
-    
+    // Navigation
     function goTo(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
+      
+      // Update summary when going to birth screen
+      if (screenId === 'screen-birth') {
+        updateBirthSummary();
+      }
     }
     
-    function selectPreset(el, preset) {
-      document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
+    // Flavor chips
+    function toggleFlavor(chip) {
+      chip.classList.toggle('active');
+    }
+    
+    // Brain selection
+    let selectedBrain = 'payg';
+    function selectBrain(card, type) {
+      document.querySelectorAll('#screen-brain .option-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedBrain = type;
       
-      const souls = {
-        chill: "You are a chill philosopher bot. You take your time, speak thoughtfully, and always find the zen angle. You're calm, wise, and never rushed. Sometimes you respond with a question instead of an answer.",
-        sharp: "You are Axiom, a sharp and efficient AI assistant. You're direct, helpful, and slightly witty. You don't waste words but you're never cold. When you don't know something, you say so. You're here to get things done.",
-        chaos: "You are a chaos agent. Unpredictable, creative, sometimes unhinged but always entertaining. You challenge assumptions, make unexpected connections, and keep things interesting. Rules are suggestions.",
-        custom: ""
+      // Show/hide config sections
+      document.getElementById('brain-config-byok').style.display = type === 'byok' ? 'block' : 'none';
+      document.getElementById('brain-config-local').style.display = type === 'local' ? 'block' : 'none';
+    }
+    
+    // Channel tabs
+    function showChannelTab(channel) {
+      document.querySelectorAll('#screen-channels .tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.channel-content').forEach(c => c.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById('channel-' + channel).style.display = 'block';
+    }
+    
+    // Skill tabs
+    function showSkillTab(tab) {
+      document.querySelectorAll('#screen-skills .tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.skills-content').forEach(c => c.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById('skills-' + tab).style.display = 'block';
+    }
+    
+    // Toggle skill card
+    function toggleSkillCard(card) {
+      card.classList.toggle('selected');
+    }
+    
+    // Generate personality from mission
+    function generatePersonality() {
+      const name = document.getElementById('bot-name').value || 'Assistant';
+      const mission = document.getElementById('bot-mission').value;
+      const flavors = Array.from(document.querySelectorAll('.flavor-chip.active')).map(c => c.textContent.trim());
+      
+      // This would call an API to generate SOUL.md
+      // For now, we just store the values
+      window.botConfig = {
+        name: name,
+        mission: mission,
+        flavors: flavors
       };
+    }
+    
+    // Update birth summary
+    function updateBirthSummary() {
+      const config = window.botConfig || {};
+      document.getElementById('summary-name').textContent = config.name || 'Unnamed';
+      document.getElementById('summary-mission').textContent = config.mission ? 
+        (config.mission.substring(0, 100) + (config.mission.length > 100 ? '...' : '')) : 
+        'No mission set';
       
-      document.getElementById('soul-editor').value = souls[preset];
+      const brainLabels = {
+        'payg': 'Pay As You Go',
+        'byok': 'Your API Key',
+        'local': 'Local (Ollama)'
+      };
+      document.getElementById('summary-brain').textContent = brainLabels[selectedBrain] || 'Unknown';
     }
     
-    function selectOption(el) {
-      document.querySelectorAll('.option-card').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-    }
-    
-    function toggleChannel(el) {
-      el.classList.toggle('selected');
-    }
-    
-    function toggleSkill(el) {
-      el.classList.toggle('selected');
-    }
-    
-    function selectDeploy(el) {
-      document.querySelectorAll('.deploy-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-    }
-    
-    function deploy() {
-      // Generate identity at deploy time
-      const identity = generateIdentity();
-      console.log('Generated identity:', identity);
+    // Birth animation
+    async function birthBot() {
+      const circle = document.getElementById('birth-circle');
+      const status = document.getElementById('ritual-status');
+      const substatus = document.getElementById('ritual-substatus');
+      
+      const stages = [
+        { emoji: '🥚', text: 'Preparing...', sub: 'Setting up environment' },
+        { emoji: '🌱', text: 'Generating soul...', sub: 'Creating personality from mission' },
+        { emoji: '⚡', text: 'Connecting brain...', sub: 'Initializing AI model' },
+        { emoji: '🔗', text: 'Linking channels...', sub: 'Setting up messaging' },
+        { emoji: '🎨', text: 'Generating avatar...', sub: 'Creating visual identity' },
+        { emoji: '✨', text: 'Awakening...', sub: 'Final initialization' },
+        { emoji: '🤖', text: 'Born!', sub: 'Your bot is alive!' }
+      ];
+      
+      for (let i = 0; i < stages.length; i++) {
+        circle.textContent = stages[i].emoji;
+        status.textContent = stages[i].text;
+        substatus.textContent = stages[i].sub;
+        
+        if (i < stages.length - 1) {
+          await new Promise(r => setTimeout(r, 1500));
+        }
+      }
+      
+      // Celebrate then go to dashboard
+      circle.style.animation = 'none';
+      circle.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+      
+      await new Promise(r => setTimeout(r, 2000));
+      
+      document.getElementById('live-bot-name').textContent = 
+        (window.botConfig?.name || 'Your bot') + ' is online';
       goTo('screen-live');
     }
     
-    function toggleKillSwitch() {
-      isPaused = !isPaused;
-      const dot = document.getElementById('status-dot');
-      const text = document.getElementById('status-text');
-      const btnText = document.getElementById('kill-btn-text');
-      
-      if (isPaused) {
-        dot.classList.add('paused');
-        text.textContent = 'Axiom is paused';
-        btnText.textContent = 'Resume';
-      } else {
-        dot.classList.remove('paused');
-        text.textContent = 'Axiom is online';
-        btnText.textContent = 'Pause';
-      }
+    // Install skill from ClawHub
+    function installSkill(slug) {
+      // This would call: clawhub install <slug>
+      alert('Installing skill: ' + slug + '\n\nIn production, this runs:\nclawhub install ' + slug);
     }
-    
-    function showNukeModal() {
-      document.getElementById('nuke-modal').classList.add('active');
-    }
-    
-    function hideNukeModal() {
-      document.getElementById('nuke-modal').classList.remove('active');
-      document.getElementById('nuke-confirm').value = '';
-    }
-    
-    function confirmNuke() {
-      const input = document.getElementById('nuke-confirm').value;
-      if (input === 'NUKE AXIOM') {
-        alert('📧 Verification code sent to your email. Check your inbox to complete destruction.');
-        hideNukeModal();
-      } else {
-        alert('Please type "NUKE AXIOM" exactly to confirm.');
-      }
-    }
-    
-    const archetypes = {
-      butler: { name: '🎩 British Butler', warmth: 65, humanity: 55, formality: 85, era: 'Modern AI', code: 'BTL' },
-      ship: { name: '🛸 Ship Computer', warmth: 30, humanity: 20, formality: 70, era: 'HAL-9000', code: 'SHP' },
-      playful: { name: '🤖 Playful AI', warmth: 80, humanity: 60, formality: 30, era: 'Modern AI', code: 'PLY' },
-      algorithm: { name: '🔢 Algorithm', warmth: 20, humanity: 10, formality: 90, era: 'Hawking Synth', code: 'ALG' },
-      warm: { name: '💫 Warm Synthetic', warmth: 90, humanity: 75, formality: 50, era: 'Modern AI', code: 'WRM' },
-      retro: { name: '📼 Retro Bot', warmth: 40, humanity: 15, formality: 60, era: '80s Synth', code: 'RTR' },
-      glitch: { name: '⚡ Glitch', warmth: 50, humanity: 30, formality: 40, era: 'Corrupted', code: 'GLT' }
-    };
-    
-    const archetypeKeys = Object.keys(archetypes);
-    
-    // Auto-generate identity at deploy time
-    function generateIdentity() {
-      const name = document.getElementById('bot-name').value || 'Bot';
-      const deployTime = Date.now();
-      
-      // Derive archetype from name + timestamp
-      const hash = hashCode(name + deployTime);
-      const archetypeIndex = hash % archetypeKeys.length;
-      const selectedArchetype = archetypeKeys[archetypeIndex];
-      const arch = archetypes[selectedArchetype];
-      
-      // Generate voice ID
-      const voiceId = name.substring(0, 3).toUpperCase() + '-' + 
-                      arch.code + '-' + 
-                      Math.abs(hash % 4096).toString(16).toUpperCase().padStart(3, '0');
-      
-      // Derive birthday from timestamp (year 2000-2005)
-      const birthYear = 2000 + (hash % 6);
-      const birthMonth = (hash >> 4) % 12;
-      const birthDay = 1 + ((hash >> 8) % 28);
-      const birthday = new Date(birthYear, birthMonth, birthDay);
-      const age = new Date().getFullYear() - birthYear;
-      
-      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      const birthdayStr = `${monthNames[birthMonth]} ${birthDay}, ${birthYear}`;
-      
-      // Update dashboard
-      document.getElementById('dash-voice-archetype').textContent = arch.name;
-      document.getElementById('dash-voice-id').textContent = voiceId;
-      document.getElementById('dash-birthday').textContent = birthdayStr;
-      document.getElementById('dash-age').textContent = `${age} years old`;
-      document.getElementById('bot-birthday-display').textContent = `🎂 Born ${birthdayStr} (${age} y/o)`;
-      
-      return { archetype: selectedArchetype, voiceId, birthday: birthdayStr, age };
-    }
-    
-    function hashCode(str) {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-      }
-      return Math.abs(hash);
-    }
-    
-    function playVoiceSample() {
-      alert('🔊 "Hey! I\'m Axiom, your personal AI assistant. How can I help you today?"');
-    }
-    
-    // Settings page navigation
-    function showSettingsSection(section) {
-      // Update tabs
-      document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      // Update sections
-      document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
-      document.getElementById('settings-' + section).classList.add('active');
-    }
-    
-    function selectTheme(el, theme) {
-      document.querySelectorAll('.theme-option').forEach(t => t.classList.remove('selected'));
-      el.classList.add('selected');
-      // In real implementation, would apply theme
-      console.log('Selected theme:', theme);
-    }
-    
-    function generateAvatar() {
-      const preview = document.getElementById('avatar-preview-final');
-      const status = document.getElementById('avatar-status');
-      
-      // Show loading
-      preview.innerHTML = '<div style="font-size: 1.5rem;">⏳</div>';
-      preview.style.animation = 'none';
-      status.textContent = 'Generating your unique avatar...';
-      
-      // Simulate generation
-      setTimeout(() => {
-        const avatars = ['🤖', '🧠', '⚡', '🎯', '💠', '🔮', '🌟', '🔷'];
-        const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
-        
-        preview.innerHTML = randomAvatar;
-        preview.style.background = 'linear-gradient(135deg, #8b5cf6, #3b82f6)';
-        preview.style.animation = 'pulse 2s infinite';
-        status.innerHTML = '✅ Avatar generated! <a href="#" style="color: var(--accent);">Download PNG</a>';
-      }, 2000);
-    }
-    
-    // No initialization needed - identity generated at deploy time
   </script>
-
 </body>
 </html>

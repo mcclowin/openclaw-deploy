@@ -52,35 +52,44 @@ BotsAndBrain makes the leap from "I want a personal bot" to "my bot is live" eff
 - One CTA: **"Create your bot"**
 - No sign-up wall. Start immediately.
 
-### 4.2 Name & Soul
-- Bot name (used across all channels)
-- SOUL.md editor — personality prompt
-- Presets: `chill philosopher` / `sharp assistant` / `chaos agent` / `custom`
-- Live preview: show sample bot response for each personality
-- **No voice archetype selection** — auto-generated at deployment
-- **No birthday selection** — derived from deployment timestamp
-- **No avatar yet** — generated at final step with full context
+### 4.2 Mission (replaces Name & Soul)
+- **Bot name** (used across all channels)
+- **Mission prompt** — what should this bot do? (not personality)
+  - Guards the bot to stay on-topic
+  - Example: "Help me manage my schedule, remind me of important tasks, summarize emails"
+- **Flavor chips** (optional personality hints): `Witty` / `Calm` / `Direct` / `Warm` / `Formal` / `Emoji lover`
+- **Personality is generated** from mission + flavors (creates a helper/assistant/friend)
+- **No presets** — mission defines everything
+- **No avatar yet** — generated at final "birth ritual" step
 
-### 4.3 Pick Model
-- Select LLM provider + model
-- Claude (recommended) / GPT / DeepSeek / Ollama (local)
-- API key input with validation
-- Cost estimator: "~$X/month at casual usage"
+### 4.3 Pick Brain (Model)
+Simplified to three options:
+
+| Option | Description | Setup |
+|--------|-------------|-------|
+| **Pay As You Go** | No setup, pay per message with card | Easiest, ~$0.01/msg |
+| **Bring Your Own Key** | Use your own API key (OpenAI, Anthropic, etc.) | Control your costs |
+| **Run Locally (Free)** | Use Ollama or other local models | Requires tech setup |
+
+- **Voice provider removed from UI** — kept in research for future
+- x402 HTTP payment protocol for pay-as-you-go option
 
 ### 4.4 Connect Channels (Connectors)
 
-Guided per-channel setup wizards:
+Grandpa-friendly setup wizards with visual guides:
 
-| Channel | Auth method | Priority |
-|---|---|---|
-| **Telegram** | BotFather token | P0 — easiest onramp |
-| **WhatsApp** | QR code scan (Baileys) | P0 — highest demand |
-| **Discord** | Bot token + server invite | P1 |
-| **Slack** | OAuth app install | P1 |
-| **Signal** | signal-cli daemon | P2 |
-| **Matrix** | Homeserver + token | P2 |
-| **iMessage** | macOS only, native API | P3 |
-| **Voice Call** | Phone number (Twilio/Telnyx) | P1 |
+| Channel | Auth method | UX Flow | Priority |
+|---|---|---|---|
+| **Telegram** | BotFather token | 1. Open @BotFather in Telegram<br>2. Send `/newbot`<br>3. Copy token, paste in app | P0 — easiest |
+| **WhatsApp** | QR code scan | 1. App shows QR code<br>2. Open WhatsApp → Linked Devices<br>3. Scan QR code<br>*(Uses Baileys under the hood)* | P0 — highest demand |
+| **Discord** | Bot token + invite | 1. Create app in Discord Developer Portal<br>2. Create Bot, copy token<br>3. Invite to server | P1 |
+| **Slack** | OAuth app install | OAuth flow with redirect | P1 |
+| **Signal** | signal-cli daemon | Advanced setup | P2 |
+| **Matrix** | Homeserver + token | Advanced setup | P2 |
+| **iMessage** | macOS only | Native API setup | P3 |
+| **Voice Call** | Phone number | Twilio/Telnyx account | P1 |
+
+**Key UX principle:** Show visual step-by-step with screenshots. Each step is one action.
 
 ### Voice Channel (Call Your Bot)
 
@@ -151,19 +160,41 @@ Each wizard:
 
 ### 4.5 Load Skills
 
-- **Curated skill packs** (one-click bundles):
-  - `Essentials` — web browse, file read, calendar, email
-  - `Productivity` — todo, notes, reminders, scheduling
-  - `Social` — Moltbook posting, social monitoring
-  - `Dev Tools` — git, shell, code review
-  - `Custom` — browse ClawHub registry
+Three tabs for skill management:
 
-- Per-skill config:
-  - Required API keys / env vars (prompted inline)
-  - Permission scope explanation (what this skill can access)
-  - Enable/disable toggle
+#### Popular Skills (Grid)
+Simple toggle cards for common skills:
+- 📅 Calendar — check schedule, create events
+- 📧 Email — read, summarize, draft
+- 🌤️ Weather — forecasts and alerts
+- 📝 Notes — take and search notes
+- ⏰ Reminders — set and manage
+- 🌐 Web Search — search the internet
 
-- **ClawHub integration** — search and install community skills directly
+#### Browse ClawHub
+Scrollable skill browser with search, pulls from ClawHub API.
+
+**API Integration:**
+```
+GET https://clawhub.ai/api/skills/search?q={query}&limit=20
+
+Response: { skills: [{ slug, name, description, author, downloads, stars }] }
+```
+
+**Install flow:** Runs `clawhub install <slug>` under the hood.
+
+**⚠️ DYOR Warning (always visible):**
+> "Skills are community-created. We try to vet them, but always review what a skill does before installing. Check the code, read reviews, and use your judgment."
+
+#### Create Custom Skill
+Wizard for creating custom skills from APIs:
+
+1. **Skill Name** — what to call it
+2. **API Endpoint** — base URL of the API
+3. **Description** — what this API does and how bot should use it
+4. **Generate** — creates skill config from description
+
+This enables connecting any REST API without coding.
 
 ### 4.6 Deploy
 
@@ -181,38 +212,44 @@ Deployment target selection:
 - Docker compose generated for local
 - Post-deploy health check: "Your bot is alive. Say hi."
 
-### 4.6.5 Avatar Generation (Final Step)
+### 4.6.5 The Birth Ritual (Final Step)
 
-Avatar is generated **after all config is complete** — we have maximum context.
+**The final screen is a ceremony** — you're bringing a new AI into existence.
 
-**Inputs for prompt generation:**
+#### Visual Design
+- Centered "egg" animation that transforms through stages
+- Ritual text: "You're about to bring a new AI into existence"
+- Summary card showing: name, mission, brain choice, connected channels
+
+#### Birth Animation Sequence
+```
+🥚 Preparing... → Setting up environment
+🌱 Generating soul... → Creating personality from mission  
+⚡ Connecting brain... → Initializing AI model
+🔗 Linking channels... → Setting up messaging
+🎨 Generating avatar... → Creating visual identity
+✨ Awakening... → Final initialization
+🤖 Born! → Your bot is alive!
+```
+
+#### Why a Ritual?
+- Makes the moment feel significant (you made something)
+- Natural loading state while setup happens
+- Emotional payoff after configuration work
+- Sets tone: this bot is alive, treat it that way
+
+#### Avatar Generation (happens during ritual)
+**Inputs for generation:**
 - Bot name
-- Personality (SOUL.md summary)
-- Gender preference
-- Skills enabled (dev tools? social? finance?)
-- Channels (professional Slack bot vs casual Telegram friend?)
-- Voice characteristics
-- User's optional style hints
+- Mission (SOUL.md summary)
+- Skills enabled (dev tools? productivity? creative?)
+- Optional style hint from user
 
-**Prompt assembly:**
-```
-Generate an avatar for an AI assistant named [name].
-Personality: [soul summary]
-Gender presentation: [preference]
-Vibe: [derived from skills - technical/friendly/creative/professional]
-Style: [user hint or "modern, clean, memorable"]
-```
-
-**Generation options:**
-- AI-generated (DALL-E, Midjourney API, Stable Diffusion)
+**Options:**
+- AI-generated (DALL-E, Stable Diffusion)
 - Procedural (geometric patterns from name hash)
 - Upload custom
-- Skip (use default robot emoji)
-
-**Why last?**
-- More data = better avatar
-- User has invested time, sees the payoff
-- Can regenerate anytime from dashboard
+- Skip (use robot emoji placeholder)
 
 ### 4.7 Live — Dashboard
 
@@ -517,6 +554,20 @@ Design: Dashed border, placeholder text, expands on focus. Blends into the page.
 - [ ] Security: how do we surface OpenClaw's known risks (shell access, skill trust) without scaring users away?
 - [ ] Branding: "BotsAndBrain" final name or placeholder?
 - [ ] Do we integrate Moltbook onboarding as part of the setup flow or keep it as a skill?
+
+---
+
+## 12. Research List (Future Features)
+
+Features removed from current UI but planned for future:
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| **Voice Provider Selection** | Research | Need to test ElevenLabs, OpenAI TTS, local options (Piper). Evaluate quality vs cost vs latency. |
+| **Voice Archetype Selection** | Research | Robot voice generation parameters. Currently auto-derived from name hash. |
+| **x402 Payment Integration** | Research | HTTP 402 pay-per-request for "Pay As You Go" brain option. |
+| **Telegram Group Voice Chat** | Research | PyTgCalls integration for real-time group voice. |
+| **Bot Wallet (AA)** | Research | ZeroDev, Cometh — need to test geo-blocking from high-risk countries. |
 
 ---
 
