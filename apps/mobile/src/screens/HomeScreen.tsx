@@ -1,57 +1,164 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
+import runtime, { BotStatus } from '../runtime';
 
 export function HomeScreen() {
+  const [status, setStatus] = useState<BotStatus>({
+    running: false,
+    uptime: 0,
+    messageCount: 0,
+    config: null,
+  });
+  const [chatInput, setChatInput] = useState('');
+  const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'bot'; text: string }[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Initialize runtime
+    runtime.init().then(() => {
+      runtime.status().then(setStatus);
+    });
+
+    // Subscribe to status updates
+    const unsubscribe = runtime.onEvent((event) => {
+      if (event.type === 'status') {
+        setStatus(event as any);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const handleToggle = async () => {
+    if (status.running) {
+      await runtime.stop();
+    } else {
+      await runtime.start();
+    }
+    const newStatus = await runtime.status();
+    setStatus(newStatus);
+  };
+
+  const handleSendChat = async () => {
+    if (!chatInput.trim() || loading) return;
+
+    const userMessage = chatInput.trim();
+    setChatInput('');
+    setChatHistory(prev => [...prev, { role: 'user', text: userMessage }]);
+    setLoading(true);
+
+    try {
+      const response = await runtime.chat(userMessage);
+      setChatHistory(prev => [...prev, { role: 'bot', text: response }]);
+    } catch (e) {
+      setChatHistory(prev => [...prev, { role: 'bot', text: `Error: ${e}` }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatUptime = (seconds: number): string => {
+    if (seconds < 60) return `${seconds}s`;
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m`;
+    return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`;
+  };
+
+  const botName = status.config?.name || 'Bot';
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView 
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
       <StatusBar barStyle="light-content" />
 
+      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.avatar}>🤖</Text>
-        <Text style={styles.botName}>Jarvis</Text>
+        <Text style={styles.botName}>{botName}</Text>
         <View style={styles.statusBadge}>
-          <View style={styles.statusDot} />
-          <Text style={styles.statusText}>Online</Text>
+          <View style={[styles.statusDot, status.running && styles.statusDotOnline]} />
+          <Text style={[styles.statusText, status.running && styles.statusTextOnline]}>
+            {status.running ? 'Online' : 'Offline'}
+          </Text>
         </View>
       </View>
 
+      {/* Stats */}
       <View style={styles.stats}>
         <View style={styles.statCard}>
-          <Text style={styles.statValue}>0</Text>
-          <Text style={styles.statLabel}>Messages today</Text>
+          <Text style={styles.statValue}>{status.messageCount}</Text>
+          <Text style={styles.statLabel}>Messages</Text>
         </View>
         <View style={styles.statCard}>
-          <Text style={styles.statValue}>--:--</Text>
+          <Text style={styles.statValue}>{formatUptime(status.uptime)}</Text>
           <Text style={styles.statLabel}>Uptime</Text>
         </View>
       </View>
 
-      <View style={styles.channels}>
-        <Text style={styles.sectionTitle}>Channels</Text>
-        <View style={styles.channelCard}>
-          <Text style={styles.channelIcon}>📱</Text>
-          <View style={styles.channelInfo}>
-            <Text style={styles.channelName}>Telegram</Text>
-            <Text style={styles.channelStatus}>Not connected</Text>
-          </View>
-          <TouchableOpacity style={styles.channelButton}>
-            <Text style={styles.channelButtonText}>Setup</Text>
+      {/* Chat */}
+      <View style={styles.chatSection}>
+        <Text style={styles.sectionTitle}>Chat</Text>
+        <ScrollView style={styles.chatHistory}>
+          {chatHistory.length === 0 && (
+            <Text style={styles.chatPlaceholder}>
+              Send a message to test your bot
+            </Text>
+          )}
+          {chatHistory.map((msg, i) => (
+            <View
+              key={i}
+              style={[
+                styles.chatBubble,
+                msg.role === 'user' ? styles.chatBubbleUser : styles.chatBubbleBot,
+              ]}
+            >
+              <Text style={styles.chatText}>{msg.text}</Text>
+            </View>
+          ))}
+          {loading && (
+            <View style={[styles.chatBubble, styles.chatBubbleBot]}>
+              <Text style={styles.chatText}>Thinking...</Text>
+            </View>
+          )}
+        </ScrollView>
+        <View style={styles.chatInputRow}>
+          <TextInput
+            style={styles.chatInput}
+            value={chatInput}
+            onChangeText={setChatInput}
+            placeholder="Type a message..."
+            placeholderTextColor="#666"
+            onSubmitEditing={handleSendChat}
+          />
+          <TouchableOpacity style={styles.sendButton} onPress={handleSendChat}>
+            <Text style={styles.sendButtonText}>→</Text>
           </TouchableOpacity>
         </View>
       </View>
 
+      {/* Toggle Button */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.killSwitch}>
-          <Text style={styles.killSwitchText}>⏸️ Pause Bot</Text>
+        <TouchableOpacity
+          style={[styles.toggleButton, status.running && styles.toggleButtonStop]}
+          onPress={handleToggle}
+        >
+          <Text style={styles.toggleButtonText}>
+            {status.running ? '⏸️ Stop Bot' : '▶️ Start Bot'}
+          </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -64,14 +171,14 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 24,
   },
   avatar: {
-    fontSize: 64,
-    marginBottom: 16,
+    fontSize: 48,
+    marginBottom: 12,
   },
   botName: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
     color: '#ffffff',
     marginBottom: 8,
@@ -85,16 +192,22 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+    backgroundColor: '#666',
+  },
+  statusDotOnline: {
     backgroundColor: '#22c55e',
   },
   statusText: {
-    color: '#22c55e',
+    color: '#666',
     fontSize: 14,
+  },
+  statusTextOnline: {
+    color: '#22c55e',
   },
   stats: {
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 32,
+    marginBottom: 24,
   },
   statCard: {
     flex: 1,
@@ -113,62 +226,84 @@ const styles = StyleSheet.create({
     color: '#888888',
     marginTop: 4,
   },
-  channels: {
+  chatSection: {
     flex: 1,
+    marginBottom: 16,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
-    marginBottom: 12,
+    color: '#888',
+    marginBottom: 8,
   },
-  channelCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  chatHistory: {
+    flex: 1,
     backgroundColor: '#1a1a1a',
     borderRadius: 12,
-    padding: 16,
-    gap: 12,
+    padding: 12,
+    marginBottom: 8,
   },
-  channelIcon: {
-    fontSize: 24,
+  chatPlaceholder: {
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 20,
   },
-  channelInfo: {
-    flex: 1,
+  chatBubble: {
+    padding: 12,
+    borderRadius: 12,
+    marginBottom: 8,
+    maxWidth: '80%',
   },
-  channelName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ffffff',
+  chatBubbleUser: {
+    backgroundColor: '#8b5cf6',
+    alignSelf: 'flex-end',
   },
-  channelStatus: {
-    fontSize: 12,
-    color: '#888888',
-    marginTop: 2,
-  },
-  channelButton: {
+  chatBubbleBot: {
     backgroundColor: '#333',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
+    alignSelf: 'flex-start',
   },
-  channelButtonText: {
+  chatText: {
     color: '#ffffff',
     fontSize: 14,
   },
-  footer: {
-    paddingTop: 24,
+  chatInputRow: {
+    flexDirection: 'row',
+    gap: 8,
   },
-  killSwitch: {
+  chatInput: {
+    flex: 1,
     backgroundColor: '#1a1a1a',
+    borderRadius: 12,
+    padding: 12,
+    color: '#ffffff',
+    fontSize: 14,
+  },
+  sendButton: {
+    backgroundColor: '#8b5cf6',
+    borderRadius: 12,
+    width: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  sendButtonText: {
+    color: '#ffffff',
+    fontSize: 20,
+  },
+  footer: {
+    paddingTop: 8,
+  },
+  toggleButton: {
+    backgroundColor: '#22c55e',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#333',
   },
-  killSwitchText: {
-    color: '#888888',
+  toggleButtonStop: {
+    backgroundColor: '#ef4444',
+  },
+  toggleButtonText: {
+    color: '#ffffff',
     fontSize: 16,
+    fontWeight: '600',
   },
 });
