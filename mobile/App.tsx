@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,86 +6,161 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
   StatusBar,
 } from 'react-native';
 
-// Phase 1: Basic UI without nodejs-mobile
-// Phase 2: Will add nodejs-mobile integration
+type LogEntry = {
+  time: string;
+  text: string;
+  type: 'info' | 'error' | 'success' | 'system';
+};
 
 function App(): React.JSX.Element {
-  const [status, setStatus] = useState<string>('Ready');
   const [apiKey, setApiKey] = useState<string>('');
-  const [configured, setConfigured] = useState<boolean>(false);
+  const [saved, setSaved] = useState<boolean>(false);
+  const [running, setRunning] = useState<boolean>(false);
+  const [logs, setLogs] = useState<LogEntry[]>([
+    {time: getTime(), text: 'Brain & Hand v0.1.0', type: 'system'},
+    {time: getTime(), text: 'Waiting for configuration...', type: 'info'},
+  ]);
+  const scrollRef = useRef<ScrollView>(null);
 
-  const handleConfigure = () => {
+  function getTime(): string {
+    return new Date().toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+  }
+
+  function addLog(text: string, type: LogEntry['type'] = 'info') {
+    setLogs(prev => [...prev.slice(-100), {time: getTime(), text, type}]);
+    setTimeout(() => scrollRef.current?.scrollToEnd({animated: true}), 100);
+  }
+
+  function handleSave() {
     if (!apiKey.trim()) {
-      setStatus('Please enter an API key');
+      addLog('Error: API key required', 'error');
       return;
     }
-    setConfigured(true);
-    setStatus('Configured ✓');
-  };
+    setSaved(true);
+    addLog(`API key saved (${apiKey.slice(0, 8)}...)`, 'success');
+    addLog('Ready to start gateway', 'info');
+  }
 
-  const handleStart = () => {
-    setStatus('Gateway running ✓ (simulated)');
-  };
+  function handleStart() {
+    if (!saved) {
+      addLog('Error: Configure API key first', 'error');
+      return;
+    }
+    setRunning(true);
+    addLog('Starting OpenClaw gateway...', 'system');
+    
+    // Simulate startup sequence (will be real with nodejs-mobile)
+    setTimeout(() => addLog('Initializing Node.js runtime...', 'info'), 300);
+    setTimeout(() => addLog('Loading configuration...', 'info'), 600);
+    setTimeout(() => addLog('Gateway binding to 127.0.0.1:18789', 'info'), 900);
+    setTimeout(() => addLog('OpenClaw gateway started ✓', 'success'), 1200);
+    setTimeout(() => addLog('Waiting for messages...', 'info'), 1500);
+  }
 
-  const handleStop = () => {
-    setStatus('Gateway stopped');
-  };
+  function handleStop() {
+    setRunning(false);
+    addLog('Stopping gateway...', 'system');
+    setTimeout(() => addLog('Gateway stopped', 'info'), 300);
+  }
+
+  function handleStatus() {
+    addLog('─── Status ───', 'system');
+    addLog(`Gateway: ${running ? 'RUNNING' : 'STOPPED'}`, running ? 'success' : 'info');
+    addLog(`API Key: ${saved ? 'configured' : 'not set'}`, saved ? 'success' : 'error');
+    addLog(`Platform: Android (nodejs-mobile)`, 'info');
+    addLog('──────────────', 'system');
+  }
+
+  function getLogColor(type: LogEntry['type']): string {
+    switch (type) {
+      case 'error': return '#ef4444';
+      case 'success': return '#22c55e';
+      case 'system': return '#8b5cf6';
+      default: return '#888';
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" />
+      <StatusBar barStyle="light-content" backgroundColor="#0a0a0f" />
       
+      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>🧠 Brain & Hand</Text>
-        <Text style={styles.subtitle}>Your AI, running locally</Text>
-        <Text style={styles.status}>{status}</Text>
+        <View style={[styles.statusBadge, running && styles.statusRunning]}>
+          <Text style={styles.statusText}>{running ? '● RUNNING' : '○ STOPPED'}</Text>
+        </View>
       </View>
 
-      {!configured ? (
-        <View style={styles.setup}>
-          <Text style={styles.sectionTitle}>Quick Setup</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Anthropic API Key"
-            placeholderTextColor="#666"
-            value={apiKey}
-            onChangeText={setApiKey}
-            secureTextEntry
-            autoCapitalize="none"
-          />
-          <TouchableOpacity style={styles.button} onPress={handleConfigure}>
-            <Text style={styles.buttonText}>Configure</Text>
+      {/* Config */}
+      <View style={styles.config}>
+        <TextInput
+          style={styles.input}
+          placeholder="Anthropic API Key (sk-ant-...)"
+          placeholderTextColor="#555"
+          value={apiKey}
+          onChangeText={setApiKey}
+          secureTextEntry
+          autoCapitalize="none"
+          autoCorrect={false}
+          editable={!saved}
+        />
+        {!saved ? (
+          <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
+            <Text style={styles.saveBtnText}>Save</Text>
           </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={styles.controls}>
-          <Text style={styles.sectionTitle}>Controls</Text>
-          <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.button} onPress={handleStart}>
-              <Text style={styles.buttonText}>▶ Start</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.stopButton]} onPress={handleStop}>
-              <Text style={styles.buttonText}>⏹ Stop</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <View style={styles.info}>
-            <Text style={styles.infoTitle}>Phase 1 Complete!</Text>
-            <Text style={styles.infoText}>
-              ✓ React Native app running{'\n'}
-              ✓ Basic UI working{'\n'}
-              ○ Node.js runtime (Phase 2){'\n'}
-              ○ OpenClaw gateway (Phase 3)
-            </Text>
-          </View>
-        </View>
-      )}
+        ) : (
+          <TouchableOpacity style={styles.savedBtn} onPress={() => setSaved(false)}>
+            <Text style={styles.savedBtnText}>✓</Text>
+          </TouchableOpacity>
+        )}
+      </View>
 
+      {/* Controls */}
+      <View style={styles.controls}>
+        <TouchableOpacity 
+          style={[styles.btn, styles.startBtn, running && styles.btnDisabled]} 
+          onPress={handleStart}
+          disabled={running}
+        >
+          <Text style={styles.btnText}>▶ Start</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.btn, styles.stopBtn, !running && styles.btnDisabled]} 
+          onPress={handleStop}
+          disabled={!running}
+        >
+          <Text style={styles.btnText}>⏹ Stop</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.btn, styles.statusBtn]} onPress={handleStatus}>
+          <Text style={styles.btnText}>Status</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Log Viewer */}
+      <View style={styles.logContainer}>
+        <Text style={styles.logHeader}>─── OpenClaw Logs ───</Text>
+        <ScrollView 
+          ref={scrollRef}
+          style={styles.logScroll}
+          contentContainerStyle={styles.logContent}
+        >
+          {logs.map((log, i) => (
+            <Text key={i} style={[styles.logLine, {color: getLogColor(log.type)}]}>
+              <Text style={styles.logTime}>[{log.time}]</Text> {log.text}
+            </Text>
+          ))}
+          <Text style={styles.cursor}>▌</Text>
+        </ScrollView>
+      </View>
+
+      {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Brain & Hand v0.1.0</Text>
+        <Text style={styles.footerText}>Phase 1: UI Only • nodejs-mobile coming soon</Text>
       </View>
     </SafeAreaView>
   );
@@ -94,95 +169,147 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#0a0a0f',
   },
   header: {
-    padding: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#333',
+    borderBottomColor: '#222',
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
   },
-  subtitle: {
-    fontSize: 14,
+  statusBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    backgroundColor: '#1a1a1a',
+  },
+  statusRunning: {
+    backgroundColor: '#052e16',
+  },
+  statusText: {
+    fontSize: 12,
+    fontWeight: '600',
     color: '#888',
-    marginTop: 4,
   },
-  status: {
-    fontSize: 16,
-    color: '#6c5ce7',
-    marginTop: 12,
-    fontWeight: '600',
-  },
-  setup: {
-    padding: 24,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#fff',
-    marginBottom: 16,
+  config: {
+    flexDirection: 'row',
+    padding: 12,
+    gap: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#222',
   },
   input: {
-    backgroundColor: '#2a2a4e',
-    borderRadius: 12,
-    padding: 18,
+    flex: 1,
+    backgroundColor: '#111',
+    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     color: '#fff',
-    fontSize: 16,
-    marginBottom: 16,
+    fontFamily: 'monospace',
+    fontSize: 14,
+    borderWidth: 1,
+    borderColor: '#333',
+  },
+  saveBtn: {
+    backgroundColor: '#8b5cf6',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+  },
+  saveBtnText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  savedBtn: {
+    backgroundColor: '#052e16',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#22c55e',
+  },
+  savedBtnText: {
+    color: '#22c55e',
+    fontWeight: '600',
   },
   controls: {
-    padding: 24,
-    flex: 1,
-  },
-  buttonRow: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 24,
+    padding: 12,
+    gap: 8,
   },
-  button: {
+  btn: {
     flex: 1,
-    backgroundColor: '#6c5ce7',
-    borderRadius: 12,
-    padding: 18,
+    paddingVertical: 14,
+    borderRadius: 8,
     alignItems: 'center',
   },
-  stopButton: {
-    backgroundColor: '#e74c3c',
+  startBtn: {
+    backgroundColor: '#166534',
   },
-  buttonText: {
+  stopBtn: {
+    backgroundColor: '#991b1b',
+  },
+  statusBtn: {
+    backgroundColor: '#1e3a5f',
+  },
+  btnDisabled: {
+    opacity: 0.5,
+  },
+  btnText: {
     color: '#fff',
-    fontSize: 18,
     fontWeight: '600',
+    fontSize: 15,
   },
-  info: {
-    backgroundColor: '#2a2a4e',
-    borderRadius: 12,
-    padding: 20,
+  logContainer: {
+    flex: 1,
+    margin: 12,
+    backgroundColor: '#050508',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#222',
+    overflow: 'hidden',
   },
-  infoTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#2ecc71',
-    marginBottom: 12,
+  logHeader: {
+    color: '#555',
+    fontSize: 12,
+    textAlign: 'center',
+    paddingVertical: 8,
+    backgroundColor: '#0a0a0f',
+    fontFamily: 'monospace',
   },
-  infoText: {
-    fontSize: 14,
-    color: '#ccc',
-    lineHeight: 24,
+  logScroll: {
+    flex: 1,
+  },
+  logContent: {
+    padding: 12,
+  },
+  logLine: {
+    fontFamily: 'monospace',
+    fontSize: 13,
+    lineHeight: 20,
+  },
+  logTime: {
+    color: '#444',
+  },
+  cursor: {
+    color: '#8b5cf6',
+    fontFamily: 'monospace',
   },
   footer: {
-    padding: 16,
+    padding: 12,
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#333',
+    borderTopColor: '#222',
   },
   footerText: {
-    color: '#666',
+    color: '#444',
     fontSize: 12,
   },
 });
