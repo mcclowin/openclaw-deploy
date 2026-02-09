@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,94 +6,32 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  ScrollView,
   StatusBar,
 } from 'react-native';
 
-// nodejs-mobile bridge
-import nodejs from 'nodejs-mobile-react-native';
-
-type LogEntry = {
-  time: string;
-  msg: string;
-  type: 'sent' | 'received' | 'system';
-};
+// Phase 1: Basic UI without nodejs-mobile
+// Phase 2: Will add nodejs-mobile integration
 
 function App(): React.JSX.Element {
-  const [status, setStatus] = useState<string>('Initializing...');
-  const [nodeReady, setNodeReady] = useState<boolean>(false);
-  const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [status, setStatus] = useState<string>('Ready');
   const [apiKey, setApiKey] = useState<string>('');
   const [configured, setConfigured] = useState<boolean>(false);
 
-  const addLog = (msg: string, type: LogEntry['type'] = 'system') => {
-    const time = new Date().toLocaleTimeString();
-    setLogs(prev => [...prev.slice(-50), {time, msg, type}]);
-  };
-
-  useEffect(() => {
-    // Listen for messages from Node.js
-    nodejs.channel.addListener('message', (msg: string) => {
-      addLog(msg, 'received');
-      
-      try {
-        const data = JSON.parse(msg);
-        if (data.type === 'pong') {
-          setStatus('Node.js running ✓');
-          setNodeReady(true);
-        } else if (data.type === 'status') {
-          setStatus(data.running ? 'Gateway running ✓' : 'Gateway stopped');
-        } else if (data.type === 'configured') {
-          setConfigured(true);
-          setStatus('Configured ✓');
-        } else if (data.type === 'started') {
-          setStatus('Gateway running ✓');
-        } else if (data.type === 'error') {
-          setStatus(`Error: ${data.message}`);
-        }
-      } catch (e) {
-        // Not JSON, just display
-        setStatus(msg);
-      }
-    });
-
-    // Start Node.js
-    addLog('Starting Node.js...', 'system');
-    nodejs.start('main.js');
-
-    // Send initial ping after a short delay
-    setTimeout(() => {
-      sendCommand('ping');
-    }, 1000);
-
-    return () => {
-      nodejs.channel.removeAllListeners('message');
-    };
-  }, []);
-
-  const sendCommand = (cmd: string, payload: any = {}) => {
-    const msg = JSON.stringify({cmd, ...payload});
-    addLog(`→ ${cmd}`, 'sent');
-    nodejs.channel.send(msg);
-  };
-
   const handleConfigure = () => {
     if (!apiKey.trim()) {
-      addLog('Please enter an API key', 'system');
+      setStatus('Please enter an API key');
       return;
     }
-    sendCommand('configure', {
-      apiKey: apiKey.trim(),
-      provider: 'anthropic',
-    });
+    setConfigured(true);
+    setStatus('Configured ✓');
   };
 
   const handleStart = () => {
-    sendCommand('start');
+    setStatus('Gateway running ✓ (simulated)');
   };
 
   const handleStop = () => {
-    sendCommand('stop');
+    setStatus('Gateway stopped');
   };
 
   return (
@@ -102,16 +40,13 @@ function App(): React.JSX.Element {
       
       <View style={styles.header}>
         <Text style={styles.title}>🧠 Brain & Hand</Text>
+        <Text style={styles.subtitle}>Your AI, running locally</Text>
         <Text style={styles.status}>{status}</Text>
       </View>
 
-      {!nodeReady ? (
-        <View style={styles.loading}>
-          <Text style={styles.loadingText}>Starting Node.js runtime...</Text>
-        </View>
-      ) : !configured ? (
+      {!configured ? (
         <View style={styles.setup}>
-          <Text style={styles.sectionTitle}>Setup</Text>
+          <Text style={styles.sectionTitle}>Quick Setup</Text>
           <TextInput
             style={styles.input}
             placeholder="Anthropic API Key"
@@ -127,35 +62,30 @@ function App(): React.JSX.Element {
         </View>
       ) : (
         <View style={styles.controls}>
+          <Text style={styles.sectionTitle}>Controls</Text>
           <View style={styles.buttonRow}>
             <TouchableOpacity style={styles.button} onPress={handleStart}>
-              <Text style={styles.buttonText}>Start</Text>
+              <Text style={styles.buttonText}>▶ Start</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, styles.stopButton]} onPress={handleStop}>
-              <Text style={styles.buttonText}>Stop</Text>
+              <Text style={styles.buttonText}>⏹ Stop</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.secondaryButton} onPress={() => sendCommand('status')}>
-            <Text style={styles.secondaryButtonText}>Check Status</Text>
-          </TouchableOpacity>
+          
+          <View style={styles.info}>
+            <Text style={styles.infoTitle}>Phase 1 Complete!</Text>
+            <Text style={styles.infoText}>
+              ✓ React Native app running{'\n'}
+              ✓ Basic UI working{'\n'}
+              ○ Node.js runtime (Phase 2){'\n'}
+              ○ OpenClaw gateway (Phase 3)
+            </Text>
+          </View>
         </View>
       )}
 
-      <View style={styles.logSection}>
-        <Text style={styles.sectionTitle}>Log</Text>
-        <ScrollView style={styles.logScroll}>
-          {logs.map((log, i) => (
-            <Text
-              key={i}
-              style={[
-                styles.logEntry,
-                log.type === 'sent' && styles.logSent,
-                log.type === 'received' && styles.logReceived,
-              ]}>
-              [{log.time}] {log.msg}
-            </Text>
-          ))}
-        </ScrollView>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Brain & Hand v0.1.0</Text>
       </View>
     </SafeAreaView>
   );
@@ -167,60 +97,58 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a2e',
   },
   header: {
-    padding: 20,
+    padding: 24,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#333',
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#fff',
   },
-  status: {
+  subtitle: {
     fontSize: 14,
     color: '#888',
-    marginTop: 8,
+    marginTop: 4,
   },
-  loading: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    color: '#888',
+  status: {
     fontSize: 16,
+    color: '#6c5ce7',
+    marginTop: 12,
+    fontWeight: '600',
   },
   setup: {
-    padding: 20,
+    padding: 24,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#fff',
-    marginBottom: 12,
+    marginBottom: 16,
   },
   input: {
     backgroundColor: '#2a2a4e',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: 12,
+    padding: 18,
     color: '#fff',
     fontSize: 16,
-    marginBottom: 12,
+    marginBottom: 16,
   },
   controls: {
-    padding: 20,
+    padding: 24,
+    flex: 1,
   },
   buttonRow: {
     flexDirection: 'row',
     gap: 12,
-    marginBottom: 12,
+    marginBottom: 24,
   },
   button: {
     flex: 1,
     backgroundColor: '#6c5ce7',
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: 12,
+    padding: 18,
     alignItems: 'center',
   },
   stopButton: {
@@ -228,41 +156,34 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
   },
-  secondaryButton: {
-    borderWidth: 1,
-    borderColor: '#6c5ce7',
-    borderRadius: 8,
-    padding: 16,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: '#6c5ce7',
-    fontSize: 16,
-  },
-  logSection: {
-    flex: 1,
+  info: {
+    backgroundColor: '#2a2a4e',
+    borderRadius: 12,
     padding: 20,
   },
-  logScroll: {
-    flex: 1,
-    backgroundColor: '#0d0d1a',
-    borderRadius: 8,
-    padding: 12,
-  },
-  logEntry: {
-    color: '#888',
-    fontSize: 12,
-    fontFamily: 'monospace',
-    marginBottom: 4,
-  },
-  logSent: {
-    color: '#6c5ce7',
-  },
-  logReceived: {
+  infoTitle: {
+    fontSize: 18,
+    fontWeight: '600',
     color: '#2ecc71',
+    marginBottom: 12,
+  },
+  infoText: {
+    fontSize: 14,
+    color: '#ccc',
+    lineHeight: 24,
+  },
+  footer: {
+    padding: 16,
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#333',
+  },
+  footerText: {
+    color: '#666',
+    fontSize: 12,
   },
 });
 
