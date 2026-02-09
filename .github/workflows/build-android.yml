@@ -104,18 +104,22 @@ jobs:
       - name: List build outputs
         run: find rn-app/android -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
 
-      - name: Find and upload APK
+      - name: Find and copy APKs
         run: |
           echo "Looking for APKs..."
           find rn-app/android -name "*.apk" -type f
           mkdir -p artifacts
-          cp rn-app/android/app/build/outputs/apk/release/*.apk artifacts/ 2>/dev/null || true
-          cp rn-app/android/app/build/outputs/apk/debug/*.apk artifacts/ 2>/dev/null || true
+          # Copy any APK we find
+          find rn-app/android -name "*.apk" -type f -exec cp {} artifacts/ \;
           ls -la artifacts/
+          # Check if we have any
+          if [ -z "$(ls -A artifacts/)" ]; then
+            echo "No APKs found!"
+            exit 1
+          fi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: brain-and-hand-v0.1.0
-          path: artifacts/
-          if-no-files-found: error
+          name: brain-and-hand-apk
+          path: artifacts/*.apk
